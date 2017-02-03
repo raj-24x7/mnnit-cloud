@@ -1,0 +1,31 @@
+{
+    "name": "sircamp/xenapi",
+    "description": "A Xen PHP API for managment of Hypervisor and their Virtual Machine for php",
+    "keywords": ["laravel","xen","phpxenapi","api","citrix","citrixapi","xmlrpc","vps","hypervisor"],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Stefano Campese",
+            "email": "sircampydevelop@gmail.com",
+            "role": "Developer",
+            "homepage": "http://www.stefanocampese.xyz"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "respect/validation": "0.8.*",
+        "guzzlehttp/guzzle": "~5.0"
+    },
+    "autoload": {
+        "classmap": [
+            
+        ],
+        "psr-0": {
+            "Sircamp\\Xenapi\\": "src/"
+        }
+    },
+    "suggest": {
+        "nesbot/carbon": "A simple API extension for DateTime."
+    }
+}
