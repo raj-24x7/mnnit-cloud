@@ -23,7 +23,7 @@
         executeQuery($stmt,$param);
         $row = $stmt->fetch();
 
-       	$xen = makeXenconnection();
+       	$xen = makeXenconnection($row['hypervisor_name']);
        	$vm = $xen->getVMByNameLabel($_GET['VM_name']);
        	$metrics = $vm->getMetrics()->getValue(); 
        	$guestMetrics = $vm->getGuestMetrics()->getValue();        

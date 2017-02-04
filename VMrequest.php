@@ -1,8 +1,9 @@
 
 
 <?php 
-    require 'header.php';
-    require 'checksession.php';
+    require_once 'header.php';
+    require_once 'checksession.php';
+    require_once 'db_connect.php';
     ?>
 
 <link rel="stylesheet" href="includes/css/jquery-ui.css">
@@ -106,7 +107,15 @@
                                 <label class="control-label col-sm-3" for="email">OS:</label>
                                 <div class="col-sm-7">
                                     <select class="form-control" name="os" id="os" onChange="">
-                                        <option value="Centos">Centos 6.7</option>
+                                        <?php
+                                            $db = getDBConnection();
+                                            $sql = "SELECT * FROM `template`";
+                                            $stmt = prepareQuery($db,$sql);
+                                            executeQuery($stmt,array());
+                                            while($row = $stmt->fetch()){
+                                                echo '<option value="'.$row['name'].'">'.$row['name'].'</option>';
+                                            }
+                                        ?>
                                     </select>
                                 </div>
                             </div>

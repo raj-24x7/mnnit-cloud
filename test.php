@@ -1,7 +1,7 @@
 <?php
 		require "ssh.php";
 		require "xen.php";
-		$xen = makeXenconnection();
+		$xen = makeXenconnection("xenserver-slave3");
 		$vm = $xen->getVMByNameLabel("pankaj");
 
 		echo "UUID: ".$vm->getUUID()->getValue()."<br>

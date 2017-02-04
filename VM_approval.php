@@ -127,10 +127,18 @@ function checkVMNameValidity(){ //
                                 <div class="col-sm-2" id="res"></div>
                             </div>
                             <div class="form-group" id="main_form">
-                                <label class="control-label col-sm-3" for="email">OS:</label>
+                                <label class="control-label col-sm-3" for="os">OS:</label>
                                 <div class="col-sm-7">
                                     <select class="form-control" name="os" id="os" onChange="" value=<?php echo '"'.$os.'"'; ?> >
-                                        <option value="Centos">Centos 6.7</option>
+                                        <?php
+                                            $db = getDBConnection();
+                                            $sql = "SELECT * FROM `template`";
+                                            $stmt = prepareQuery($db,$sql);
+                                            executeQuery($stmt,array());
+                                            while($row = $stmt->fetch()){
+                                                echo '<option value="'.$row['name'].'">'.$row['name'].'</option>';
+                                            }
+                                        ?>
                                     </select>
                                 </div>
                             </div>

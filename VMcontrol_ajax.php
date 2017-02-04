@@ -1,14 +1,30 @@
 <?php
 	session_start();
 	require 'checksession.php';
+	require 'db_connect.php';
 	require 'xen.php';
 
 		$msg = '';
 		//$msg.=$_POST['VM_name'];
 		//$msg.=$_POST['action'];
+
+		$query = "  SELECT 
+    				* 
+    				FROM `VMdetails`
+    				WHERE
+    				`VM_name`=:vm_name
+    			";
+        $param = array(
+            ":vm_name"=>$_POST['VM_name']
+          );   
+        $db = getDBConnection();
+        $stmt = prepareQuery($db,$query);
+        executeQuery($stmt,$param);
+        $row = $stmt->fetch();
+
 	if(isset($_POST['VM_name']) && !empty($_POST['VM_name'])){
 
-		$xen = makeXenconnection();
+		$xen = makeXenconnection($row['hypervisor_name']);
 		$vm = $xen->getVMByNameLabel($_POST['VM_name']);
 		$action = $_POST['action'];
 		if($action == 'hardShutdown'){
