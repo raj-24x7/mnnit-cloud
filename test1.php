@@ -1,6 +1,6 @@
 
 <?php
-$connection = ssh2_connect('172.31.100.51', 22);
+/*$connection = ssh2_connect('172.31.100.51', 22);
 ssh2_auth_password($connection, 'root', 'root@123');
 
 $stream = ssh2_exec($connection, 'xe console vm=kali');
@@ -19,6 +19,6 @@ echo "Error: " . stream_get_contents($errorStream);
 fclose($errorStream);
 fclose($stream);
 //echo "Output: " . stream_get_contents($stream);
-
+*/
 
 ?>

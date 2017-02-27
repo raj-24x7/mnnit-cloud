@@ -3,6 +3,7 @@
 	require_once __DIR__.'/vendor/autoload.php';
 	require_once 'db_connect.php';
 	use Sircamp\Xenapi\Xen as Xen;
+	
 	function makeXenConnection($dom0name){
 		$db = getDBConnection();
 		$sql = 'SELECT * FROM `hypervisor` WHERE name=:name';
@@ -36,4 +37,5 @@
 		$vm=$xen->getVMByNameLabel($VM_name);
 		$vm->cleanReboot();
 	} 
+
 ?>

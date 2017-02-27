@@ -770,6 +770,16 @@ class XenVirtualMachine extends XenElement {
 		return $this->getXenconnection()->VM__get_name_label($this->getVmId());
 	}
 
+	public function setNameLabel($new){
+		return $this->getXenconnection()->VM__set_name_label($this->getVmId(),$new);
+	}
+	public function getPVBootloaderArgs(){
+		return $this->getXenconnection()->VM__get_PV_bootloader_args($this->getVmId());
+	}
+	public function setPVBootloaderArgs($new){
+		return $this->getXenconnection()->VM__set_PV_bootloader_args($this->getVmId(),$new);
+	}
+
 }
 ?>
 	

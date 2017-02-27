@@ -4,7 +4,7 @@
 
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Lumino - Dashboard</title>
+	<title>Cloud</title>
 	<meta name="description" content="">
 
 	<!-- Mobile viewport optimized -->
@@ -45,16 +45,15 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#"><span>Lumino</span>Admin</a>
+				<a class="navbar-brand" href="#">MNNIT<span>data</span>Cloud</a>
 				<ul class="user-menu">
 	    			<?php 
-	    			session_start();
 	    			if(isset($_SESSION['username'])) {?>	
 						<li class="dropdown pull-right">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> <?php echo $_SESSION['username']?> <strong class="caret"></strong></a>
 								<ul class="dropdown-menu">
 									<li>
-										<a href="#"><span class="glyphicon glyphicon-wrench"></span> Profile Settings</a>
+										<a href="user_profile.php"><span class="glyphicon glyphicon-wrench"></span> Profile Settings</a>
 									<li class="divider"></li>
 
 									<li>

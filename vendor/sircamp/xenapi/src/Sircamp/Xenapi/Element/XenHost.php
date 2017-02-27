@@ -636,6 +636,28 @@ class XenHost extends XenElement {
 	public function getChipsetInfo(){
 		return $this->getXenconnection()->host__get_chipset_info($this->getHostId());
 	}
+
+	public function getSystemStatusCapabilities(){
+		return $this->getXenconnection()->host__get_system_status_capabilities($this->getHostId());
+	}
+	public function computeMemoryOverhead(){
+		return $this->getXenconnection()->host__compute_memory_overhead($this->getHostId());
+	}
+	public function computeFreeMemory(){
+		return $this->getXenconnection()->host__compute_free_memory($this->getHostId());
+	}
+	public function getCPUConfig(){
+		return $this->getXenconnection()->host__get_cpu_config($this->getHostId());
+	}
+	public function getSchedPolicy(){
+		return $this->getXenconnection()->host__get_sched_policy($this->getHostId());
+	}
+	public function getBiosString(){
+		return $this->getXenconnection()->host__get_bios_string($this->getHostId());
+	}
+	public function getGuestVCPUParam(){
+		return $this->getXenconnection()->host__get_guest_VCPUs_param($this->getHostId());
+	}
 }
 ?>
 	

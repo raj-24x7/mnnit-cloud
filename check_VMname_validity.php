@@ -1,4 +1,6 @@
 <?php
+ 
+  session_start();
 	require 'db_connect.php';
 	$out = '';
 	if(isset($_REQUEST['VM_name']) && !empty($_REQUEST['VM_name'])) {

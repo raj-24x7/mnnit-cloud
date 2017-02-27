@@ -20,7 +20,7 @@
          
         $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC); 
      
-        header('Content-Type: text/html; charset=utf-8');
+        //header('Content-Type: text/html; charset=utf-8');
 
         return $db; 
     }

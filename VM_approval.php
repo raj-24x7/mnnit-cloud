@@ -1,7 +1,8 @@
 <?php 
-    require 'db_connect.php';
-    require 'header.php';
-    require 'checksession.php' ;
+  session_start();
+    require_once 'db_connect.php';
+    require_once 'header.php';
+    require_once 'checksession.php' ;
      
 
     if($_SESSION['privilege']!='A'){
@@ -26,11 +27,13 @@
               $ram = $row['ram'];
               $storage = $row['storage'];
               $doe = $row['doe'];
-        }
 
-        $query= "SELECT * FROM hypervisor";
-        $stmt = PrepareQuery($db,$query);
-        executeQuery($stmt,array());
+        }
+        $query = "SELECT description FROM name_description WHERE name=:vm_name";
+        $stmt = prepareQuery($db,$query);
+        executeQuery($stmt,$param);
+        $row = $stmt->fetch();
+        $description = $row['description'];
      }
     
     
@@ -75,7 +78,7 @@
         return true;
     }
 
-function checkVMNameValidity(){ //
+    function checkVMNameValidity(){ //
        if(window.XMLHttpRequest){
           xmlHttp = new XMLHttpRequest();
        } else {
@@ -91,10 +94,10 @@ function checkVMNameValidity(){ //
        //alert('hello : '+VM_name+'');
        xmlHttp.open('GET','check_VMname_validity.php'+'?VM_name='+VM_name+'&t='+Math.random(),true);
        xmlHttp.send();
-    }
-  $(document).ready(function() {
-    $("#datepicker").datepicker();
-  });
+        }
+    $(document).ready(function() {
+        $("#datepicker").datepicker();
+    });
   </script>
 <div class="row">
     <div class="col-sm-1"></div>
@@ -126,17 +129,27 @@ function checkVMNameValidity(){ //
                                 </div>
                                 <div class="col-sm-2" id="res"></div>
                             </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3" for="description">Description:</label>
+                                <div class="col-sm-7">
+                                    <textarea class="form-control" name="description" id="description"><?php echo $description;?></textarea>
+                                </div>
+                            </div>
+                            
                             <div class="form-group" id="main_form">
                                 <label class="control-label col-sm-3" for="os">OS:</label>
                                 <div class="col-sm-7">
-                                    <select class="form-control" name="os" id="os" onChange="" value=<?php echo '"'.$os.'"'; ?> >
+                                    <select class="form-control" name="os" id="os" >
                                         <?php
-                                            $db = getDBConnection();
                                             $sql = "SELECT * FROM `template`";
                                             $stmt = prepareQuery($db,$sql);
                                             executeQuery($stmt,array());
                                             while($row = $stmt->fetch()){
-                                                echo '<option value="'.$row['name'].'">'.$row['name'].'</option>';
+                                                echo '<option value="'.$row['name'].'"';
+                                                if($os == $row['name']){
+                                                    echo ' selected="selected"';
+                                                }
+                                                echo '>'.$row['name'].'</option>';
                                             }
                                         ?>
                                     </select>
@@ -177,6 +190,10 @@ function checkVMNameValidity(){ //
                                 <div class="col-sm-7">
                                     <select class="form-control" name="hypervisor" id="hypervisor" >
                                     <?php
+                                                                
+                                    $query= "SELECT * FROM hypervisor";
+                                    $stmt = PrepareQuery($db,$query);
+                                    executeQuery($stmt,array());
                                     while($row = $stmt->fetch()){
                                         echo '<option value="'.$row['name'].'">'.$row['name'].'</option>';
                                     }

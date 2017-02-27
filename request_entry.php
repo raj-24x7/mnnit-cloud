@@ -20,7 +20,14 @@
                 );
             
                 $db = getDBConnection();	
-                $sql="INSERT INTO VMrequest (VM_name,username,os,cpu,ram,storage,doe) VALUES (:vm_name,:username,:os,:cpu,:ram,:storage,:doe)";
+                $sql="INSERT INTO `VMrequest` (VM_name,username,os,cpu,ram,storage,doe) VALUES (:vm_name,:username,:os,:cpu,:ram,:storage,:doe)";
+                $stmt = prepareQuery($db,$sql);
+                executeQuery($stmt,$param);
+                $sql = "INSERT INTO `name_description` (name,description) VALUES (:vm_name,:description)";
+                $param = array(
+                        ":vm_name"=>$_POST["VM_name"],
+                        ":description"=>$_POST['description']
+                    );
                 $stmt = prepareQuery($db,$sql);
                 if(executeQuery($stmt,$param)){
                     header("location:pending_details.php");

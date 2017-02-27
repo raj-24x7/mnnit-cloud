@@ -1,19 +1,31 @@
 
 <?php
+
+require_once 'db_connect.php';
 //$connection = ssh2_connect('https://172.31.100.51/console?uuid=98e0b0c5-0d7c-62f9-4386-ea5e08058ca9', 443);
 //ssh2_auth_password($connection, 'root', 'password');
 
 /*
 $connection = ssh2_connect("172.31.100.51", 22);
 ssh2_auth_password($connection, 'root', 'root@123');
-
-$stream = ssh2_exec($connection, 'scp  rc.local root@');
-
-
+$stream = ssh2_exec($connection, 'ls -l');
 $errorStream = ssh2_fetch_stream($stream, SSH2_STREAM_STDERR);
 
+// Enable blocking for both streams
+stream_set_blocking($errorStream, true);
+stream_set_blocking($stream, true);
+
+// Whichever of the two below commands is listed first will receive its appropriate output.  The second command receives nothing
+echo "Output: " . stream_get_contents($stream);
+echo "Error: " . stream_get_contents($errorStream);
+
+// Close the streams       
+fclose($errorStream);
+fclose($stream);
+//echo "Output: " . stream_get_contents($stream);
 */
 
+/*
 function changeip($ip){
 	$connection = ssh2_connect('172.31.102.67', 22);
 	ssh2_auth_password($connection, 'root', 'password');
@@ -44,21 +56,53 @@ ping -c 2 172.31.100.1
 		//echo "kaam abhi baki hai";
 	}
 	
-}
-//changeip("172.31.102.69");
-/*
+}*/
 
-// Enable blocking for both streams
-stream_set_blocking($errorStream, true);
-stream_set_blocking($stream, true);
+function createVM($dom0name,$VMparam,$template){
+		$db = getDBConnection();
+		$sql = 'SELECT * FROM `hypervisor` WHERE name=:name';
+		$param = array(":name"=>$dom0name);
+		$stmt = prepareQuery($db,$sql);
+		if(!executeQuery($stmt,$param)){
+			echo '<br>Cannot Execute : '.$stmt->queryString;
+		}
+		
+		$row = $stmt->fetch();
+		$ip=$row['ip'];
+		$username=$row['userid'];
+		$password=$row['password'];
 
-// Whichever of the two below commands is listed first will receive its appropriate output.  The second command receives nothing
-echo "Output: " . stream_get_contents($stream);
-echo "Error: " . stream_get_contents($errorStream);
+		$connection = ssh2_connect($ip, 22);
+		ssh2_auth_password($connection, $username, $password);
 
-// Close the streams       
-fclose($errorStream);
-fclose($stream);
-//echo "Output: " . stream_get_contents($stream);
+		$stream = ssh2_exec($connection, 'xe vm-install template="'.$template.'" new-name-label='.$VMparam['name']);
+		stream_set_blocking($stream, true);
+		$uuid = stream_get_contents($stream);
+		fclose($stream);
+		/*echo $uuid;
 */
+		$stream = ssh2_exec($connection,'xe vm-memory-limits-set dynamic-max='.$VMparam['memory'].'MiB dynamic-min='.$VMparam['memory'].'MiB static-max='.$VMparam['memory'].'MiB static-min='.$VMparam['memory'].'MiB name-label='.$VMparam['name']);
+		fclose($stream);
+
+		$stream = ssh2_exec($connection,'xe vm-param-set uuid='.$uuid.' PV-args="graphical utf8 -- _ipaddr='.$VMparam['ip'].' _netmask='.$VMparam['netmask'].' _gateway='.$VMparam['gateway'].' _hostname='.$VMparam['hostname'].'"');
+		
+		/*echo 'xe vm-param-set uuid='.$uuid.' PV-args="graphical utf8 -- _ipaddr='.$VMparam['ip'].' _netmask='.$VMparam['netmask'].' _gateway='.$VMparam['gateway'].' _hostname='.$VMparam['hostname'].'"';*/
+		fclose($stream);
+
+}
+
+
+$param = array(
+	"name"=>"newCentos",
+	"memory"=>"512",
+	"ip"=>"172.31.102.70",
+	"netmask"=>"255.255.252.0",
+	"gateway"=>"172.31.100.1",
+	"hostname"=>"localhost"
+	);
+
+createVM("xenserver-slave3",$param,"CENTOS");
+//changeip("172.31.102.69");
+
+
 ?>

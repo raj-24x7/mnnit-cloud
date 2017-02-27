@@ -1,6 +1,7 @@
-
+ 
 
 <?php 
+  session_start();
     require_once 'header.php';
     require_once 'checksession.php';
     require_once 'db_connect.php';
@@ -12,7 +13,7 @@
 
 <script type="text/javascript">
   window.onload = function (){
-    document.getElementById("VMrequest").className = "active";
+    document.getElementById("VMrequest").className = "active"; //VMrequest is on navbar
   }
 </script>
 <script type="text/javascript">
@@ -85,7 +86,7 @@
         <?php include 'navigation_bar.php'; ?>
     </div>
     <div class="col-sm-8">
-        <br><br><br><br><br><br><br>
+        <br><br><br>
         <div class="row" id="features">
             <div class="col-sm-2">
             </div>
@@ -102,6 +103,13 @@
                                     <input type="text" class="form-control" name="VM_name" id="VM_name" onchange="checkVMNameValidity();">
                                 </div>
                                 <div class="col-sm-2" id="res"></div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-sm-3" for="description">Description:</label>
+                                <div class="col-sm-7">
+                                    <textarea class="form-control" name="description" id="description"></textarea>
+                                </div>
                             </div>
                             <div class="form-group" id="main_form">
                                 <label class="control-label col-sm-3" for="email">OS:</label>

@@ -1,6 +1,7 @@
 
 
 <?php 
+  session_start();
     require_once 'header.php';
     require_once 'checksession.php';
     require_once 'db_connect.php';
@@ -14,15 +15,27 @@
     								and 
     							`VM_name`=:vm_name
     						";
-        $param = array(
+                $param = array(
             ":vm_name"=>$_GET['VM_name'],
             ":username"=>$_SESSION['username']
-          );   
+          );
+      if($_SESSION['privilege']=='A'){
+                $query = "  SELECT 
+                  * 
+                  FROM `VMdetails`
+                  WHERE 
+                  `VM_name`=:vm_name
+                ";
+                    $param = array(
+            ":vm_name"=>$_GET['VM_name'],
+          );        
+      }
+           
         $db = getDBConnection();
         $stmt = prepareQuery($db,$query);
         executeQuery($stmt,$param);
         $row = $stmt->fetch();
-
+        echo $row['hypervisor_name'].'hello';
        	$xen = makeXenconnection($row['hypervisor_name']);
        	$vm = $xen->getVMByNameLabel($_GET['VM_name']);
        	$metrics = $vm->getMetrics()->getValue(); 
@@ -33,7 +46,7 @@
 
 <script type="text/javascript">
 	function runAction(action){
-		//alert("Action "+action.value);
+		alert("Action "+action.value);
 		if(window.XMLHttpRequest){
           xmlHttp = new XMLHttpRequest();
        	} else {
@@ -55,7 +68,7 @@
         }
        		xmlHttp.open('POST','VMcontrol_ajax.php',true);
        		xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-       		xmlHttp.send("VM_name="+<?php echo '"'.$VM_name.'"';?>+"&action="+action.value);
+       		xmlHttp.send("VM_name="+<?php echo '"'.$row['VM_name'].'"';?>+"&action="+action.value);
 	}
 </script>
 <br><br>

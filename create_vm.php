@@ -1,9 +1,9 @@
 <?php
 	session_start();
-	require 'checksession.php';
-	require 'db_connect.php';
-	require 'xen.php';
-	require 'ssh.php'; 
+	require_once 'checksession.php';
+	require_once 'db_connect.php';
+	require_once 'xen.php';
+	require_once 'ssh.php'; 
 
 	// If the Request is rejected. 
 	if($_POST['button']=='Reject'){
@@ -47,10 +47,17 @@
 				);
 
 		// Code to create Virtual Machines
-		//makevm($VM_name);
-		//sleep(90);
-		//changeip($ip);
-		//vmreboot($VM_name);
+		
+		$VMparam = array(
+			"name"=>$_POST['VM_name'],
+			"memory"=>$_POST['ram'],
+			"ip"=>$ip,
+			"netmask"=>"255.255.252.0",
+			"gateway"=>"172.31.100.1",
+			"hostname"=>"localhost"
+		);
+
+		createVM($_POST['hypervisor'],$VMparam,$_POST['os']);
 
 		// Insert New Created VM in the Table
 		$sql = 'INSERT INTO VMdetails (username,VM_name,os,cpu,ram,storage,hypervisor_name,ip) VALUES (:username,:vm_name,:os,:cpu,:ram,:storage,:hypervisor,:ip)';

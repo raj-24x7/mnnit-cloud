@@ -1,4 +1,6 @@
 <?php 
+
+  session_start();
   require 'header.php';
   require 'db_connect.php';
   require 'checksession.php';
