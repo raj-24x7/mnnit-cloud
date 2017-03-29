@@ -69,18 +69,23 @@
 		}
 		
 		//set IP to allocated in database
-
+		$ipParam = array(
+				":ip"=>$param[':ip']
+			);
 		$sql = 'UPDATE ip_pool SET status = "allocated" WHERE ip =:ip';
 		$stmt = prepareQuery($db,$sql);
-		if(!executeQuery($stmt,$param)){
+		if(!executeQuery($stmt,$ipParam)){
 			die("Error Updating ip pool");
 		}
 		
 
 		// Delete requested entry 
+		$nameParam = array(
+				":VM_name"=>$_POST['VM_name']
+			);
 		$sql = 'DELETE FROM VMrequest WHERE VM_name = :VM_name';
 		$stmt = prepareQuery($db,$sql);
-		if(!executeQuery($stmt,$param)){
+		if(!executeQuery($stmt,$nameParam)){
 			die("cannot delete from VMrequest");
 		}
 		header("location:VMdetails.php");

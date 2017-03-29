@@ -35,7 +35,7 @@
         $stmt = prepareQuery($db,$query);
         executeQuery($stmt,$param);
         $row = $stmt->fetch();
-        echo $row['hypervisor_name'].'hello';
+     //   echo $row['hypervisor_name'].'hello';
        	$xen = makeXenconnection($row['hypervisor_name']);
        	$vm = $xen->getVMByNameLabel($_GET['VM_name']);
        	$metrics = $vm->getMetrics()->getValue(); 
