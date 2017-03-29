@@ -3,7 +3,7 @@
 use Respect\Validation\Validator as Validator;
 use GuzzleHttp\Client as Client;
 use Sircamp\Xenapi\Connection\XenResponse as  XenResponse;
-
+ 
 class XenVirtualMachine extends XenElement {
 
 	private $name;
@@ -778,6 +778,30 @@ class XenVirtualMachine extends XenElement {
 	}
 	public function setPVBootloaderArgs($new){
 		return $this->getXenconnection()->VM__set_PV_bootloader_args($this->getVmId(),$new);
+	}
+
+	public function setPVArgs($new){
+		return $this->getXenconnection()->VM__set_PV_args($this->getVmId(),$new);
+	}
+	public function getPVArgs(){
+		return $this->getXenconnection()->VM__get_PV_args($this->getVmId());
+	}
+
+	public function setMemoryLimits($static_min, $static_max, $dynamic_min, $dynamic_max){
+		return $this->getXenconnection()->VM__set_memory_limits($this->getVmId(),$static_min, $static_max, $dynamic_min, $dynamic_max);
+	}
+
+	public function getMemoryStaticMax(){
+		return $this->getXenconnection()->VM__get_memory_static_max($this->getVmId());
+	}
+	public function getMemoryStaticMin(){
+		return $this->getXenconnection()->VM__get_memory_static_min($this->getVmId());
+	}
+	public function getMemoryDynamicMax(){
+		return $this->getXenconnection()->VM__get_memory_dynamic_max($this->getVmId());
+	}
+	public function getMemoryDynamicMin(){
+		return $this->getXenconnection()->VM__get_memory_dynamic_min($this->getVmId());
 	}
 
 }

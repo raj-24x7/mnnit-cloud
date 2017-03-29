@@ -58,7 +58,7 @@ ping -c 2 172.31.100.1
 	
 }*/
 
-function createVM($dom0name,$VMparam,$template){
+function createVMFromSSH($dom0name,$VMparam,$template){
 		$db = getDBConnection();
 		$sql = 'SELECT * FROM `hypervisor` WHERE name=:name';
 		$param = array(":name"=>$dom0name);
@@ -78,21 +78,27 @@ function createVM($dom0name,$VMparam,$template){
 		$stream = ssh2_exec($connection, 'xe vm-install template="'.$template.'" new-name-label='.$VMparam['name']);
 		stream_set_blocking($stream, true);
 		$uuid = stream_get_contents($stream);
+
 		fclose($stream);
-		/*echo $uuid;
-*/
+		echo "uuid".$uuid;
+
 		$stream = ssh2_exec($connection,'xe vm-memory-limits-set dynamic-max='.$VMparam['memory'].'MiB dynamic-min='.$VMparam['memory'].'MiB static-max='.$VMparam['memory'].'MiB static-min='.$VMparam['memory'].'MiB name-label='.$VMparam['name']);
 		fclose($stream);
 
-		$stream = ssh2_exec($connection,'xe vm-param-set uuid='.$uuid.' PV-args="graphical utf8 -- _ipaddr='.$VMparam['ip'].' _netmask='.$VMparam['netmask'].' _gateway='.$VMparam['gateway'].' _hostname='.$VMparam['hostname'].'"');
+		$stream = ssh2_exec($connection,'xe vm-param-set uuid='.$uuid.' PV-args="graphical utf8 -- _ipaddr='.$VMparam['ip'].' _netmask='.$VMparam['netmask'].' _gateway='.$VMparam['gateway'].' _hostname='.$VMparam['hostname'].' _name=none _ip=none"');
 		
-		/*echo 'xe vm-param-set uuid='.$uuid.' PV-args="graphical utf8 -- _ipaddr='.$VMparam['ip'].' _netmask='.$VMparam['netmask'].' _gateway='.$VMparam['gateway'].' _hostname='.$VMparam['hostname'].'"';*/
 		fclose($stream);
+
+
+		$stream = ssh2_exec($connection,'xe vm-start name-label='.$$VMparam['name']);
+		
+		fclose($stream);
+		//echo "created VM";
 
 }
 
 
-$param = array(
+/*$param = array(
 	"name"=>"newCentos",
 	"memory"=>"512",
 	"ip"=>"172.31.102.70",
@@ -102,7 +108,20 @@ $param = array(
 	);
 
 createVM("xenserver-slave3",$param,"CENTOS");
+*/
 //changeip("172.31.102.69");
+/*
+		$ip = '172.31.100.51';
+		$username = 'root';
+		$password = 'root@123';
+		$connection = ssh2_connect($ip, 22);
+		ssh2_auth_password($connection, $username, $password);
+
+		$stream = ssh2_exec($connection,'ls');
+		stream_set_blocking($stream, true);
+		$uuid = stream_get_contents($stream);
+		fclose($stream);
+		echo "uuid".$uuid;*/
 
 
 ?>

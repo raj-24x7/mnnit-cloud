@@ -40,12 +40,12 @@
 				":cpu" => $_POST['cpu'],
 				":ram" => $_POST['ram'],
 				":storage" => $_POST['storage'],
-				":hypervisor" => $_POST['hypervisor'],
+				":hypervisor_name" => $_POST['hypervisor'],
 				":username" => $_POST['username'],
 				":doe" => $_POST['doe'],
 				":ip" => $ip
 				);
-
+		echo "Retrieved Data";
 		// Code to create Virtual Machines
 		
 		$VMparam = array(
@@ -54,28 +54,34 @@
 			"ip"=>$ip,
 			"netmask"=>"255.255.252.0",
 			"gateway"=>"172.31.100.1",
-			"hostname"=>"localhost"
+			"hostname"=>"localhost",
+			"description"=>"testing..."
 		);
-
-		createVM($_POST['hypervisor'],$VMparam,$_POST['os']);
+		//$xen = makeXenConnection($_POST['hypervisor']);
+		//createVMFromXapi($xen,$VMparam,$_POST['os']);
+		createVMFromSSH($_POST['hypervisor'],$VMparam,$_POST['os']);
 
 		// Insert New Created VM in the Table
-		$sql = 'INSERT INTO VMdetails (username,VM_name,os,cpu,ram,storage,hypervisor_name,ip) VALUES (:username,:vm_name,:os,:cpu,:ram,:storage,:hypervisor,:ip)';
+		$sql = 'INSERT INTO VMdetails (username,VM_name,os,cpu,ram,storage,hypervisor_name,ip,doe) VALUES (:username,:VM_name,:os,:cpu,:ram,:storage,:hypervisor_name,:ip,:doe)';
 		$stmt = prepareQuery($db,$sql);
-		if(executeQuery($stmt,$param)){
-			die("" . $sql . "<br>" . $db->error);
+		if(!executeQuery($stmt,$param)){
+			die("Error Inserting in VMdetails");
 		}
+		
 		//set IP to allocated in database
 
 		$sql = 'UPDATE ip_pool SET status = "allocated" WHERE ip =:ip';
 		$stmt = prepareQuery($db,$sql);
-		executeQuery($stmt,$param);
+		if(!executeQuery($stmt,$param)){
+			die("Error Updating ip pool");
+		}
+		
 
 		// Delete requested entry 
-		$sql = 'DELETE FROM VMrequest WHERE VM_name = :vm_name';
+		$sql = 'DELETE FROM VMrequest WHERE VM_name = :VM_name';
 		$stmt = prepareQuery($db,$sql);
-		if(executeQuery($stmt,$param)){
-			die("" . $sql . "<br>" . $db->error);
+		if(!executeQuery($stmt,$param)){
+			die("cannot delete from VMrequest");
 		}
 		header("location:VMdetails.php");
 	}

@@ -31,7 +31,9 @@
             
            	return $result;
         } catch(PDOException $ex) { 
-            die("<strong>Failed to run query:</strong><br> " . $ex->getMessage()."<br>"); 
+            //die("<strong>Failed to run query:</strong><br> " . $ex->getMessage()."<br>");
+            echo "<strong>Failed to run query:</strong><br> " . $ex->getMessage()."<br>"; 
+            return false;
         }     
     }
 
@@ -39,7 +41,9 @@
         try{
             return $db->prepare($query);
         }catch(PDOException $ex){
-            die("<strong>Failed to run query:</strong><br> " . $ex->getMessage()."<br>"); 
+            //die("<strong>Failed to run query:</strong><br> " .$query.$ex->getMessage()."<br>");
+            echo "<strong>Failed to run query:</strong><br> " .$query.$ex->getMessage()."<br>"; 
+            return false;
         }
     }
 ?>

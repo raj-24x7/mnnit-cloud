@@ -4,12 +4,14 @@
 
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Cloud</title>
-	<meta name="description" content="">
+	<title><?php  
+		echo "MNNIT Private Data Cloud";
+	?></title>
+	<meta name="description" content="MNNIT Private Data Cloud">
 
 	<!-- Mobile viewport optimized -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
+	<link rel="shortcut icon" href="images/logo-MNNIT.png" type="image/png">
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/datepicker3.css" rel="stylesheet">
 	<link href="css/styles.css" rel="stylesheet">

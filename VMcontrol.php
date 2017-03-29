@@ -70,6 +70,16 @@
        		xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
        		xmlHttp.send("VM_name="+<?php echo '"'.$row['VM_name'].'"';?>+"&action="+action.value);
 	}
+
+
+  function destroyVM(){
+      if(confirm("Are you sure you want to delete this Virtual Machine ? ")){
+        window.location="vm_destroy.php?VM_name="+"<?php echo $row['VM_name']?>";
+      } else {
+        return false;
+      }
+
+  }
 </script>
 <br><br>
 <div class="row">
@@ -154,7 +164,7 @@
                                     	<button class="btn btn-warning" value="cleanShutdown" onclick="runAction(this);">Shutdown</button>
                                     	<?php
                                     		if($_SESSION['privilege']=='A'){
-                                    			echo '<button class="btn btn-danger" value="destroy" onclick="runAction(this)">Destroy</button>';
+                                    			echo '<button class="btn btn-danger" value="destroy" onclick="destroyVM();">Destroy</button>';
                                     		}
                                     	?>
                                       </center>

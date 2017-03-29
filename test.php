@@ -2,9 +2,9 @@
 		//require_once "ssh.php";
 		require_once "xen.php";
 		require_once "db_connect.php";
-		$xen = makeXenconnection("xenserver-slave3");
-		$host = $xen->getHostByNameLabel("xenserver-slave3");
-		//$vm = $xen->getVMByNameLabel("Ubuntu14.04");//Ubuntu 14.04 Template
+		$xen = makeXenconnection("xenserver-trial");
+		$host = $xen->getHostByNameLabel("xenserver-trial");
+		$vm = $xen->getVMByNameLabel("anotherVM");//Ubuntu 14.04 Template
 		/*$x = $vm->setNameLabel("Ubuntu14.04");
 		echo $x->getValue().'<br>';
 		echo $x->getStatus().'<br>';
@@ -19,7 +19,7 @@
 		// $res = $vm->hardReboot();
 		// echo 'Result : '.$res->getStatus();
 		// echo 'Value : '.$res->getValue();
-/*
+
 		echo "UUID: ".$vm->getUUID()->getValue()."<br>
 		";
 		echo "PowerState: ".$vm->getPowerState()->getValue()."
@@ -39,11 +39,25 @@
 		echo "NameDescription: ".$vm->getNameDescription()->getValue()."<br>";
 		echo "VmId: ".$vm->getVmId()."<br>";
 		echo "Name: ".$vm->getName()."<br>";
-*/
+		echo "PV-args".$vm->getPVArgs()->getValue()."<br>";
+		echo "static max : ".$vm->getMemoryStaticMax()->getValue()."<br>";
+		echo "static min : ".$vm->getMemoryStaticMin()->getValue()."<br>";
+		echo "dynamic max : ".$vm->getMemoryDynamicMax()->getValue()."<br>";
+		echo "dynamic min : ".$vm->getMemoryDynamicMin()->getValue()/(1024*1024)."<br>";
+		$memory = 1024*1024*1024;
+		//$vm->setMemoryLimits($memory, $memory, $memory, $memory);
+		echo $memory
+		// $var = '12';
+		// echo (int)$var*2;
+		// $vm->cleanShutdown();
+		// $val = true;
+
+		// $vm->setIsATemplate($val);
+		
 		
 
 
-		echo "ADD: ";print_r($host->getMetrics()->getValue());
+		/*echo "ADD: ";print_r($host->getMetrics()->getValue());
 
 		echo "<br>OtherConfig: ";print_r($host->getOtherConfig()->getValue());
 		echo '<br> List methods : '.$host->listMethods()->getValue();
@@ -62,5 +76,5 @@
 		echo "<br>Bios String: ";print_r($host->getBiosString()->getValue());
 		echo "<br>Guest VCPU Param: ";print_r($host->getGuestVCPUParam()->getValue());
 		echo "<br>Sche Policy: ";print_r($host->getSchedPolicy()->getValue());
-
+*/
 ?> 

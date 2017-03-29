@@ -45,9 +45,9 @@
                             <div class="col-sm-1"><?php echo $c."."; $c = $c + 1;?></div>
                             <div class="col-sm-5"><?php echo $row['name'];?></div>
                             <div class="col-sm-5"><?php echo $row['ip'];?></div>
-                            <a class="glyphicon glyphicon-plus" data-toggle="collapse" href="#collapse1"></a>
+                            <a class="glyphicon glyphicon-chevron-down" data-toggle="collapse" href="#collapse<?php echo $c;?>"></a>
                         </div>
-                        <div id="collapse1" class="panel-collapse collapse">
+                        <div id="collapse<?php echo $c;?>" class="panel-collapse collapse">
                             <div class="panel-body">
                                 <table class="table">
                                     <tbody>
@@ -90,13 +90,12 @@
                             </div>
                         <div>
                 </div>
-                <?php      
+                
+            </div>
+    </div>
+            <?php      
                     }
                     ?>
-            </div>
-        
-      
-    </div>
     <div class="col-sm-1">
     </div>
 </div>

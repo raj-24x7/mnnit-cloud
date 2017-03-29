@@ -13,7 +13,7 @@
 
 <script type="text/javascript">
   window.onload = function (){
-    document.getElementById("VMrequest").className = "active"; //VMrequest is on navbar
+    document.getElementById("hadoop_request").className = "active"; //VMrequest is on navbar
   }
 </script>
 <script type="text/javascript">
@@ -32,13 +32,13 @@
 
     function validateForm(){
         
-        var name = document.forms["request"]["VM_name"].value;
+        var name = document.forms["request"]["hadoop_name"].value;
         var date = document.forms["request"]["date"].value;
         
         var val = document.getElementById("res");
         //alert("wait:"+name+"res:"+val.innerHTML);
         if(name=="" || val.innerHTML!="Valid"){
-            alert("VM name should be unique and should not contain special characters or spaces");
+            alert("Hadoop name should be unique and should not contain special characters or spaces");
             return false;
         }
         if(!isValidDate(date)){
@@ -52,7 +52,7 @@
         return true;
     }
 
-    function checkVMNameValidity(){
+    function checkhadoopNameValidity(){
        if(window.XMLHttpRequest){
           xmlHttp = new XMLHttpRequest();
        } else {
@@ -62,16 +62,16 @@
        xmlHttp.onreadystatechange = function() {
           if(xmlHttp.readyState==4 && xmlHttp.status==200){
             if(xmlHttp.response=='Valid'){
-                document.getElementById('vmvalid').className="form-group has-success";
+                document.getElementById('hadoopvalid').className="form-group has-success";
             }else{
-                document.getElementById('vmvalid').className="form-group has-error";
+                document.getElementById('hadoopvalid').className="form-group has-error";
             }
              document.getElementById('res').innerHTML = xmlHttp.response;
           }
        }
-       var VM_name = document.getElementById('VM_name').value;
+       var hadoop_name = document.getElementById('hadoop_name').value;
        //alert('hello : '+VM_name+'');
-       xmlHttp.open('GET','check_VMname_validity.php'+'?VM_name='+VM_name+'&t='+Math.random(),true);
+       xmlHttp.open('GET','check_hadoopname_validity.php'+'?hadoop_name='+hadoop_name+'&t='+Math.random(),true);
        xmlHttp.send();
     }
 </script>
@@ -93,14 +93,22 @@
             <div class="col-sm-8 text-left">
                 <div class="panel">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Enter your Requirement:</h3>
+                        <h3 class="panel-title">Enter Hadoop Requirements:</h3>
                     </div>
                     
-                        <form name="request" class="form-horizontal" role="form"  action="request_entry.php" method='POST' onsubmit="return validateForm();">
-                            <div class="form-group" id="vmvalid">
-                                <label class="control-label col-sm-3" for="pwd">VM Name:</label>
+                        <form name="request" class="form-horizontal" role="form"  action="hadoop_request_entry.php" method='POST' onsubmit="return validateForm();">
+                            <div class="form-group" id="hadoopvalid">
+                                <label class="control-label col-sm-3" for="pwd">Hadoop Name:</label>
                                 <div class="col-sm-7" >
-                                    <input type="text" class="form-control" name="VM_name" id="VM_name" onchange="checkVMNameValidity();">
+                                    <input type="text" class="form-control" name="hadoop_name" id="hadoop_name" onchange="checkhadoopNameValidity();">
+                                </div>
+                                <div class="col-sm-2" id="res"></div>
+                            </div>
+
+                            <div class="form-group" >
+                                <label class="control-label col-sm-3" for="pwd">Number of Slaves</label>
+                                <div class="col-sm-7" >
+                                    <input type="number" class="form-control" name="number_slave" id="number_slave" >
                                 </div>
                                 <div class="col-sm-2" id="res"></div>
                             </div>
@@ -139,7 +147,7 @@
                                 <label class="control-label col-sm-3" for="pwd">Storage:</label>
                                 <div class="col-sm-7">
                                     <select class="form-control" name="storage" id="storage">
-                                        <option value="10">10GB</option>
+                                        <option value="10GB">10GB</option>
                                     </select>
                                 </div>
                             </div>
@@ -147,8 +155,7 @@
                                 <label class="control-label col-sm-3" for="pwd">RAM:</label>
                                 <div class="col-sm-7">
                                     <select class="form-control" name="ram" id="ram">
-                                        <option value="256">256MB</option>
-                                        <option value="512">512MB</option>
+                                        <option value="256MB">256MB</option>
                                     </select>
                                 </div>
                             </div>

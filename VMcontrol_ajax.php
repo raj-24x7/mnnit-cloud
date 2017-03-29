@@ -35,6 +35,8 @@
 			$res = $vm->start();
 		} else if ($action == 'cleanReboot') {
 			$res = $vm->cleanReboot();
+		} else if($action == 'destroy') {  
+			
 		} else {
 			echo 'Wrong Action';
 			die();

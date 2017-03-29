@@ -48,6 +48,9 @@
 <script type="text/javascript">
     window.onload = function (){
       document.getElementById("user_details").className = "active";
+
+      var prevClass = document.getElementById("manage-collapse").className;
+      document.getElementById("manage-collapse").className = prevClass+" in";
     }
 </script>
 

@@ -66,11 +66,133 @@
     </div>
   </div>
   
-</div>
 
 <?php		
 	}
 ?>
+<div class="row">
+ <div class="col-sm-12">
+    <div class="panel"></div>
+  </div>
 
-	</body>
-</html>
+  <div class="col-xs-12 col-md-6 col-lg-3">
+				<div class="panel panel-blue panel-widget ">
+					<div class="row no-padding">
+						<div class="col-sm-3 col-lg-5 widget-left">
+							<svg class="glyph stroked bag"><use xlink:href="#stroked-bag"></use></svg>
+						</div>
+						<div class="col-sm-9 col-lg-7 widget-right">
+							<div class="large">120</div>
+							<div class="text-muted">New Orders</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+	<div class="col-xs-12 col-md-6 col-lg-3">
+				<div class="panel panel-orange panel-widget">
+					<div class="row no-padding">
+						<div class="col-sm-3 col-lg-5 widget-left">
+							<svg class="glyph stroked empty-message"><use xlink:href="#stroked-empty-message"></use></svg>
+						</div>
+						<div class="col-sm-9 col-lg-7 widget-right">
+							<div class="large">52</div>
+							<div class="text-muted">Comments</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-md-6 col-lg-3">
+				<div class="panel panel-teal panel-widget">
+					<div class="row no-padding">
+						<div class="col-sm-3 col-lg-5 widget-left">
+							<svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg>
+						</div>
+						<div class="col-sm-9 col-lg-7 widget-right">
+							<div class="large">24</div>
+							<div class="text-muted">New Users</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-md-6 col-lg-3">
+				<div class="panel panel-red panel-widget">
+					<div class="row no-padding">
+						<div class="col-sm-3 col-lg-5 widget-left">
+							<svg class="glyph stroked app-window-with-content"><use xlink:href="#stroked-app-window-with-content"></use></svg>
+						</div>
+						<div class="col-sm-9 col-lg-7 widget-right">
+							<div class="large">25.2k</div>
+							<div class="text-muted">Page Views</div>
+						</div>
+					</div>
+				</div>
+			</div>
+</div>
+
+    <div class="container">
+<div class="row">
+  <div class="col-sm-12">
+    <div class="panel"></div>
+  </div>
+
+      <div class="panel-body thumbnail">
+        <img src="images/logo-MNNIT.png" height="200" width="120" align="center" \>
+        <caption><center><h4>MNNIT Allahabad</h4></center></caption>
+      
+   <div class="panel panel-blue">
+ 		<div class="panel-heading">
+ 			<center>About</center>
+ 		</div>
+ 		<div class="panel-body">
+ 			The website is developed by Big Data Center MNNIT for providing cloud based
+ 		</div>  
+   </div>   
+  
+   <div class="panel panel-red">
+ 		<div class="panel-heading">
+ 			<center>About</center>
+ 		</div>
+ 		<div class="panel-body">
+ 			The website is developed by Big Data Center MNNIT for providing cloud based
+ 		</div>  
+   </div>   
+
+   <div class="panel panel-teal">
+ 		<div class="panel-heading">
+ 			<center>About</center>
+ 		</div>
+ 		<div class="panel-body">
+ 			The website is developed by Big Data Center MNNIT for providing cloud based
+ 		</div>  
+   </div>   
+
+   <div class="panel panel-orange">
+ 		<div class="panel-heading">
+ 			<center>About</center>
+ 		</div>
+ 		<div class="panel-body">
+ 			The website is developed by Big Data Center MNNIT for providing cloud based
+ 		</div>  
+   </div>   
+
+  <div class="col-sm-4">
+    <div class="panel panel-default">
+      <div class="panel-header">
+      	Infrastructure as a Service
+      </div>  
+      <div class="thumbnail">
+      	<center>
+      	<svg class="glyph stroked desktop" ><use xlink:href="#stroked-desktop"/></svg>
+      	<ul>
+      		<li>Request a Virtual Machine</li>
+      	</ul>
+      	</center>
+      </div>
+
+    </div>  
+  </div>
+    </div>
+</div>
+</div>
+			

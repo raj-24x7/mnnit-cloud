@@ -25,17 +25,40 @@
 		return $xen;
 	}
 
-	function makevm($xen,$VM_name,$template){
+
+	function createVMFromXapi($xen,$VMparam,$template){
 		$vm = $xen->getVMByNameLabel($template);
-		$vm->clonevm($VM_name);
+		$vm->clonevm($VMparam['name']);
 		$val = false;
-		$vmnew = $xen->getVMByNameLabel($VM_name);
+		$vmnew = $xen->getVMByNameLabel($VMparam['name']);
 		$vmnew->setIsATemplate($val);
+
+		$PVargs = "graphical utf8 -- _ipaddr=".$VMparam['ip']." _netmask=".$VMparam['netmask']." _gateway=".$VMparam['gateway']." _hostname=".$VMparam['hostname']." _name=none _ip=none";
+		$vmnew->setPVArgs($PVargs);
+
+		$memory = ((int)$VMparam['memory'])*1024*1024;
+		$vmnew->setMemoryLimits($memory, $memory, $memory, $memory);
+
+		$vmnew->setNameDescription($VMparam['description']);
+
 		$vmnew->start();
 	}
+
+	
 	function vmreboot($xen,$VM_name){
 		$vm=$xen->getVMByNameLabel($VM_name);
 		$vm->cleanReboot();
 	} 
+
+	/*
+		$VMparam = array(
+			"name"=>$_POST['VM_name'],
+			"memory"=>$_POST['ram'],
+			"ip"=>$ip,
+			"netmask"=>"255.255.252.0",
+			"gateway"=>"172.31.100.1",
+			"hostname"=>"localhost"
+		);*/
+
 
 ?>

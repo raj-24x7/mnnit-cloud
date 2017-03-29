@@ -87,6 +87,80 @@
 
     	  	</tbody>	 
       </table>
+<?php
+  $db=null;
+  $db=getDBConnection();
+    if($_SESSION['privilege']=='A') {// A for admin
+                    
+                    $query = " 
+                        SELECT * FROM `hadoop` WHERE 1"; 
+                    $param = array();
+                } else {
+                    $query = " 
+                        SELECT * FROM `hadoop` WHERE `username`=:username"; 
+                    $param = array(":username"=>$_SESSION['username']);
+                }
+
+                $stmt = prepareQuery($db,$query);
+                executeQuery($stmt,$param);
+
+?>
+
+
+      <table class="table">
+          <thead class="thead-inverse">
+            <tr>
+                <th>Hadoop_Name</th>
+                <?php if($_SESSION['privilege']=='A'){
+                  echo '<th>Username</th>';
+                }?>
+                <th>Number of Slaves</th>
+                <th>Operating System</th>
+                <th>CPU#</th>
+                <th>Storage</th>
+                <th>RAM</th>
+                <th>Expire On</th>
+
+                <th>Status</th>
+            </tr>
+          </thead>
+      
+          <tbody>
+              
+              <?php   
+                while($row=$stmt->fetch()){
+                    echo '
+                    <tr>
+                      <td>'.$row['hadoop_name'].'</td>';
+                      if($_SESSION['privilege']=='A'){
+                        echo '<td>'.$row['username'].'</td>';
+                      }
+                      echo 
+                      ' 
+                      <td>'.$row['number_slave'].'</td>
+                      <td>'.$row['os'].'</td>
+                      <td>'.$row['cpu'].'</td>
+                      <td>'.$row['storage'].'</td>
+                      <td>'.$row['ram'].'</td>
+                      <td>'.$row['doe'].'</td>';
+
+                    if($row['status']!='rejected'){
+                        if($_SESSION['privilege']=='A'){
+                          echo '<th>'.'<a href="hadoop_approval.php?hadoop_name='.$row['hadoop_name'].'">approve/reject</a>'.'</th>';
+                        } else {
+                          echo '<th>Pending...</th>';
+                        }
+                    } else {
+                      echo '<th>Rejected</th>';
+                    }
+                    
+                      echo '</tr>';         
+            }
+            ?>
+
+          </tbody>   
+      </table>
+
     </div>
 
     <div class="col-sm-1">
