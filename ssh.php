@@ -80,20 +80,21 @@ function createVMFromSSH($dom0name,$VMparam,$template){
 		$uuid = stream_get_contents($stream);
 
 		fclose($stream);
-		echo "uuid".$uuid;
+		//echo "uuid".$uuid;
 
-		$stream = ssh2_exec($connection,'xe vm-memory-limits-set dynamic-max='.$VMparam['memory'].'MiB dynamic-min='.$VMparam['memory'].'MiB static-max='.$VMparam['memory'].'MiB static-min='.$VMparam['memory'].'MiB name-label='.$VMparam['name']);
+		$stream = ssh2_exec($connection,'xe vm-memory-limits-set dynamic-max='.$VMparam['memory'].'MiB dynamic-min='.$VMparam['memory'].'MiB static-max='.$VMparam['memory'].'MiB static-min='.$VMparam['memory'].'MiB name-description='.$VMparam['description'].' name-label='.$VMparam['name']);
 		fclose($stream);
 
-		$stream = ssh2_exec($connection,'xe vm-param-set uuid='.$uuid.' PV-args="graphical utf8 -- _ipaddr='.$VMparam['ip'].' _netmask='.$VMparam['netmask'].' _gateway='.$VMparam['gateway'].' _hostname='.$VMparam['hostname'].' _name=none _ip=none"');
+		$stream = ssh2_exec($connection,'xe vm-param-set PV-args="graphical utf8 -- _ipaddr='.$VMparam['ip'].' _netmask='.$VMparam['netmask'].' _gateway='.$VMparam['gateway'].' _hostname='.$VMparam['hostname'].' _name=none _ip=none" uuid='.$uuid.'');
 		
 		fclose($stream);
 
 
-		$stream = ssh2_exec($connection,'xe vm-start name-label='.$$VMparam['name']);
+		$stream = ssh2_exec($connection,'xe vm-start name-label='.$VMparam['name']);
 		
 		fclose($stream);
 		//echo "created VM";
+
 
 }
 

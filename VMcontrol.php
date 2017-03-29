@@ -46,7 +46,7 @@
 
 <script type="text/javascript">
 	function runAction(action){
-		alert("Action "+action.value);
+		//alert("Action "+action.value);
 		if(window.XMLHttpRequest){
           xmlHttp = new XMLHttpRequest();
        	} else {

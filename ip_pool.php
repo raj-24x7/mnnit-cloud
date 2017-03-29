@@ -86,7 +86,7 @@
 				<?php
 				while($row=$stmt->fetch()){
 					echo '<tr><td>'.$row['ip'].'</td>';
-					if($row['status']==''){
+					if($row['status']!='allocated'){
 						echo '<td> free </td>';
 					}
 					else{

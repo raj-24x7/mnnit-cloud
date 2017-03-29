@@ -1,8 +1,7 @@
 
-
 <?php
 
-		session_start();
+	session_start();
 	require_once "header.php";
 	require_once 'xen.php';
 	//require_once 'navigation_bar.php';
@@ -24,34 +23,32 @@
                 $param = array(
             ":vm_name"=>$_GET['VM_name']
           );
-      // if($_SESSION['privilege']=='A'){
-      //           $query = "  SELECT 
-      //             * 
-      //             FROM `VMdetails`
-      //             WHERE 
-      //             `VM_name`=:vm_name
-      //           ";
-      //               $param = array(
-      //       ":vm_name"=>$_GET['VM_name'],
-      //     );        
-      // }
-           
+         
         $db = getDBConnection();
         $stmt = prepareQuery($db,$query);
         executeQuery($stmt,$param);
         $row = $stmt->fetch();
-        echo $row['hypervisor_name'].'hello';
+        
        	$xen = makeXenconnection($row['hypervisor_name']);
        	$vm = $xen->getVMByNameLabel($_GET['VM_name']);
-       		$vm->cleanShutdown();
-       		$vm->destroy();
+     		$vm->cleanShutdown();
+     		$vm->destroy();
+        $ip = $row['ip'];
 
+     		$query=" delete from `VMdetails` where `VM_name`=:vm_name";
+     		$stmt=prepareQuery($db,$query);
 
-       		$query=" delete from `VMdetails` where `VM_name`=:vm_name";
-       		$stmt=prepareQuery($db,$query);
-
-       		executeQuery($stmt,$param);
-
+       	if(!executeQuery($stmt,$param)){
+            die("Cannot Delete Entry from VMdetails"); 
+        }
+        $param = array(
+            ":ip"=>$ip 
+          );
+        $sql = "UPDATE `ip_pool` SET `status` = ' ' WHERE ip = :ip ";
+        $stmt = prepareQuery($db,$sql);
+        if(!executeQuery($stmt,$param)){
+          die("Cannot Update IP table");
+        }
 
 
        //	$metrics = $vm->getMetrics()->getValue(); 
@@ -83,7 +80,8 @@
 						<center><b>Alert</b></center>
 					</div>
 					<div class="panel-body">
-						<?php echo $_GET['VM_name']?> is destroyed
+						<?php echo $_GET['VM_name']?> is destroyed<br>
+            IP <?php echo $ip; ?> is free.
 					</div>
 				</div>
 		</div>

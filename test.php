@@ -4,7 +4,7 @@
 		require_once "db_connect.php";
 		$xen = makeXenconnection("xenserver-trial");
 		$host = $xen->getHostByNameLabel("xenserver-trial");
-		$vm = $xen->getVMByNameLabel("anotherVM");//Ubuntu 14.04 Template
+		$vm = $xen->getVMByNameLabel("trial");//Ubuntu 14.04 Template
 		/*$x = $vm->setNameLabel("Ubuntu14.04");
 		echo $x->getValue().'<br>';
 		echo $x->getStatus().'<br>';
@@ -46,7 +46,20 @@
 		echo "dynamic min : ".$vm->getMemoryDynamicMin()->getValue()/(1024*1024)."<br>";
 		$memory = 1024*1024*1024;
 		//$vm->setMemoryLimits($memory, $memory, $memory, $memory);
-		echo $memory
+		echo $memory;
+		echo "<br>";
+		$uuid = 12456;
+		$VMparam = array(
+			"name"=>"trail",
+			"memory"=>"256",
+			"ip"=>"172.1.2145",
+			"netmask"=>"255.255.252.0",
+			"gateway"=>"172.31.100.1",
+			"hostname"=>"localhost",
+			"description"=>"asdffert"
+		);
+		echo 'xe vm-param-set PV-args="graphical utf8 -- _ipaddr='.$VMparam['ip'].' _netmask='.$VMparam['netmask'].' _gateway='.$VMparam['gateway'].' _hostname='.$VMparam['hostname'].' _name=none _ip=none" uuid='.$uuid.'';
+
 		// $var = '12';
 		// echo (int)$var*2;
 		// $vm->cleanShutdown();
