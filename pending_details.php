@@ -15,6 +15,47 @@
                   
 
                 $db = getDBConnection();
+                // Delete VM Entry
+                if(isset($_GET['VM_name']) 
+                  && !empty($_GET['VM_name']) ){
+
+                    $sql = 'DELETE FROM `VMrequest` WHERE `VM_name`=:VM_name';
+                    $param = array(
+                        ":VM_name"=>$_GET['VM_name']
+                      );
+                    $stmt = prepareQuery($db,$sql);
+                    if(!executeQuery($stmt,$param)){
+                      die("Cannot Delete Entry for VM");
+                    }
+
+                    $sql = 'DELETE FROM `name_description` WHERE `name`=:VM_name';
+                    $stmt = prepareQuery($db,$sql);
+                    if(!executeQuery($stmt,$param)){
+                      die("Cannot Delete Entry for VM");
+                    }
+
+
+                }
+              // Delete Hadoop Entry 
+                if(isset($_GET['hadoop_name']) 
+                  && !empty($_GET['hadoop_name']) ){
+                    $sql = 'DELETE FROM `hadoop` WHERE `hadoop_name`=:hadoop_name';
+                    $param = array(
+                        ":hadoop_name"=>$_GET['hadoop_name']
+                      );
+                    $stmt = prepareQuery($db,$sql);
+                    if(!executeQuery($stmt,$param)){
+                      die("Cannot Delete Entry for hadoop");
+                    }
+
+                    $sql = 'DELETE FROM `name_description` WHERE `name`=:hadoop_name';
+                    $stmt = prepareQuery($db,$sql);
+                    if(!executeQuery($stmt,$param)){
+                      die("Cannot Delete Entry for hadoop");
+                    }
+                }
+
+
                 if($_SESSION['privilege']=='A') {// A for admin
                     
                     $query = " 
@@ -78,7 +119,7 @@
                           echo '<th>Pending...</th>';
                         }
                     } else {
-                      echo '<th>Rejected</th>';
+                      echo '<th>Rejected <a href="pending_details.php?VM_name='.$row['VM_name'].'"><span class="glyphicon glyphicon-remove"></span></a></th>';
                     }
                     
                       echo '</tr>';         
@@ -151,7 +192,7 @@
                           echo '<th>Pending...</th>';
                         }
                     } else {
-                      echo '<th>Rejected</th>';
+                      echo '<th>Rejected <a href="pending_details.php?hadoop_name='.$row['hadoop_name'].'"><span class="glyphicon glyphicon-remove"></span></a></th>';
                     }
                     
                       echo '</tr>';         

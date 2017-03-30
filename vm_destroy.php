@@ -7,10 +7,10 @@
 	//require_once 'navigation_bar.php';
 
 		if($_SESSION['privilege']!='A')
-				{
-					//die("ddddddd");
-					header('location:VMcontrol.php?VM_name='.$_GET['VM_name']);
-				}
+		{
+			//die("ddddddd");
+			header('location:VMcontrol.php?VM_name='.$_GET['VM_name']);
+		}
 //echo "hello";
 
     if(isset($_GET['VM_name'])){
@@ -44,12 +44,21 @@
         $param = array(
             ":ip"=>$ip 
           );
+
+
         $sql = "UPDATE `ip_pool` SET `status` = ' ' WHERE ip = :ip ";
         $stmt = prepareQuery($db,$sql);
         if(!executeQuery($stmt,$param)){
           die("Cannot Update IP table");
         }
 
+
+        $sql = 'DELETE FROM `name_description` WHERE `name`=:VM_name';
+        $stmt = prepareQuery($db,$sql);
+        $param = array(":VM_name"=>$_GET['VM_name']);
+        if(!executeQuery($stmt,$param)){
+          die("Cannot Delete Entry for VM");
+        }
 
        //	$metrics = $vm->getMetrics()->getValue(); 
        	//$guestMetrics = $vm->getGuestMetrics()->getValue();

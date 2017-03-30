@@ -4,7 +4,7 @@
 		require_once "db_connect.php";
 		$xen = makeXenconnection("xenserver-trial");
 		$host = $xen->getHostByNameLabel("xenserver-trial");
-		$vm = $xen->getVMByNameLabel("trial");//Ubuntu 14.04 Template
+//		$vm = $xen->getVMByNameLabel("trial");//Ubuntu 14.04 Template
 		/*$x = $vm->setNameLabel("Ubuntu14.04");
 		echo $x->getValue().'<br>';
 		echo $x->getStatus().'<br>';
@@ -20,7 +20,7 @@
 		// echo 'Result : '.$res->getStatus();
 		// echo 'Value : '.$res->getValue();
 
-		echo "UUID: ".$vm->getUUID()->getValue()."<br>
+/*		echo "UUID: ".$vm->getUUID()->getValue()."<br>
 		";
 		echo "PowerState: ".$vm->getPowerState()->getValue()."
 		<br>";
@@ -59,7 +59,7 @@
 			"description"=>"asdffert"
 		);
 		echo 'xe vm-param-set PV-args="graphical utf8 -- _ipaddr='.$VMparam['ip'].' _netmask='.$VMparam['netmask'].' _gateway='.$VMparam['gateway'].' _hostname='.$VMparam['hostname'].' _name=none _ip=none" uuid='.$uuid.'';
-
+*/
 		// $var = '12';
 		// echo (int)$var*2;
 		// $vm->cleanShutdown();
@@ -70,7 +70,7 @@
 		
 
 
-		/*echo "ADD: ";print_r($host->getMetrics()->getValue());
+		echo "ADD: ";print_r($host->getMetrics()->getValue());
 
 		echo "<br>OtherConfig: ";print_r($host->getOtherConfig()->getValue());
 		echo '<br> List methods : '.$host->listMethods()->getValue();
@@ -89,5 +89,5 @@
 		echo "<br>Bios String: ";print_r($host->getBiosString()->getValue());
 		echo "<br>Guest VCPU Param: ";print_r($host->getGuestVCPUParam()->getValue());
 		echo "<br>Sche Policy: ";print_r($host->getSchedPolicy()->getValue());
-*/
+
 ?> 
