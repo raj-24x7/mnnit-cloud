@@ -39,8 +39,6 @@
 ?>
 
 <div class="container">
-  
-
   <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog" style="z-index: 10000">
     <div class="modal-dialog modal-sm">
@@ -70,129 +68,115 @@
 <?php		
 	}
 ?>
-<div class="row">
- <div class="col-sm-12">
-    <div class="panel"></div>
-  </div>
-
-  <div class="col-xs-12 col-md-6 col-lg-3">
-				<div class="panel panel-blue panel-widget ">
-					<div class="row no-padding">
-						<div class="col-sm-3 col-lg-5 widget-left">
-							<svg class="glyph stroked bag"><use xlink:href="#stroked-bag"></use></svg>
-						</div>
-						<div class="col-sm-9 col-lg-7 widget-right">
-							<div class="large">120</div>
-							<div class="text-muted">New Orders</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-	<div class="col-xs-12 col-md-6 col-lg-3">
-				<div class="panel panel-orange panel-widget">
-					<div class="row no-padding">
-						<div class="col-sm-3 col-lg-5 widget-left">
-							<svg class="glyph stroked empty-message"><use xlink:href="#stroked-empty-message"></use></svg>
-						</div>
-						<div class="col-sm-9 col-lg-7 widget-right">
-							<div class="large">52</div>
-							<div class="text-muted">Comments</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-xs-12 col-md-6 col-lg-3">
-				<div class="panel panel-teal panel-widget">
-					<div class="row no-padding">
-						<div class="col-sm-3 col-lg-5 widget-left">
-							<svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg>
-						</div>
-						<div class="col-sm-9 col-lg-7 widget-right">
-							<div class="large">24</div>
-							<div class="text-muted">New Users</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-xs-12 col-md-6 col-lg-3">
-				<div class="panel panel-red panel-widget">
-					<div class="row no-padding">
-						<div class="col-sm-3 col-lg-5 widget-left">
-							<svg class="glyph stroked app-window-with-content"><use xlink:href="#stroked-app-window-with-content"></use></svg>
-						</div>
-						<div class="col-sm-9 col-lg-7 widget-right">
-							<div class="large">25.2k</div>
-							<div class="text-muted">Page Views</div>
-						</div>
-					</div>
-				</div>
-			</div>
 </div>
+<div id="myCarousel" class="carousel slide" data-ride="carousel" style="margin: 10px 0 0 0;">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+      <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
 
-    <div class="container">
-<div class="row">
-  <div class="col-sm-12">
-    <div class="panel"></div>
-  </div>
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner" role="listbox">
 
-      <div class="panel-body thumbnail">
-        <img src="images/logo-MNNIT.png" height="200" width="120" align="center" \>
-        <caption><center><h4>MNNIT Allahabad</h4></center></caption>
-      
-   <div class="panel panel-blue">
- 		<div class="panel-heading">
- 			<center>About</center>
- 		</div>
- 		<div class="panel-body">
- 			The website is developed by Big Data Center MNNIT for providing cloud based
- 		</div>  
-   </div>   
-  
-   <div class="panel panel-red">
- 		<div class="panel-heading">
- 			<center>About</center>
- 		</div>
- 		<div class="panel-body">
- 			The website is developed by Big Data Center MNNIT for providing cloud based
- 		</div>  
-   </div>   
-
-   <div class="panel panel-teal">
- 		<div class="panel-heading">
- 			<center>About</center>
- 		</div>
- 		<div class="panel-body">
- 			The website is developed by Big Data Center MNNIT for providing cloud based
- 		</div>  
-   </div>   
-
-   <div class="panel panel-orange">
- 		<div class="panel-heading">
- 			<center>About</center>
- 		</div>
- 		<div class="panel-body">
- 			The website is developed by Big Data Center MNNIT for providing cloud based
- 		</div>  
-   </div>   
-
-  <div class="col-sm-4">
-    <div class="panel panel-default">
-      <div class="panel-header">
-      	Infrastructure as a Service
-      </div>  
-      <div class="thumbnail">
-      	<center>
-      	<svg class="glyph stroked desktop" ><use xlink:href="#stroked-desktop"/></svg>
-      	<ul>
-      		<li>Request a Virtual Machine</li>
-      	</ul>
-      	</center>
+      <div class="item active">
+        <img src="images/img1.jpg" alt="image1" width="100%">
+        <!-- <div class="carousel-caption">
+          <h3>Chania</h3>
+          <p>The atmosphere in Chania has a touch of Florence and Venice.</p>
+        </div> -->
       </div>
 
-    </div>  
-  </div>
+      <div class="item">
+        <img src="images/img1.jpg" alt="images2" width="100%">
+      </div>
+    
+      <div class="item">
+        <img src="images/img1.jpg" alt="image3" width="100%">
+      </div>
     </div>
+
+    <!-- Left and right controls -->
+    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
 </div>
+
+<!-- -Contents-->
+
+<div class="container-fluid" style="background-color: white;">
+	<div class="row">
+		<div class="col-sm-1"></div>
+		<div class="col-sm-3" style="margin: 10px 0 10px 10px;">
+			<img src="images/logo-MNNIT.png" alt="images2" width="50%" height="50%">
+		</div>
+		<div class="col-sm-7" style="margin: 20px 0 10px -150px;">
+			<h2 style="margin-bottom: -15px;">Big Data Centre</h2>
+			<h2><b>Motilal Nehru National Institude of Technology Allahabad</b></h2>
+			<h3 style="margin: -15px 0 0 0;">Allahabad, UP-211004</h3>
+			<a href="http://mnnit.ac.in/" class="btn btn-info" role="button" style="margin-top: 10px;">Go to Homepage</a>
+      <br>
+		</div>
+
+		<div class="col-sm-1"></div>
+	</div>
 </div>
-			
+
+<section class="success" id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                	<h2 style="color: white; margin-bottom: 20px;"><u><b>About</b></u></h2>
+                </div>
+            </div>
+            <div class="row">
+                
+                    <p style="text-align: justify; color: white"><font size="5">A private cloud is a particular model of cloud computing that involves a distinct and secure cloud based environment in which only the specified client can operate. As with other cloud models, private clouds will provide computing power as a service within a virtualised environment using an underlying pool of physical computing resource. However, under the private cloud model, the cloud (the pool of resource) is only accessible by a single organisation providing that organisation with greater control and privacy</font></p>
+                    <!-- <p style="text-align: justify; color: white"><font size="5">The technical mechanisms used to provide the different services which can be classed as being private cloud services can vary considerably and so it is hard to define what constitutes a private cloud from a technical aspect. Instead such services are usually categorised by the features that they offer to their client. Traits that characterise private clouds include the ring fencing of a cloud for the sole use of one organisation and higher levels of network security. They can be defined in contrast to a public cloud which has multiple clients accessing virtualised services which all draw their resource from the same pool of servers across public networks. Private cloud services draw their resource from a dsitinct pool of physical computers but these may be hosted internally or externally and may be accessed across private leased lines or secure encrypted connections via public networks.</font></p>
+                    <p style="text-align: justify; color: white"><font size="5">The additional security offered by the ring fenced cloud model is ideal for any organisation, including enterprise, that needs to store and process private data or carry out sensitive tasks. For example, a private cloud service could be utilised by a financial company that is required by regulation to store sensitive data internally and who will still want to benefit from some of the advantages of cloud computing within their business infrastructure, such as on demand resource allocation.</font></p>
+                    <p style="text-align: justify; color: white"><font size="5">The private cloud model is closer to the more traditional model of individual local access networks (LANs) used in the past by enterprise but with the added advantages of virtualisation. The features and benefits of private clouds therefore are:
+						<ol>
+							<li>Higher security and privacy</li>
+							<li>More control</li>
+							<li>Cost and energy efficiency</li>
+							<li>Improved reliability</li>
+							<li>Cloud bursting</li>
+						</ol></font>
+					</p>-->
+            </div>
+        </div>
+    </section>
+     
+    <section id="objective" class="bg-light-gray">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 style="margin-bottom: 20px;"><u><b>Cloud Computing</b></u></h2>       
+                </div>
+            </div>
+            <br>
+            <div class="row">
+            	<p style="text-align: justify;"><font size="5"><b>Cloud computing</b> is a type of Internet-based computing that provides shared computer processing resources and data to computers and other devices on demand. It is a model for enabling ubiquitous, on-demand access to a shared pool of configurable computing resources (e.g., computer networks, servers, storage, applications and services), which can be rapidly provisioned and released with minimal management effort. Cloud computing and storage solutions provide users and enterprises with various capabilities to store and process their data in either privately owned, or third-party data centers[3] that may be located far from the user–ranging in distance from across a city to across the world. Cloud computing relies on sharing of resources to achieve coherence and economy of scale, similar to a utility (like the electricity grid) over an electricity network.</font></p>
+           		<!--<p><font size="5">Cloud computing exhibits the following key characteristics:
+					<ol>
+						<li>Device and location independence</li>
+						<li>Maintenance</li>
+						<li>Multitenancy</li>
+						<li>Performance</li>
+						<li>Productivity</li>
+						<li>Security</li>
+					</ol></font>
+				</p>-->
+            </div>
+        </div>
+    </section>
+
+<?php require 'footer.php' ?>
+
+

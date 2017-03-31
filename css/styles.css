@@ -929,11 +929,19 @@ h1.page-header {
 	overflow: scroll;
 }
 
+section{padding:100px 0}
+section h2{margin:0;font-size:4em;color: black;}
+section.success{background:#18BC9C;color:#fff}
+section.success{background:#18BC9C;color:#fff}
 
-
-
-
-
-
-
-
+footer {
+    padding: 1em;
+    color: white;
+    background-color: black;
+    clear: left;
+    text-align: center;
+    position: relative;
+  	/*margin-top: -180px;
+  	height: 180px;*/
+  	clear: both;
+}

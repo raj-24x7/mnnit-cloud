@@ -36,10 +36,21 @@
         executeQuery($stmt,$param);
         $row = $stmt->fetch();
      //   echo $row['hypervisor_name'].'hello';
+        $os = $row['os'];
        	$xen = makeXenconnection($row['hypervisor_name']);
        	$vm = $xen->getVMByNameLabel($_GET['VM_name']);
        	$metrics = $vm->getMetrics()->getValue(); 
-       	$guestMetrics = $vm->getGuestMetrics()->getValue();        
+       	$guestMetrics = $vm->getGuestMetrics()->getValue(); 
+
+        $sql = 'SELECT description FROM `name_description` WHERE `name` = :VM_name';
+        $param = array(":VM_name"=>$_GET['VM_name']);
+        $stmt2 = prepareQuery($db,$sql);
+        if(!(executeQuery($stmt2,$param))){
+            die("Cannot get name description");
+        }       
+        $val = $stmt2->fetch();
+        $description = $val['description'];
+        //die($description);
     }
     ?>
 
@@ -73,6 +84,11 @@
 
 
   function destroyVM(){
+     /* if(document.getElementById('powerState').innerHTML != 'Halted'){
+        alert('Virtual Machine must be shutdown for this operation');
+        return false;
+      }*/
+
       if(confirm("Are you sure you want to delete this Virtual Machine ? ")){
         window.location="vm_destroy.php?VM_name="+"<?php echo $row['VM_name']?>";
       } else {
@@ -109,6 +125,12 @@
                                     </tr>
                                     <tr>
                                         
+                                            <td><strong>Description : </strong></td>
+                                            <td><?php echo $description;?></td>
+                                        
+                                    </tr>
+                                    <tr>
+                                        
                                             <td><strong>IP : </strong></td>
                                             <td><?php echo $row['ip'];?></td>
                                         
@@ -121,8 +143,8 @@
                                     </tr>
                                     <tr>
                                        
-                                            <td><strong>Operating System : </strong></td>
-                                            <td><?php echo $guestMetrics['os_version']['name'];?></td>
+                                            <td><strong>Template : </strong></td>
+                                            <td><?php echo $os;?></td>
                                         
                                     </tr>
                                     <tr>

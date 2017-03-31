@@ -78,6 +78,7 @@
 
     <div class="col-sm-8">
     <br>
+    <h2>Virtual Machine Requests : </h2><br>
     	<table class="table">
       		<thead class="thead-inverse">
         		<tr>
@@ -147,7 +148,8 @@
 
 ?>
 
-
+<br>
+    <h2>Hadoop Cluster Requests : </h2><br>
       <table class="table">
           <thead class="thead-inverse">
             <tr>

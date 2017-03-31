@@ -52,7 +52,7 @@
 	    			<?php 
 	    			if(isset($_SESSION['username'])) {?>	
 						<li class="dropdown pull-right">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> <?php echo $_SESSION['username']?> <strong class="caret"></strong></a>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user" style="margin: 0 0 5px 0;"></span><font size=3><b> <?php echo $_SESSION['username']?> </b></font><strong class="caret"></strong></a>
 								<ul class="dropdown-menu">
 									<li>
 										<a href="user_profile.php"><span class="glyphicon glyphicon-wrench"></span> Profile Settings</a>
@@ -64,7 +64,7 @@
 								</ul>
 						</li>
 					<?php } else { 
-								echo '<button type="button" class="btn btn-info btn-sm pull-right" data-toggle="modal" data-target="#myModal" style="margin-top: 10px;">Login</button>';
+								echo '<button type="button" class="btn btn-info btn-sm pull-right" data-toggle="modal" data-target="#myModal" style="margin: 0 0 5px 0;"><font size=3><b>Login</b></font></button>';
 						  }
 					?>	 
 				</ul>

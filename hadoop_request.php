@@ -93,7 +93,7 @@
             <div class="col-sm-8 text-left">
                 <div class="panel">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Enter Hadoop Requirements:</h3>
+                        <h3 class="panel-title">Enter Hadoop Cluster Requirements:</h3>
                     </div>
                     
                         <form name="request" class="form-horizontal" role="form"  action="hadoop_request_entry.php" method='POST' onsubmit="return validateForm();">

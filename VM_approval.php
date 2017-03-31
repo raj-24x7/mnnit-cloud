@@ -98,6 +98,17 @@
     $(document).ready(function() {
         $("#datepicker").datepicker();
     });
+
+    window.onload = function(){
+        //alert('hello');
+        var date = document.forms["request"]["doe"].value;
+        //alert(date);
+        var arr = date.split('-');
+        //alert('hi/');
+        var newdate = arr[1]+'/'+arr[2]+'/'+arr[0];
+        //alert(''+newdate);
+        document.forms["request"]["doe"].value = newdate;
+    }
   </script>
 <div class="row">
     <div class="col-sm-1"></div>

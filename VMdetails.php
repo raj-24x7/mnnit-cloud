@@ -78,6 +78,16 @@
     	    	?>
     	  	</tbody>	 
       </table>
+      <br>
+      <h4 style="color:red;">Note</h4>
+      <ul class="list-group">
+        <li class="list-group-item list-group-item-info">
+          All Centos Virtual Machines's have username: <b>centos</b> and password: <b>user@mnnit</b>
+        </li>
+        <li class="list-group-item list-group-item-info">
+          All Virtual Machines take nearly 2-3 minutes to start and 4 minutes to reboot. So <b>Please wait 4 minutes after starting VM's before SSH Login</b> 
+        </li>
+      </ul>
     </div>
 
     <div class="col-sm-1">

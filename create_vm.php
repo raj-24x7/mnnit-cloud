@@ -49,7 +49,7 @@
 				);
 	
 		// Code to create Virtual Machines
-		
+		//die("".$_POST['description']);
 		$VMparam = array(
 			"name"=>$_POST['VM_name'],
 			"memory"=>$_POST['ram'],

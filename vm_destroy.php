@@ -84,13 +84,13 @@
     </div>
     <div id=”container”>
         <div class="col-sm-8">
-				<div class="panel panel-red">
+				<div class="panel panel-danger">
 					<div class="panel-heading">
-						<center><b>Alert</b></center>
+						<center><h3><b>Alert</b></h3></center>
 					</div>
-					<div class="panel-body">
+					<div class="panel-body"><p>
 						<?php echo $_GET['VM_name']?> is destroyed<br>
-            IP <?php echo $ip; ?> is free.
+            IP <?php echo $ip; ?> is free.</p>
 					</div>
 				</div>
 		</div>

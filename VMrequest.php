@@ -77,7 +77,8 @@
 </script>
 <script>
   $(document).ready(function() {
-    $("#calendar").datepicker();
+    $("#calendar").datepicker({
+        });
   });
   </script>
 <div class="row">

@@ -1,0 +1,1 @@
+<footer class="footer">Copyright &copy; MNNIT Allahabad</footer>

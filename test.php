@@ -4,7 +4,9 @@
 		require_once "db_connect.php";
 		$xen = makeXenconnection("xenserver-trial");
 		$host = $xen->getHostByNameLabel("xenserver-trial");
-//		$vm = $xen->getVMByNameLabel("trial");//Ubuntu 14.04 Template
+	$vm = $xen->getVMByNameLabel("centos7");//Ubuntu 14.04 Template
+		
+
 		/*$x = $vm->setNameLabel("Ubuntu14.04");
 		echo $x->getValue().'<br>';
 		echo $x->getStatus().'<br>';
@@ -70,7 +72,7 @@
 		
 
 
-		echo "ADD: ";print_r($host->getMetrics()->getValue());
+/*		echo "ADD: ";print_r($host->getMetrics()->getValue());
 
 		echo "<br>OtherConfig: ";print_r($host->getOtherConfig()->getValue());
 		echo '<br> List methods : '.$host->listMethods()->getValue();
@@ -89,5 +91,5 @@
 		echo "<br>Bios String: ";print_r($host->getBiosString()->getValue());
 		echo "<br>Guest VCPU Param: ";print_r($host->getGuestVCPUParam()->getValue());
 		echo "<br>Sche Policy: ";print_r($host->getSchedPolicy()->getValue());
-
+*/
 ?> 
