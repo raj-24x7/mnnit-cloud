@@ -19,11 +19,11 @@ class Xen {
 			//throw new \InvalidArgumentException("'url' value mast be an ipv4 address", 1);
 			
 		}
-		if(!Validator::string()->validate($user)){
+		if(!Validator::stringType()->validate($user)){
 			throw new \InvalidArgumentException("'user' value mast be an non empty string", 1);
 		}
 
-		if(!Validator::string()->validate($password)){
+		if(!Validator::stringType()->validate($password)){
 			throw new \InvalidArgumentException("'password' value mast be an non empty string", 1);
 		}
 		
