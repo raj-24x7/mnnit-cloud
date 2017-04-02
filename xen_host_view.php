@@ -2,6 +2,7 @@
 
 <?php
   session_start();
+  set_time_limit(5);
     require_once 'db_connect.php';
     require_once 'checksession.php';
     require_once 'xen.php';
@@ -36,7 +37,7 @@
       <div class="row">
                 <?php 
                     $c=1;
-                    while($row = $stmt->fetch()){
+                    while($row = $stmt->fetch()){ 
                         $xen=makeXenconnection($row['name']);
                         $host = $xen->getHostByNameLabel($row['name']);
                     ?>

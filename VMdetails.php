@@ -80,11 +80,11 @@
       </table>
       <br>
       <h4 style="color:red;">Note</h4>
-      <ul class="list-group">
+      <ul class="list-group list">
         <li class="list-group-item list-group-item-info">
-          All Centos Virtual Machines's have username: <b>centos</b> and password: <b>user@mnnit</b>
+          <span class="glyphicon glyphicon-pencil"></span>All Centos Virtual Machines's have username: <b>centos</b> and password: <b>user@mnnit</b>
         </li>
-        <li class="list-group-item list-group-item-info">
+        <li class="list-group-item list-group-item-info"><span class="glyphicon glyphicon-pencil"></span>
           All Virtual Machines take nearly 2-3 minutes to start and 4 minutes to reboot. So <b>Please wait 4 minutes after starting VM's before SSH Login</b> 
         </li>
       </ul>

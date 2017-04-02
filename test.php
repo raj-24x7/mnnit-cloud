@@ -4,7 +4,7 @@
 		require_once "db_connect.php";
 		$xen = makeXenconnection("xenserver-trial");
 		$host = $xen->getHostByNameLabel("xenserver-trial");
-	$vm = $xen->getVMByNameLabel("centos7");//Ubuntu 14.04 Template
+	$vm = $xen->getVMByNameLabel("radhe");//Ubuntu 14.04 Template
 		
 
 		/*$x = $vm->setNameLabel("Ubuntu14.04");
@@ -20,9 +20,9 @@
 		// $vm = $xen->getVMByNameLabel("pankaj");
 		// $res = $vm->hardReboot();
 		// echo 'Result : '.$res->getStatus();
-		// echo 'Value : '.$res->getValue();
+		// echo 'Value : '.$res->getValue();*/
 
-/*		echo "UUID: ".$vm->getUUID()->getValue()."<br>
+		echo "UUID: ".$vm->getUUID()->getValue()."<br>
 		";
 		echo "PowerState: ".$vm->getPowerState()->getValue()."
 		<br>";
@@ -51,7 +51,9 @@
 		echo $memory;
 		echo "<br>";
 		$uuid = 12456;
-		$VMparam = array(
+		
+
+		/*$VMparam = array(
 			"name"=>"trail",
 			"memory"=>"256",
 			"ip"=>"172.1.2145",
@@ -60,8 +62,8 @@
 			"hostname"=>"localhost",
 			"description"=>"asdffert"
 		);
-		echo 'xe vm-param-set PV-args="graphical utf8 -- _ipaddr='.$VMparam['ip'].' _netmask='.$VMparam['netmask'].' _gateway='.$VMparam['gateway'].' _hostname='.$VMparam['hostname'].' _name=none _ip=none" uuid='.$uuid.'';
-*/
+		echo 'xe vm-param-set PV-args="graphical utf8 -- _ipaddr='.$VMparam['ip'].' _netmask='.$VMparam['netmask'].' _gateway='.$VMparam['gateway'].' _hostname='.$VMparam['hostname'].' _name=none _ip=none" uuid='.$uuid.'';*/
+
 		// $var = '12';
 		// echo (int)$var*2;
 		// $vm->cleanShutdown();

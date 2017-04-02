@@ -28,7 +28,7 @@
 		        session_start();
 		        $_SESSION['username']  = $row['username'];
 		        $_SESSION['privilege'] = $row['privilege'];
-		        header('location:index.php');
+		        header('location:dashboard.php');
 		    } else {
 		        header('location:index.php');
 		    }
@@ -89,11 +89,11 @@
       </div>
 
       <div class="item">
-        <img src="images/img1.jpg" alt="images2" width="100%">
+        <img src="images/cloud1.jpg" alt="images2" width="100%">
       </div>
     
       <div class="item">
-        <img src="images/img1.jpg" alt="image3" width="100%">
+        <img src="images/cloud3.jpg" alt="image3" width="100%">
       </div>
     </div>
 

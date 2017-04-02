@@ -245,7 +245,7 @@ class XenConnection {
               'Content-length' => strlen($req),
               ],
             'body' => $req,
-            'timeout' => 60,
+            'timeout' => 5,
             'verify' => FALSE,
 
           ]);
