@@ -47,7 +47,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">MNNIT<span>data</span>Cloud</a>
+				<a class="navbar-brand" href="#"><h4 style="color: white;"><b>MNNIT<span>data</span>Cloud</b></h4></a>
 				<ul class="user-menu">
 	    			<?php 
 	    			if(isset($_SESSION['username'])) {?>	
@@ -65,8 +65,10 @@
 						</li>
 					<?php } else { 
 								echo '<button type="button" class="btn btn-info btn-sm pull-right" data-toggle="modal" data-target="#myModal" style="margin: 0 0 5px 0;"><font size=3><b>Login</b></font></button>';
+								echo '<button type="button" class="btn btn-info btn-sm pull-right" data-toggle="modal" data-target="#signupModal" style="margin: 0 15px 5px 0;"><font size=3><b>Sign UP</b></font></button>';
 						  }
-					?>	 
+					?>
+						 
 				</ul>
 			</div>					
 		</div><!-- /.container-fluid -->

@@ -38,18 +38,18 @@
     <br>
     	<table class="table">
       		<thead class="thead-inverse">
-        		<tr><?php if($_SESSION['privilege']=='A'){
+        		<tr>
+                <th>VM_Name</th>
+          			<th>IP</th>
+                <?php if($_SESSION['privilege']=='A'){
                   echo '<th>Username</th>';
                 }?>
-          			<th>IP</th>
-                
-          			<th>VM_Name</th>
-          			<th>Operating System</th>
+          			<th>Template</th>
           			<th>CPU#</th>
           			<th>Storage</th>
           			<th>RAM</th>
           			<th>Expire On</th>
-          			<th></th>
+          			<th>Info</th>
         		</tr>
       		</thead>
     	
@@ -58,13 +58,13 @@
     				<?php 
             		while($row = $stmt->fetch()){
             
-    					echo '<tr>' ;
+    					echo '<tr>'.'<td>'.$row['VM_name'].'</td>'.'<td>'.$row['ip'].'</td>' ;
                   if($_SESSION['privilege']=='A'){
                     echo '<td>'.$row['username'].'</td>';
                
                   }
-                  echo '<td>'.$row['ip'].'</td>
-    							<td>'.$row['VM_name'].'</td>
+                  echo '
+    							
     							<td>'.$row['os'].'</td>
     							<td>'.$row['cpu'].'</td>
     							<td>'.$row['storage'].'</td>

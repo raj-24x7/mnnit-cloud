@@ -48,6 +48,10 @@ function createVMFromSSH($dom0name,$VMparam,$template){
 }
 
 
+function resizeVDIFromVMName($dom0name,$VMname){
+
+}
+
 
 
 ?>
