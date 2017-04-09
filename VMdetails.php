@@ -24,7 +24,9 @@
                 }
 
                 $stmt = prepareQuery($db,$query);
-                executeQuery($stmt,$param);
+                if(!executeQuery($stmt,$param)){
+                      header("location:error.php?error=1104");
+                }
              ?> 
 
   <div class="row">

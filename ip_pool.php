@@ -8,10 +8,12 @@
 			$query="INSERT INTO ip_pool ( ip,status ) Values ( :ip,'')";
 			$stmt=PrepareQuery($db,$query);
 			$param=array(':ip'=>$_POST['ip']);
-			ExecuteQuery($stmt,$param);
+			if(!(ExecuteQuery($stmt,$param))){
+				header("location:error.php?error=1105");
+			}
 
 	}
-	$query1="select * from ip_pool";
+	$query1="SELECT * FROM ip_pool";
 	$stmt=$db->prepare($query1);
 	$stmt->execute();
 

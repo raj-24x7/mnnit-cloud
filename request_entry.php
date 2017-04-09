@@ -22,7 +22,9 @@
                 $db = getDBConnection();	
                 $sql="INSERT INTO `VMrequest` (VM_name,username,os,cpu,ram,storage,doe) VALUES (:vm_name,:username,:os,:cpu,:ram,:storage,:doe)";
                 $stmt = prepareQuery($db,$sql);
-                executeQuery($stmt,$param);
+                if(!executeQuery($stmt,$param)){
+                    header("location:error.php?error=1104");
+                }
                 $sql = "INSERT INTO `name_description` (name,description) VALUES (:vm_name,:description)";
                 $param = array(
                         ":vm_name"=>$_POST["VM_name"],

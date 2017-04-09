@@ -17,7 +17,9 @@
             );
         $db = getDBConnection();
         $stmt = PrepareQuery($db,$query);
-        ExecuteQuery($stmt,$param);
+        if(!executeQuery($stmt,$param)){
+            header("location:error.php?error=1101");
+        }
         
         if($row = $stmt->fetch()){
               $VM_name = $row['VM_name'];
@@ -31,7 +33,9 @@
         }
         $query = "SELECT description FROM name_description WHERE name=:vm_name";
         $stmt = prepareQuery($db,$query);
-        executeQuery($stmt,$param);
+        if(!executeQuery($stmt,$param)){
+            header("location:error.php?error=1102");
+        }
         $row = $stmt->fetch();
         $description = $row['description'];
      }

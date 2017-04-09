@@ -38,8 +38,10 @@
                 <?php 
                     $c=1;
                     while($row = $stmt->fetch()){ 
+                        try{
                         $xen=makeXenconnection($row['name']);
                         $host = $xen->getHostByNameLabel($row['name']);
+
                     ?>
                 <div class="panel">
                         <div class="panel-heading">
@@ -94,8 +96,19 @@
                 
             </div>
     </div>
-            <?php      
-                    }
+            <?php }catch(Exception $e){
+                         echo '
+                    <div class="panel panel-red">
+                        <div class="panel-heading">
+                            <div class="col-sm-1">'.$c.".".'</div>
+                            <div class="col-sm-5">'.$row['name'].'</div>
+                            <div class="col-sm-5">Cannot Connect to Host</div>
+                            <a class="glyphicon glyphicon-info"></a>
+                        </div>
+                    </div>';      
+                    $c = $c + 1;
+                    }     
+                }
                     ?>
     <div class="col-sm-1">
     </div>

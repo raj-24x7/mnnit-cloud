@@ -1,4 +1,10 @@
 <?php
+
+	/**
+ *  @author Raj Kumar
+ * the page only for testing purposes
+ * please do not modify
+ */
 		//require_once "ssh.php";
 		require_once "xen.php";
 		require_once "db_connect.php";

@@ -1,0 +1,15 @@
+1001:You are not Logged in
+1002:You are not authorised to access this page.
+
+1101:VM request entry does not exists
+1102:Cannot fetch description
+1103:VM does not exists
+1104:Database Error. Contact Admin.
+1105:Cannot retrieve IPs.
+1106:Cannot Reject Request. Database Error.
+1107:IP table cannot be updated. Mannually update IP to allocated.
+
+1201:Connection Error. Could not connect to Cloud.
+1202:VM does not exists on cloud.
+
+1301:IP not available for new machine.!!ABORT!!.

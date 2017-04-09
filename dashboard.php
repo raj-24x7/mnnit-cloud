@@ -16,17 +16,16 @@
 
             <div class="container-fluid" style="background-color: white; margin-top: 15px;">
                 <div class="row">
-                    <div class="col-sm-1"></div>
-                    <div class="col-sm-3" style="margin: 10px 0 10px 10px;">
+                    <div class="col-sm-3 thumbnail" style="margin: 10px 0 0px 0px; border-style: hidden;">
                         <img src="images/logo-MNNIT.png" alt="images2" width="50%" height="50%">
                     </div>
-                    <div class="col-sm-7" style="margin: 10px 0 10px -140px;">
+                    <div class="col-sm-9 thumbnail" style="margin: 10px 0 0px 0px; border-style: hidden;">
                         <h2 style="margin-bottom: -15px;">Big Data Centre</h2>
                         <h2><b>Motilal Nehru National Institude of Technology</b></h2>
                         <h3 style="margin: -15px 0 0 0;">Allahabad, UP-211004</h3>
                         <a href="http://mnnit.ac.in/" class="btn btn-info" role="button" style="margin-top: 10px;">Go to Homepage</a>
+                        
                     </div>
-                    <div class="col-sm-1"></div>
                 </div>
             </div>
             <br>

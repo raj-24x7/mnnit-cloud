@@ -17,8 +17,12 @@ function createVMFromSSH($dom0name,$VMparam,$template){
 		$username=$row['userid'];
 		$password=$row['password'];
 
-		$connection = ssh2_connect($ip, 22);
-		ssh2_auth_password($connection, $username, $password);
+		if(!($connection = ssh2_connect($ip, 22))){
+			header("location:error.php?error=1201");
+		}
+		if(!(ssh2_auth_password($connection, $username, $password))){
+			header("location:error.php?error=1201");
+		}
 
 		$stream = ssh2_exec($connection, 'xe vm-install template="'.$template.'" new-name-label='.$VMparam['name']);
 		stream_set_blocking($stream, true);

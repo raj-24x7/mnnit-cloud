@@ -35,6 +35,65 @@
 	<script src="js/lumino.glyphs.js"></script>
 	<?php   require 'include.php';?>
 
+	<!-- counting notification -->
+	<script type="text/javascript">
+		function remove_notification(){
+			console.log('Remove notification');
+			var values = [];
+			$('#notification_dropdown li').each(function(){
+			    values.push($(this).attr('value'));
+			});
+			console.log(values);
+			dataString = values;
+			var jsonString = JSON.stringify(dataString);
+			   $.ajax({
+			        type: "POST",
+			        url: "remove_notification.php",
+			        data: {data : jsonString}, 
+			        cache: false,
+
+			        success: function(data){
+			            // alert("");
+			            console.log(data);
+			            // location.reload();
+			        }
+			    });
+		}
+				function append_html(msg){
+					id_numbers = msg;
+			        var str="";
+			        console.log(msg);
+			        $('#datacount').html(msg.length);
+			        if(msg.length == 0){
+			        	$("#notification_dropdown").append('<li class="list-group-item">No Pending Notification</li>');
+			        	return;
+			        }
+			        for(var i=0;i<msg.length;i++){
+			 
+			        	$("#notification_dropdown").append('<li class="list-group-item notification" value="'+msg[i]["id"]+'">'+msg[i]["vmname"]+':'+msg[i]["status"]+'</li>');
+
+			        }
+			        console.log(str);
+				}	
+				function get_notification_from_php(){
+					$('#notification_dropdown').empty();
+					$.ajax({
+					    url:"notification.php",
+					    type:"POST",
+					    success:function(msg){
+					        append_html(msg);
+					    },
+					    dataType:"json"
+					});
+				}			
+	    $(document).ready(function() { 
+	    	
+			get_notification_from_php();
+			setInterval(get_notification_from_php, 30000);
+	    });
+
+	</script>
+
 </head>
 
 <body>
@@ -51,6 +110,15 @@
 				<ul class="user-menu">
 	    			<?php 
 	    			if(isset($_SESSION['username'])) {?>	
+	    				<li class="dropdown pull-left" onclick="remove_notification();">
+	    					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span style="font-size: 20px;" class="glyphicon glyphicon-bell" ></span><font size="3"></font><span class="badge badge-success" style="background-color: red;"><div id="datacount"></div></span></a>
+
+								<ul class="dropdown-menu" id="notification_dropdown">
+									
+								</ul>
+	    				</li>&nbsp;&nbsp;&nbsp;&nbsp;
+
+
 						<li class="dropdown pull-right">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user" style="margin: 0 0 5px 0;"></span><font size=3><b> <?php echo $_SESSION['username']?> </b></font><strong class="caret"></strong></a>
 								<ul class="dropdown-menu">
@@ -70,6 +138,37 @@
 					?>
 						 
 				</ul>
+				<!-- <ul class="dropdown dropdown-extended dropdown-notification dropdown-dark" id="header_notification_bar">
+			        <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+			            <i class="icon-bell">Notification</i>
+			            <span class="badge badge-success">
+			                <div id="datacount"></div>
+			            </span>
+			            </span>
+			        </a>
+			        <ul class="dropdown-menu" >
+			            <li class="external">
+			                <h3>
+			                    <span class="bold">12 pending</span> notifications
+			                </h3>
+			                <a href="page_user_profile_1.html">view all</a>
+			            </li>
+			            <li>
+			                <ul class="dropdown-menu-list scroller" style="height: 250px;" data-handle-color="#637283">
+			                    <li>
+			                        <a href="javascript:;">
+			                        <span class="time">just now</span>
+			                        <span class="details">
+			                        <span class="label label-sm label-icon label-success">
+			                        <i class="fa fa-plus"></i>
+			                        </span> New user registered. </span>
+			                        </a>
+			                    </li>
+			                </ul>
+			            </li>
+			        </ul>
+		        </ul> -->
+
 			</div>					
 		</div><!-- /.container-fluid -->
 	</nav>

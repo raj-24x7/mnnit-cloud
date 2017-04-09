@@ -203,17 +203,17 @@
 <!---Contents-->
 <div class="container-fluid" style="background-color: white;">
     <div class="row">
-        <div class="col-sm-1"></div>
-        <div class="col-sm-3" style="margin: 10px 0 10px 10px;">
+        <div class="col-sm-3 thumbnail" style="margin: 10px 0 10px 0px; border-style: hidden;">
             <img src="images/logo-MNNIT.png" alt="images2" width="50%" height="50%">
         </div>
-        <div class="col-sm-7" style="margin: 20px 0 0 -170px;">
-            <h2 style="margin-bottom: -15px;">Big Data Centre</h2>
-            <h2><b>Motilal Nehru National Institude of Technology Allahabad</b></h2>
-            <h3 style="margin: -15px 0 0 0;">Allahabad, UP-211004</h3>
-            <a href="http://mnnit.ac.in/" class="btn btn-info" role="button" style="margin-top: 10px;">Go to Homepage</a>
+        <div class="col-sm-9 thumbnail" style="margin: 10px 0 0px 0px; border-style: hidden;">
+        
+            <h2 style="margin-left: 10px;">Big Data Centre</h2>
+            <h2 style="margin-left: 10px"><b>Motilal Nehru National Institude of Technology Allahabad</b></h2>
+            <h3 style="margin: -10px 0px 0 10px;">Allahabad, UP-211004</h3>
+            <a href="http://mnnit.ac.in/" class="btn btn-info" role="button" style="margin: 10px 0 15px 10px;">Go to Homepage</a>
+            
         </div>
-        <div class="col-sm-1"></div>
     </div>
 </div>
 
@@ -283,14 +283,23 @@
         var e=document.forms["signup"]["signup_conform_password"].value;
         var f=document.forms["signup"]["signup_username"].value;
         var g=document.getElementById('result').innerHTML ;
-        if(g=="invalid"){
+        
+            var n = g.localeCompare("Invalid");
+        //alert("trtkjtr"+g+n);
+           // return false;        
+        if(n==0){
             alert("change username");
             return false;
         }
-        if (a==null || a=="",b==null || b=="",c==null || c=="",d==null || d=="",e==null || e=="",f==null || f==""){
-            alert("Please Fill All Required Field");
-            return false;
-        }
+
+        // if (a==null || a==""||b==null || b==""||c==null || c==""||d==null || d==""||e==null || e==""||f==null || f==""){
+        //      alert("Please Fill All Required Field");
+        //      return false;
+        //  }
+        if (a==null || a.localeCompare("")==0 ||b==null || b.localeCompare("")==0||c==null || c.localeCompare("")==0||d==null || d.localeCompare("")==0||e==null || e.localeCompare("")==0||f==null || f.localeCompare("")==0){
+             alert("Please Fill All Required Field");
+             return false;
+         }
     }
     
 

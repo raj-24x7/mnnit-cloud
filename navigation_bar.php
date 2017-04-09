@@ -24,6 +24,6 @@
 		?>
 		<li role="presentation" class="divider"></li>
 	</ul>
-</div>
+</div><br><br>
 	<div class="attribution">Developed by : <a href="#">Big Data Centre MNNIT</a><br/><a href="#" style="color: #333;">Students</a></div>
 </div><!--/.sidebar-->

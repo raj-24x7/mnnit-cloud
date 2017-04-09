@@ -2,7 +2,6 @@
 
 <?php 
   session_start();
-    require_once 'header.php';
     require_once 'checksession.php';
     require_once 'db_connect.php';
     require_once 'xen.php';
@@ -33,21 +32,30 @@
            
         $db = getDBConnection();
         $stmt = prepareQuery($db,$query);
-        executeQuery($stmt,$param);
+        if(!executeQuery($stmt,$param)){
+            header("location:error.php?error=1103");
+        }
         $row = $stmt->fetch();
      //   echo $row['hypervisor_name'].'hello';
         $os = $row['os'];
-       	$xen = makeXenconnection($row['hypervisor_name']);
-       	$vm = $xen->getVMByNameLabel($_GET['VM_name']);
-       	$metrics = $vm->getMetrics()->getValue(); 
-       	$guestMetrics = $vm->getGuestMetrics()->getValue(); 
-
+       	try {
+          $xen = makeXenconnection($row['hypervisor_name']);  
+        } catch (Exception $e) {
+          header("location:error.php?error=1201");
+        }
+        try{
+            $vm = $xen->getVMByNameLabel($_GET['VM_name']);
+           	$metrics = $vm->getMetrics()->getValue(); 
+           	$guestMetrics = $vm->getGuestMetrics()->getValue(); 
+        }catch(Exception $e){
+          header("location:error.php?error=1202");
+        }
         $sql = 'SELECT description FROM `name_description` WHERE `name` = :VM_name';
         $param = array(":VM_name"=>$_GET['VM_name']);
         $stmt2 = prepareQuery($db,$sql);
         if(!(executeQuery($stmt2,$param))){
-            die("Cannot get name description");
-        }       
+            header("location:error.php?error=1102");
+        }
         $val = $stmt2->fetch();
         $description = $val['description'];
         //die($description);
@@ -97,6 +105,9 @@
 
   }
 </script>
+<?php 
+    require_once 'header.php';
+?>
 <br><br>
 <div class="row">
     <div class="col-sm-1"></div>

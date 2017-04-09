@@ -9,21 +9,38 @@
 	$ip = '';
 	// If the Request is rejected. 
 	if($_POST['button']=='Reject'){
+		//inserting to notification table
+		$parameter = array(
+				":username"=>$_POST['username'],
+				":vm_name"=>$_POST['VM_name']
+			);
+		$query="INSERT INTO notification (username,vmname,status) VALUES (:username,:vm_name,'r')";
+		$db = getDBConnection();
+		$statement = prepareQuery($db,$query);
+        if(!executeQuery($statement,$parameter)){
+        	header("location:error.php?error=1104");
+        }
+
+
+
+		//updating VMrequest table setting status as rejected
 		$sql = 'UPDATE VMrequest SET status = "rejected" WHERE VM_name= :vm_name';
 		$param = array(
 				":vm_name"=>$_POST['VM_name']
 			);
-		$db = getDBConnection();
+		//$db = getDBConnection();
 		$stmt = prepareQuery($db,$sql);
 		if(executeQuery($stmt,$param)){
 			header("location:pending_details.php");
+		} else {
+			header("location:error.php?error=1106");
 		}
 	}
 
 
 	//If the request is accepted.
 	if($_POST['button']=='Approve' ){
-			$db = getDBConnection();
+		$db = getDBConnection();
 			
 		// Selecting an unallocated IP from the provided set
 		$sql = 'SELECT ip FROM ip_pool WHERE status != "allocated"';
@@ -32,8 +49,10 @@
 			$row = $stmt->fetch();
 			$ip = $row['ip'];
 			if(empty($ip)){
-				die("No IP is Available.");	//ERROR
+				header("location:error.php?error=1301");	//ERROR
 			}	
+		} else {
+			header("location:error.php?error=1104");
 		}
 
 		$param = array(
@@ -68,7 +87,7 @@
 		$sql = 'INSERT INTO VMdetails (username,VM_name,os,cpu,ram,storage,hypervisor_name,ip,doe) VALUES (:username,:VM_name,:os,:cpu,:ram,:storage,:hypervisor_name,:ip,:doe)';
 		$stmt = prepareQuery($db,$sql);
 		if(!executeQuery($stmt,$param)){
-			die("Error Inserting in VMdetails");	//ERROR
+			header("location:error.php?error=1104");	//ERROR
 		}
 		
 		//set IP to allocated in database
@@ -78,7 +97,7 @@
 		$sql = 'UPDATE ip_pool SET status = "allocated" WHERE ip =:ip';
 		$stmt = prepareQuery($db,$sql);
 		if(!executeQuery($stmt,$ipParam)){
-			die("Error Updating ip pool");	//ERROR
+			header("location:error.php?error=1107");	//ERROR
 		}
 		
 
@@ -91,7 +110,22 @@
 		if(!executeQuery($stmt,$nameParam)){
 			die("cannot delete from VMrequest");	//ERROR
 		}
+
+
+		// create notification for user
+		$parameter = array(
+				":username"=>$_POST['username'],
+				":vm_name"=>$_POST['VM_name']
+			);
+		$query="INSERT INTO notification (username,vmname,status) VALUES (:username,:vm_name,'a')";
+		$statement = prepareQuery($db,$query);
+        if(!executeQuery($statement,$parameter)){
+        	die("NOT DONE");
+        }
+        
 		header("location:VMdetails.php");
+	} else {
+		header("location:error.php?error=1101");
 	}
 
 ?>
