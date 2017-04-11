@@ -186,7 +186,7 @@
             <img src="images/cloud1.jpg" alt="images2" width="100%">
         </div>
         <div class="item">
-            <img src="images/cloud3.jpg" alt="image3" width="100%">
+            <img src="images/cloud2.jpg" alt="image3" width="100%">
         </div>
     </div>
     <!-- Left and right controls -->
@@ -216,58 +216,61 @@
         </div>
     </div>
 </div>
-
-<section class="success" id="about">
+<!-- Cloud Computing-->
+<section id="success" class="success">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
-                <h2 style="color: white; margin-bottom: 20px;"><u><b>About</b></u></h2>
-            </div>
-        </div>
-        <div class="row">
-            <p style="text-align: justify; color: white"><font size="5">A private cloud is a particular model of cloud computing that involves a distinct and secure cloud based environment in which only the specified client can operate. As with other cloud models, private clouds will provide computing power as a service within a virtualised environment using an underlying pool of physical computing resource. However, under the private cloud model, the cloud (the pool of resource) is only accessible by a single organisation providing that organisation with greater control and privacy</font></p>
-            <p style="text-align: justify; color: white"><font size="5">The technical mechanisms used to provide the different services which can be classed as being private cloud services can vary considerably and so it is hard to define what constitutes a private cloud from a technical aspect. Instead such services are usually categorised by the features that they offer to their client. Traits that characterise private clouds include the ring fencing of a cloud for the sole use of one organisation and higher levels of network security. They can be defined in contrast to a public cloud which has multiple clients accessing virtualised services which all draw their resource from the same pool of servers across public networks. Private cloud services draw their resource from a dsitinct pool of physical computers but these may be hosted internally or externally and may be accessed across private leased lines or secure encrypted connections via public networks.</font></p>
-            <p style="text-align: justify; color: white"><font size="5">The additional security offered by the ring fenced cloud model is ideal for any organisation, including enterprise, that needs to store and process private data or carry out sensitive tasks. For example, a private cloud service could be utilised by a financial company that is required by regulation to store sensitive data internally and who will still want to benefit from some of the advantages of cloud computing within their business infrastructure, such as on demand resource allocation.</font></p>
-            <p style="text-align: justify; color: white">
-                <font size="5">
-                    The private cloud model is closer to the more traditional model of individual local access networks (LANs) used in the past by enterprise but with the added advantages of virtualisation. The features and benefits of private clouds therefore are:
-            <ol>
-            <li>Higher security and privacy</li>
-            <li>More control</li>
-            <li>Cost and energy efficiency</li>
-            <li>Improved reliability</li>
-            <li>Cloud bursting</li>
-            </ol></font>
-            </p>
-        </div>
-    </div>
-</section>
-
-<section id="objective" class="bg-light-gray">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <h2 style="margin-bottom: 20px;"><u><b>Cloud Computing</b></u></h2>
+                <h2 style="margin-bottom: 20px; color:white;"><u><b>Cloud Computing</b></u></h2>
             </div>
         </div>
         <br>
         <div class="row">
-            <p style="text-align: justify;"><font size="5"><b>Cloud computing</b> is a type of Internet-based computing that provides shared computer processing resources and data to computers and other devices on demand. It is a model for enabling ubiquitous, on-demand access to a shared pool of configurable computing resources (e.g., computer networks, servers, storage, applications and services), which can be rapidly provisioned and released with minimal management effort. Cloud computing and storage solutions provide users and enterprises with various capabilities to store and process their data in either privately owned, or third-party data centers[3] that may be located far from the user–ranging in distance from across a city to across the world. Cloud computing relies on sharing of resources to achieve coherence and economy of scale, similar to a utility (like the electricity grid) over an electricity network.</font></p>
-            <p>
-                <font size="5">
-                    Cloud computing exhibits the following key characteristics:
-            <ol>
-            <li>Device and location independence</li>
-            <li>Maintenance</li>
-            <li>Multitenancy</li>
-            <li>Performance</li>
-            <li>Productivity</li>
-            <li>Security</li>
-            </ol></font>
-            </p>
+            <p style="text-align: justify; color: white;"><font size="5"> The emergence of cloud computing services has led to it’s use growing across different fields. Cloud Computing is the practice of using a network of remote servers
+hosted on the Internet to store, manage, and process data, rather than a local server
+or a personal computer. Simply put, cloud computing is the delivery of computing
+services, servers, storage, databases, networking, software, analytics and more, over
+the Internet (the cloud). Since, the burden of maintaining physical server is with the
+service provider, user is free from the burden of maintenance. Also, the services can
+be accessed from anywhere through Internet hence availability and accessibility is
+improved.</font></p>
         </div>
     </div>
 </section>
+
+<section class="bg-light-grey" id="about">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2 style="color: black; margin-bottom: 20px;"><u><b>Private Cloud @ MNNIT</b></u></h2>
+            </div>
+        </div>
+        <div class="row"><font size="5">
+            <p style="text-align: justify; color: black;">
+                There are various computing need of a particular user, especially in a technical institution, which cannot be satisfied with personal computers. These include short term but high performance computing needs, large and accessible storage, hosting live web servers and many more. 
+            </p>
+            <p style="text-align: justify; color: black;">
+                At MNNIT, we have various kinds of computing resources which are not in constant deployment. Resource deployment and optimization can achieved through cloud computing. Here, we provide various cloud services to our users. These services include.
+                <ul>
+                        <li style="color: black;"><b>Infrastructure as a Service : </b>(IaaS) is provided in form of Virtual Machines
+                        that can be requested by user according to her prescribed specification in terms of Dynamic Memory Required, Storage Required, and VCPUs to be allocated. These Virtual Machines can be used for various purposes including computing tasks and hosting live web servers for specified time. VMs can provide both computing power as well as storage, hence, are suitable for these requirements.
+                        The specification of the Virtual Machine changes according to the purpose.
+                        The VMs are fail-safe and easily accessible through remote login.</li>
+                        <li style="color: black;"><b>Hadoop as a Service : </b>At Big Data Center, there is a frequent requirements of Hadoop clusters for Big data processing. Hence, we provide Hadoop Platform enabled Virtual Machine clusters which are pre-configured for usage. The user can request the number of VMs required in the cluster. The user provides the specification of VMs in the cluster or the standard specifications are used. The VM clusters can used as per requirement and then added back
+                        to the resource pool when complete. The resources can be further utilised for
+                        other works.</li>
+                        <li style="color: black;"><b>Storage as a Service : </b>A user can have large storage requirements such that
+data is easily accessible, available and secure. User can also require shared
+storage so that a group of users can access and modify data depending upon
+access privilege. We can allow users to decide a upper limit storage capacity
+required and allocate the amount to them.</li>
+                </ul>    
+            </p></font>
+        </div>
+    </div>
+</section>
+
+
 <?php require 'footer.php' ?>
 
 <!-- username validity for signup -->

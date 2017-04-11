@@ -6,11 +6,11 @@
  * please do not modify
  */
 		//require_once "ssh.php";
-		require_once "xen.php";
-		require_once "db_connect.php";
-		$xen = makeXenconnection("xenserver-trial");
-		$host = $xen->getHostByNameLabel("xenserver-trial");
-	$vm = $xen->getVMByNameLabel("radhe");//Ubuntu 14.04 Template
+	//	require_once "xen.php";
+	//	require_once "db_connect.php";
+	//	$xen = makeXenconnection("xenserver-trial");
+	//	$host = $xen->getHostByNameLabel("xenserver-trial");
+	//$vm = $xen->getVMByNameLabel("radhe");//Ubuntu 14.04 Template
 		
 
 		/*$x = $vm->setNameLabel("Ubuntu14.04");
@@ -27,7 +27,7 @@
 		// $res = $vm->hardReboot();
 		// echo 'Result : '.$res->getStatus();
 		// echo 'Value : '.$res->getValue();*/
-
+/*
 		echo "UUID: ".$vm->getUUID()->getValue()."<br>
 		";
 		echo "PowerState: ".$vm->getPowerState()->getValue()."
@@ -56,7 +56,7 @@
 		//$vm->setMemoryLimits($memory, $memory, $memory, $memory);
 		echo $memory;
 		echo "<br>";
-		$uuid = 12456;
+		$uuid = 12456;*/
 		
 
 		/*$VMparam = array(
@@ -100,4 +100,6 @@
 		echo "<br>Guest VCPU Param: ";print_r($host->getGuestVCPUParam()->getValue());
 		echo "<br>Sche Policy: ";print_r($host->getSchedPolicy()->getValue());
 */
-?> 
+?>		
+
+

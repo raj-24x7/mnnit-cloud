@@ -147,7 +147,7 @@
                 executeQuery($stmt,$param);
 
 ?>
-
+<!--
 <br>
     <h2>Hadoop Cluster Requests : </h2><br>
       <table class="table">
@@ -209,4 +209,6 @@
     <div class="col-sm-1">
     </div>
 </div>
+
+-->
 

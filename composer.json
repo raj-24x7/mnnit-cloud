@@ -1,5 +1,6 @@
 {
     "require": {
-        "sircamp/xenapi": "^2.1"
+        "sircamp/xenapi": "^2.1",
+        "phpmailer/phpmailer": "^5.2"
     }
 }

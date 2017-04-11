@@ -23,7 +23,10 @@
 
         $db = getDBConnection();
         $stmt = prepareQuery($db,$query);
-        if(executeQuery($stmt,$param)){
+        if(!executeQuery($stmt,$param)){
+
+                    header("location:error.php?error=1104");
+        }else{
                     header("location:index.php");
         }
     }

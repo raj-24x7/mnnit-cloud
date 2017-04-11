@@ -31,10 +31,12 @@
 		//$db = getDBConnection();
 		$stmt = prepareQuery($db,$sql);
 		if(executeQuery($stmt,$param)){
-			header("location:pending_details.php");
 		} else {
 			header("location:error.php?error=1106");
 		}
+
+			header("location:pending_details.php");
+			die();
 	}
 
 

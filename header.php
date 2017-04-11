@@ -69,8 +69,14 @@
 			        	return;
 			        }
 			        for(var i=0;i<msg.length;i++){
-			 
-			        	$("#notification_dropdown").append('<li class="list-group-item notification" value="'+msg[i]["id"]+'">'+msg[i]["vmname"]+':'+msg[i]["status"]+'</li>');
+			 			
+			 			var st = 'You request for Virtual Machine <b>'+msg[i]["vmname"]+'</b>has been ';
+			 			if(msg[i]["status"]=='a'){
+			 				st = st+'<b>Accepted</b>';
+			 			} else {
+			 				st = st+' <b>Rejected</b>';
+			 			}
+			        	$("#notification_dropdown").append('<li class="list-group-item notification" value="'+msg[i]["id"]+'">'+st+'</li>');
 
 			        }
 			        console.log(str);

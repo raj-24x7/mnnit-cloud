@@ -140,7 +140,8 @@
                                 <label class="control-label col-sm-3" for="pwd">Storage:</label>
                                 <div class="col-sm-7">
                                     <select class="form-control" name="storage" id="storage">
-                                        <option value="10">10GB</option>
+                                        <option value="8">8GB</option>
+                                        <option value="16">16GB</option>
                                     </select>
                                 </div>
                             </div>
@@ -150,6 +151,7 @@
                                     <select class="form-control" name="ram" id="ram">
                                         <option value="256">256MB</option>
                                         <option value="512">512MB</option>
+                                        <option value="1024">1024MB</option>
                                     </select>
                                 </div>
                             </div>

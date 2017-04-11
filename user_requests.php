@@ -3,6 +3,7 @@
     
     require 'db_connect.php';
     require 'checksession.php';
+    require 'mail.php';
     ?>
 <script type="text/javascript">
     window.onload = function (){
@@ -10,23 +11,7 @@
     }
 </script>
 <?php 
-    function sendmail($to,$status){
     
-    $subject = "My subject";
-    if($status=='r'){
-    $txt = "you are rejeced";
-    }
-    else if ($status=='a'){
-        $txt="you are aproved";
-    }
-    $from = 'guptapankaj5872@gmail.com';
-    $header = 'From:'.$from;
-    
-    if (mail($to,$subject,$txt,$header))
-        echo "Mail Sent";
-    else
-        echo "Error";
-    }
     
     //user_request rejected
     if (isset($_POST['button']) && $_POST['button']=='reject') {
@@ -37,15 +22,23 @@
         $db = getDBConnection();
         $query='SELECT * FROM `new_user` WHERE username =:username ';
              $stmt = prepareQuery($db,$query);
-        if (executeQuery($stmt,$param)) {
-            header("location:user_requests.php");
+        if (!executeQuery($stmt,$param)) {
+            header("location:error.php?error=1104");
         }
         if($row=$stmt->fetch()){
-                $email=$row['email'];           
+                $email=$row['email'];
+                $uname=$row['name'];           
         }
        // echo "tgtiyytyt".$email;
         
-        sendmail($email,'r');
+        //sendmail($email,'r');
+        notifyByMail(
+                $email,
+                $uname,
+                "MNNIT Cloud : User Request Rejected",
+                "$uname, \n \t <br>&nbsp;&nbsp;&nbsp;&nbsp;Your Request for Account on MNNIT Data Cloud has been <b>Rejected</b>.<br>&nbsp;&nbsp;&nbsp;&nbsp; \n Contact System Administrator at Big Data Center. \n
+                <br>Admin.<br>Big Data Center<br>MNNIT Allahabad"
+            );
     
         $sql = 'DELETE FROM `new_user` WHERE username = :username';
         $stmt = prepareQuery($db,$sql);
@@ -76,8 +69,8 @@
                 ":username"=> $_POST['username']
                 );
             $stmt = prepareQuery($db,$query);
-        if (executeQuery($stmt,$param)) {
-           header("location:user_requests.php");
+        if (!executeQuery($stmt,$param)) {
+           header("location:error.php?error=1104");
     
         }
     
@@ -86,13 +79,18 @@
     
         if (executeQuery($stmt,$param)) {
             if($row=$stmt->fetch()){
-                $email=$row['email'];           
-    
-    
+                $email=$row['email'];          
+                $uname=$row['name']; 
         }
          //echo "".$email;
-        sendmail($email,'a');
-    
+       // sendmail($email,'a');
+        notifyByMail(
+                $email,
+                $uname,
+                "MNNIT Cloud : User Request Accepted",
+                "$uname, <br>\n &nbsp;&nbsp;&nbsp;&nbsp;\t Your Request for Account on MNNIT Data Cloud has been <b>Accepted</b>. <br>&nbsp;&nbsp;&nbsp;&nbsp;\n Please login to use the services. \n
+                <br>Admin.<br>Big Data Center<br>MNNIT Allahabad"
+            );
             header("location:user_requests.php");
         }
             
