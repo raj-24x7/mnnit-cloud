@@ -8,12 +8,15 @@
 	$db = getDBConnection();
 
 	if(isset($_GET['username'])){
-		$sql = "DELETE FROM `user` WHERE username=:username ";
+		$sql = "DELETE FROM `user` WHERE username=:username";
 		$param = array(
 				":username"=>$_GET['username']
 			);
 		$stmt = prepareQuery($db,$sql);
-		executeQuery($stmt,$param);
+		if(!executeQuery($stmt,$param)){
+			header("location:error.php?error=1108");
+			die();
+		}
 		header("location:user_details.php");
 	}
 
@@ -39,7 +42,7 @@
 	}
 
 	require "header.php";
-	$sql = "SELECT * FROM `user` ";
+	$sql = "SELECT * FROM `user` WHERE privilege!='A'";
 	$stmt = prepareQuery($db,$sql);
 	executeQuery($stmt,array());
 

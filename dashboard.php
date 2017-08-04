@@ -1,5 +1,6 @@
 <?php 
     session_start();
+    require_once 'checksession.php';
     include 'header.php'; 
 ?>
 <script type="text/javascript">

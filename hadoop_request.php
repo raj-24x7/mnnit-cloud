@@ -2,8 +2,9 @@
 
 <?php 
   session_start();
-    require_once 'header.php';
+  
     require_once 'checksession.php';
+    require_once 'header.php';
     require_once 'db_connect.php';
     ?>
 
@@ -117,22 +118,6 @@
                                 <label class="control-label col-sm-3" for="description">Description:</label>
                                 <div class="col-sm-7">
                                     <textarea class="form-control" name="description" id="description"></textarea>
-                                </div>
-                            </div>
-                            <div class="form-group" id="main_form">
-                                <label class="control-label col-sm-3" for="email">OS:</label>
-                                <div class="col-sm-7">
-                                    <select class="form-control" name="os" id="os" onChange="">
-                                        <?php
-                                            $db = getDBConnection();
-                                            $sql = "SELECT * FROM `template`";
-                                            $stmt = prepareQuery($db,$sql);
-                                            executeQuery($stmt,array());
-                                            while($row = $stmt->fetch()){
-                                                echo '<option value="'.$row['name'].'">'.$row['name'].'</option>';
-                                            }
-                                        ?>
-                                    </select>
                                 </div>
                             </div>
                             <div class="form-group">

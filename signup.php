@@ -15,11 +15,12 @@
                     ":name" => $_POST['name'],
                     ":email" => $_POST['email'],
                     ":contact" => $_POST['contact'],
-                    ":department" => $_POST['department']
+                    ":department" => $_POST['department'],
+                    ":programme" => $_POST['programme']
                     // ":status" => 'p'
                 );
 
-        $query = "INSERT INTO new_user (username,password,name,email,contact,department,status) VALUES (:username,:password,:name,:email,:contact,:department,'p')";
+        $query = "INSERT INTO new_user (username,password,name,email,contact,department,programme,status) VALUES (:username,:password,:name,:email,:contact,:department,:programme,'p')";
 
         $db = getDBConnection();
         $stmt = prepareQuery($db,$query);

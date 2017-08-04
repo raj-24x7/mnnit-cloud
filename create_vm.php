@@ -74,6 +74,7 @@
 		$VMparam = array(
 			"name"=>$_POST['VM_name'],
 			"memory"=>$_POST['ram'],
+			"storage"=>$_POST['storage'],
 			"ip"=>$ip,
 			"netmask"=>"255.255.252.0",
 			"gateway"=>"172.31.128.1",

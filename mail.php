@@ -13,15 +13,15 @@ function notifyByMail($to, $to_name, $subject, $msg) {
 	//Set this to true if SMTP host requires authentication to send email
 	$mail->SMTPAuth = true;                          
 	//Provide username and password     
-	$mail->Username = "241096raj@gmail.com";                 
-	$mail->Password = "LearnPYTHON@MNNIT";                           
+	$mail->Username = "";                 
+	$mail->Password = "";                           
 	//If SMTP requires TLS encryption then set it
 	$mail->SMTPSecure = "tls";                           
 	//Set TCP port to connect to 
 	$mail->Port = 587;                                   
 
-	$mail->From = "241096raj@gmail.com";
-	$mail->FromName = "Raj Kumar";
+	$mail->From = "";
+	$mail->FromName = "";
 
 	$mail->addAddress($to, $to_name);
 
@@ -33,11 +33,11 @@ function notifyByMail($to, $to_name, $subject, $msg) {
 
 	if(!$mail->send()) 
 	{
-	    echo "Mailer Error: " . $mail->ErrorInfo;
+	    //echo "Mailer Error: " . $mail->ErrorInfo;
 	} 
 	else 
 	{
-	    echo "Message has been sent successfully";
+	   // echo "Message has been sent successfully";
 	}
 
 }

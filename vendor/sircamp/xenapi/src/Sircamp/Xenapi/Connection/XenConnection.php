@@ -1,5 +1,6 @@
 <?php namespace Sircamp\Xenapi\Connection;
 
+
 use Respect\Validation\Validator as Validator;
 use GuzzleHttp\Client as Client;
 use Sircamp\Xenapi\Exception\XenConnectionException as  XenConnectionException;

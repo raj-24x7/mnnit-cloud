@@ -1,8 +1,9 @@
 <?php 
   session_start();
+  
+    require_once 'checksession.php' ;
     require_once 'db_connect.php';
     require_once 'header.php';
-    require_once 'checksession.php' ;
      
 
     if($_SESSION['privilege']!='A'){
@@ -11,7 +12,7 @@
     
     if( isset($_GET['hadoop_name']) && (!empty($_GET['hadoop_name'])) )
     {
-        $query='SELECT hadoop_name,number_slave,username,os,cpu,ram,storage,doe FROM hadoop WHERE hadoop_name = :hadoop_name';
+        $query='SELECT hadoop_name,number_slave,username,cpu,ram,storage,doe FROM hadoop WHERE hadoop_name = :hadoop_name';
         $param = array(
                 ":hadoop_name"=>$_GET['hadoop_name']
             );
@@ -23,7 +24,6 @@
               $hadoop_name = $row['hadoop_name'];
               $number_slave=$row['number_slave'];  
               $username = $row['username'];
-              $os = $row['os'];
               $cpu = $row['cpu'];
               $ram = $row['ram'];
               $storage = $row['storage'];
@@ -58,24 +58,26 @@
     }
 
      function validateForm(){
+        //var name = document.forms["request"]["hadoop_name"].value;
+        var date = document.forms["request"]["doe"].value;
         
-        var name = document.forms["request"]["hadoop_name"].value;
-        var date = document.forms["request"]["date"].value;
-        
-        var val = document.getElementById("res");
+        //var val = document.getElementById("res");
         //alert("wait:"+name+"res:"+val.innerHTML);
-        if(name=="" || val.innerHTML!="Valid"){
+        //checkVMNameValidity();
+        /*if(name=="" || val.innerHTML!="Valid"){
             alert("Hadoop name should be unique and should not contain special characters or spaces");
             return false;
-        }
+        }*/
+
+        alert("hello");
         if(!isValidDate(date)){
             alert("Date Format is : mm/dd/yyyy");
             return false;
         }
         var x = date.split("/");
         var newdate = ""+x[2]+"-"+x[0]+"-"+x[1]+"";
-        document.forms["request"]["date"].value = newdate;
-        //alert(""+newdate);
+        document.forms["request"]["doe"].value = newdate;
+        alert(""+newdate);
         return true;
     }
 
@@ -132,7 +134,7 @@
                             <div class="form-group">
                                 <label class="control-label col-sm-3">Username:</label>
                                 <div class="col-sm-7">
-                                    <input type="text" class="form-control" id="username" placeholder="yyyy-mm-dd" name="username" value=<?php echo '"'.$username.'"'; ?> readonly>
+                                    <input type="text" class="form-control" id="username" placeholder="Username" name="username" value=<?php echo '"'.$username.'"'; ?> readonly>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -154,29 +156,11 @@
                                     <input type="number" class="form-control" id="number_slave" name="number_slave" value=<?php echo '"'.$number_slave.'"'; ?> >
                                 </div>
                             </div>      
-                            <div class="form-group" id="main_form">
-                                <label class="control-label col-sm-3" for="os">OS:</label>
-                                <div class="col-sm-7">
-                                    <select class="form-control" name="os" id="os" >
-                                        <?php
-                                            $sql = "SELECT * FROM `template`";
-                                            $stmt = prepareQuery($db,$sql);
-                                            executeQuery($stmt,array());
-                                            while($row = $stmt->fetch()){
-                                                echo '<option value="'.$row['name'].'"';
-                                                if($os == $row['name']){
-                                                    echo ' selected="selected"';
-                                                }
-                                                echo '>'.$row['name'].'</option>';
-                                            }
-                                        ?>
-                                    </select>
-                                </div>
-                            </div>
+                            
                             <div class="form-group">
                                 <label class="control-label col-sm-3" for="pwd">CPU:</label>
                                 <div class="col-sm-7">
-                                    <select class="form-control" name="cpu" id="cpu" onChange="" value=<?php echo '"'.$cpu.'"'; ?> >
+                                    <select class="form-control" name="cpu" id="cpu" value=<?php echo '"'.$cpu.'"'; ?> >
                                         <option value="1">1</option>
                                     </select>
                                 </div>

@@ -5,33 +5,35 @@
     	require_once "db_connect.php";
     if(isset($_SESSION['username'])){
     header("location:dashboard.php");
+    die();
     }
     
     
     else{
     
-    if (!empty($_POST)) {
+        if (!empty($_POST)) {
+            
+            $username = $_POST['username'];
+            $password = md5($_POST['password']);
+            
+            $query = " SELECT username , privilege FROM user WHERE  username = :username  AND password = :password ";
+            $param = array(
+                ":username"=>$username,
+                ":password"=>$password
+                );
         
-        $username = $_POST['username'];
-        $password = md5($_POST['password']);
-        
-        $query = " SELECT username , privilege FROM user WHERE  username = :username  AND password = :password ";
-        $param = array(
-            ":username"=>$username,
-            ":password"=>$password
-            );
-    
-        $db = getDBConnection();
-        $stmt = prepareQuery($db,$query);
-        executeQuery($stmt,$param);
-        
-        if ($row = $stmt->fetch()) {
-            session_start();
-            $_SESSION['username']  = $row['username'];
-            $_SESSION['privilege'] = $row['privilege'];
-            header('location:index.php');
-        } else {
-            header('location:index.php');
+            $db = getDBConnection();
+            $stmt = prepareQuery($db,$query);
+            executeQuery($stmt,$param);
+            
+            if ($row = $stmt->fetch()) {
+                session_start();
+                $_SESSION['username']  = $row['username'];
+                $_SESSION['privilege'] = $row['privilege'];
+                header('location:index.php');
+            } else {
+                header('location:error.php?error=1501');
+            }
         }
     }
     
@@ -40,130 +42,6 @@
     ?>
 
 <!--Login Modal -->
-<div class="container">
-    <div class="modal fade" id="myModal" role="dialog" style="z-index: 10000">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Login</h4>
-                </div>
-                <div class="modal-body">
-                    <form class="form-horizontal-sm" role="form" action="index.php" method="POST" >
-                        <div class="form-group">                 
-                            <input type="text" class="form-control" id="username" placeholder="Username" name="username">
-                        </div>
-                        <div class="form-group">                  
-                            <input type="password" class="form-control" id="password" placeholder="password" name="password">
-                        </div>
-                        <div class="form-group modal-body" width="30%">
-                            <input type="submit" class="btn btn-info btn-sm pull-right form-horizontal-sm" value="Login">
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <?php		
-        }
-        ?>
-</div>
-
-<!--Signup Modal -->
-<div class="container">
-    <div class="modal fade" id="signupModal" role="dialog" style="z-index: 10000">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Sign Up</h4>
-                </div>
-                <div class="modal-body">
-                    <form class="form-horizontal-sm" role="form" action="signup.php" method="POST" name="signup" onsubmit="return validateForm();">
-                    	<div class="row"> 
-                    		<div class="col-sm-2">
-                    			<label style="margin: 5px -20px 0 0;" class="pull-right">Username:</label>
-                    		</div>
-                    		<div class="col-sm-7">
-		                        <div class="form-group" id="user">                 
-		                            <input type="text" class="form-control" id="signup_username" placeholder="Username" name="username" onchange="usernameValidity()">
-		                        </div>
-		                    </div>
-                            <div class="col-sm-2" id="result"></div>
-		                </div>
-                        <div class="row">
-                    		<div class="col-sm-2">
-                    			<label style="margin: 5px -20px 0 0;" class="pull-right">Password</label>
-                    		</div>
-                    		<div class="col-sm-10">
-		                        <div class="form-group">                  
-		                            <input type="password" class="form-control" id="signup_password" placeholder="password" name="password">
-		                        </div>
-		                    </div>
-		                </div>
-		                <div class="row">
-                    		<div class="col-sm-2">
-                    			<label style="margin: 5px -20px 0 0;" class="pull-right">Conform Password</label>
-                    		</div>
-                    		<div class="col-sm-10">
-		                        <div class="form-group">                  
-		                            <input type="password" class="form-control" id="signup_conform_password" placeholder="Conform Password" name="conform_password" onchange="matchPassword()">
-		                        </div>
-		                    </div>
-		                </div>
-                    	<div class="row">
-                    		<div class="col-sm-2">
-                    			<label style="margin: 5px -20px 0 0;" class="pull-right">Name:</label>
-                    		</div>
-                    		<div class="col-sm-10">
-                    			<div class="form-group">
-                    				<input type="text" class="form-control" id="name" placeholder="Name" name="name">
-                    			</div>
-                    		</div>
-                    	</div>
-                    	<div class="row">
-                    		<div class="col-sm-2">
-                    			<label style="margin: 5px -20px 0 0;" class="pull-right">E-mail:</label>
-                    		</div>
-                    		<div class="col-sm-10">
-		                    	<div class="form-group">
-		                    		<input type="email" class="form-control" id="email" placeholder="E-mail" name="email">
-		                    	</div>
-		                    </div>
-		                </div>
-                    	<div class="row">
-                    		<div class="col-sm-2">
-                    			<label style="margin: 5px -20px 0 0;" class="pull-right">Contact Number:</label>
-                    		</div>
-                    		<div class="col-sm-10">
-		                    	<div class="form-group">
-		                    		<input type="number"  class="form-control" id="contact" placeholder="Contact Number" name="contact">
-		                    	</div>
-		                    </div>
-		                </div>
-                    	<div class="row">
-                    		<div class="col-sm-2">
-                    			<label style="margin: 5px -20px 0 0;" class="pull-right">Department:</label>
-                    		</div>
-                    		<div class="col-sm-10">
-		                    	<div class="form-group">
-		                    		<select class="form-control" name="department">
-		                    			<option value="btech">B-Tech</option>
-		                    			<option value="mtech">M-Tech</option>
-		                    			<option value="phd">Phd</option>
-		                    		</select>
-		                    	</div>
-		                    </div>
-		                </div>
-                        <div class="form-group modal-body" width="30%">
-                            <input type="submit" class="btn btn-info btn-sm pull-right form-horizontal-sm" value="Register">
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 <!--Carousel-->
 <div id="myCarousel" class="carousel slide" data-ride="carousel" style="margin: 10px 0 0 0;">
@@ -270,74 +148,4 @@ required and allocate the amount to them.</li>
     </div>
 </section>
 
-
-<?php require 'footer.php' ?>
-
-<!-- username validity for signup -->
-<script type="text/javascript">
-
-    
-    function validateForm()
-    {
-        var a=document.forms["signup"]["signup_password"].value;
-        var b=document.forms["signup"]["name"].value;
-        var c=document.forms["signup"]["email"].value;
-        var d=document.forms["signup"]["contact"].value;
-        var e=document.forms["signup"]["signup_conform_password"].value;
-        var f=document.forms["signup"]["signup_username"].value;
-        var g=document.getElementById('result').innerHTML ;
-        
-            var n = g.localeCompare("Invalid");
-        //alert("trtkjtr"+g+n);
-           // return false;        
-        if(n==0){
-            alert("change username");
-            return false;
-        }
-
-        // if (a==null || a==""||b==null || b==""||c==null || c==""||d==null || d==""||e==null || e==""||f==null || f==""){
-        //      alert("Please Fill All Required Field");
-        //      return false;
-        //  }
-        if (a==null || a.localeCompare("")==0 ||b==null || b.localeCompare("")==0||c==null || c.localeCompare("")==0||d==null || d.localeCompare("")==0||e==null || e.localeCompare("")==0||f==null || f.localeCompare("")==0){
-             alert("Please Fill All Required Field");
-             return false;
-         }
-    }
-    
-
-
-    function matchPassword(){
-        var password=document.getElementById('signup_password').value;
-        var cpassword=document.getElementById('signup_conform_password').value;
-        if(password!=cpassword){
-            document.getElementById('signup_conform_password').value="";
-            alert("password doesnot match"+password+cpassword);
-        }
-
-
-    }
-
-    function usernameValidity(){
-       if(window.XMLHttpRequest){
-          xmlHttp = new XMLHttpRequest();
-       } else {
-          xmlHttp = new ActiveXObject('Microsoft.XMLHTTP');
-       }
-    
-       xmlHttp.onreadystatechange = function() {
-          if(xmlHttp.readyState==4 && xmlHttp.status==200){
-            if(xmlHttp.response=='Valid'){
-                document.getElementById('user').className="form-group has-success";
-            }else{
-                document.getElementById('user').className="form-group has-error";
-            }
-             document.getElementById('result').innerHTML = xmlHttp.response;
-          }
-       }
-       var username = document.getElementById('signup_username').value;
-       //alert('hello : '+username+'');
-       xmlHttp.open('GET','check_username_Validity.php'+'?username='+username,true);
-       xmlHttp.send();
-    }
-</script>
+<?php require 'footer.php';?>

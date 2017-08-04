@@ -13,7 +13,6 @@
                 	":hadoop_name" => $_POST['hadoop_name'],
                     ":number_slave" => $_POST['number_slave'],
                 	":ram" => $_POST['ram'],
-                	":os" => $_POST['os'],
                 	":cpu" => $_POST['cpu'],
                 	":storage" => $_POST['storage'],
                 	":doe" => $_POST['date'],
@@ -21,7 +20,7 @@
                 );
             
                 $db = getDBConnection();	
-                $sql="INSERT INTO `hadoop` (username,hadoop_name,number_slave,os,cpu,ram,storage,doe,status) VALUES (:username,:hadoop_name,:number_slave,:os,:cpu,:ram,:storage,:doe,'pending')";
+                $sql="INSERT INTO `hadoop` (username,hadoop_name,number_slave,cpu,ram,storage,doe,status) VALUES (:username,:hadoop_name,:number_slave,:cpu,:ram,:storage,:doe,'pending')";
                 $stmt = prepareQuery($db,$sql);
                 executeQuery($stmt,$param);
                 $sql = "INSERT INTO `name_description` (name,description) VALUES (:hadoop_name,:description)";

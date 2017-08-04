@@ -8,8 +8,16 @@
 1105:Cannot retrieve IPs.
 1106:Cannot Reject Request. Database Error.
 1107:IP table cannot be updated. Mannually update IP to allocated.
+1108:Cannot Delete user. User might have an existing entry in database.
 
 1201:Connection Error. Could not connect to Cloud.
 1202:VM does not exists on cloud.
 
 1301:IP not available for new machine.!!ABORT!!.
+
+1401:Not enough IP for Cluster
+1402:wrong
+
+1501:Wrong Credentials !
+
+<-- A new line at the end required -->

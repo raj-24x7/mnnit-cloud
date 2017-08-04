@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2500a61879ec38a76dff25bd0f5d801d",
-    "content-hash": "3c3378cc9b676d77e351af0d5c937a65",
+    "hash": "6206e7a03afa803ea60c561b35344356",
+    "content-hash": "c11ca210d9bf92ebfe8591ab870ebd4b",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
@@ -235,6 +235,42 @@
             ],
             "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
             "time": "2017-03-15 19:32:56"
+        },
+        {
+            "name": "phpxmlrpc/phpxmlrpc",
+            "version": "3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/gggeek/phpxmlrpc.git",
+                "reference": "9b4a6c23f9d77c7c1e487f97d66b739b3cacf1bf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/gggeek/phpxmlrpc/zipball/9b4a6c23f9d77c7c1e487f97d66b739b3cacf1bf",
+                "reference": "9b4a6c23f9d77c7c1e487f97d66b739b3cacf1bf",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "lib/xmlrpc.inc",
+                    "lib/xmlrpcs.inc"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "A php library for building xmlrpc clients and servers",
+            "homepage": "http://gggeek.github.io/phpxmlrpc/",
+            "keywords": [
+                "webservices",
+                "xmlrpc"
+            ],
+            "time": "2014-06-15 19:48:04"
         },
         {
             "name": "react/promise",

@@ -3,8 +3,9 @@
 	require_once 'checksession.php';
 	require_once 'db_connect.php';
 	//require_once 'xen.php';
-	//require_once 'ssh.php'; 
+	//require_once 'ssh.php';
 
+	
 	// If the Request is rejected. 
 	if($_POST['button']=='Reject'){
 		$sql = 'UPDATE hadoop SET status = "rejected" WHERE hadoop_name= :hadoop_name';
@@ -15,133 +16,122 @@
 		$stmt = prepareQuery($db,$sql);
 		if(executeQuery($stmt,$param)){
 			header("location:pending_details.php");
+			die();
 		}
 	}
 
 
 	//If the request is accepted.
-	if($_POST['button']=='Approve' ){
-			
+	if($_POST['button']=='Approve' ){	
 		$noofslaves=$_POST['number_slave'];
-
+		if(countAvailableIP() < $noofslaves+1){
+			header("location:error.php?error=1301");
+		}
 
 		$db = getDBConnection();
-			
-		// Selecting an unallocated IP from the provided set
-		$sql = 'SELECT ip FROM ip_pool WHERE status != "allocated"';
-		$stmt = prepareQuery($db,$sql);
+		$query = "SELECT `ip` FROM `ip_pool` WHERE `status`!='allocated'";
+		$stmt = prepareQuery($db, $query);
+		if(!executeQuery($stmt, array())){
+			header("location:error.php?error=1104");
+			die();
+		}
+		$ip = array();
+		for($i=0; $i<=$noofslaves; $i++){
+			$row=$stmt->fetch();
+			$ip[$i] = $row['ip'];
+		}
 
-		if(executeQuery($stmt,array())){
-			$cc=0;
-			while($row=$stmt->fetch()){
-				$cc++;
+		// creating the hadoop cluster
+		//Here
+		createHadoopCluster($_POST['hypervisor'], $_POST['hadoop_name'], $_POST['ram'], $noofslaves, $ip);	
+		// Updating the request
+		
+		$query = "UPDATE `hadoop` SET `status`='created'";
+		$stmt = prepareQuery($db, $query);
+		if(!executeQuery($stmt, array())){
+			header("location:error.php?error=1104");
+			die();
+		}
+
+		// PArameter of VMs
+		$param = array(
+				":VM_name" => $_POST['hadoop_name'],
+				":cpu" => $_POST['cpu'],
+				":ram" => $_POST['ram'],
+				":storage" => $_POST['storage'],
+				":hypervisor_name" => $_POST['hypervisor'],
+				":username" => $_POST['username'],
+				":doe" => $_POST['doe'],
+				":iscluster" => $_POST['hadoop_name']
+				);
+
+		////// Adding VMs ///////
+
+		// Master
+		$param[':ip'] = $ip[0];
+		$param[':VM_name'] = $_POST['hadoop_name']."Master";
+		// Insert New Created VM in the Table
+		$sql = 'INSERT INTO VMdetails (username,VM_name,cpu,ram,storage,hypervisor_name,ip,doe,iscluster) VALUES (:username,:VM_name,:cpu,:ram,:storage,:hypervisor_name,:ip,:doe,:iscluster)';
+		$stmt = prepareQuery($db,$sql);
+		if(!executeQuery($stmt,$param)){
+			header("location:error.php?error=1204");	//ERROR
+			die();
+		}
+
+		// SLaves
+		for($i=1; $i<=$noofslaves; $i++){
+			$param[':ip'] = $ip[$i];
+			$param[':VM_name'] = $_POST['hadoop_name']."Slave".$i;
+			// Insert New Created VM in the Table
+			$sql = 'INSERT INTO VMdetails (username,VM_name,cpu,ram,storage,hypervisor_name,ip,doe,iscluster) VALUES (:username,:VM_name,:cpu,:ram,:storage,:hypervisor_name,:ip,:doe,:iscluster)';
+			$stmt = prepareQuery($db,$sql);
+			if(!executeQuery($stmt,$param)){
+				header("location:error.php?error=1104");	//ERROR
+				die();
 			}
 		}
-	if($cc>$noofslaves){
-		$db=null;
-		$db = getDBConnection();
-			
-		// Selecting an unallocated IP from the provided set
-		$sql = 'SELECT ip FROM ip_pool WHERE status != "allocated"';
-		$stmt = prepareQuery($db,$sql);
 
-		if(executeQuery($stmt,array())){
-		for($i=0;$i<$noofslaves+1;$i++){	
-			$row = $stmt->fetch();
-		
-
-			
-
-			$ip[$i] = $row['ip'];
-			if(empty($ip)){
-				die("No IP is Available.");
-			}	
-		}
-
-		}
-	}
-	else{
-			echo "sorry";
-			header("location:hadoop_approval.php");
-	}
-
-for($i=0;$i<1;$i++){
-	if($i==0){
-		$param = array(
-				":hadoop_name" => $_POST['hadoop_name'],
-				// ":os" => $_POST['os'],
-				// ":cpu" => $_POST['cpu'],
-				// ":ram" => $_POST['ram'],
-				// ":storage" => $_POST['storage'],
-				// ":hypervisor" => $_POST['hypervisor'],
-				// ":username" => $_POST['username'],
-				// ":doe" => $_POST['doe'],
-				":vm_name"=>$_POST['hadoop_name']."master",
-				":ip" => $ip[$i],
-				":role"=>"m"
-				);
-	}
-	else
-		{
-
+		// Setting IP's to allocated
+		$query = "UPDATE `ip_pool` SET `status`='allocated' WHERE `ip`=:ip";
+		$stmt = prepareQuery($db, $query);
+		for($i=0; $i<=$noofslaves; $i++){
 			$param = array(
-				":hadoop_name" => $_POST['hadoop_name'],
-				// ":os" => $_POST['os'],
-				// ":cpu" => $_POST['cpu'],
-				// ":ram" => $_POST['ram'],
-				// ":storage" => $_POST['storage'],
-				// ":hypervisor" => $_POST['hypervisor'],
-				// ":username" => $_POST['username'],
-				// ":doe" => $_POST['doe'],
-				":vm_name"=>$_POST['hadoop_name']."slave".$i,
-				":ip" => $ip[$i],
-				":role"=>"s"
+					":ip" => $ip[$i]
 				);
-			
+			if(!executeQuery($stmt, $param)){
+				header("location:error.php?error=1104");
+				die();
+			}
 		}
 
-		echo $param[":vm_name"];
-
-	
-		// Code to create Virtual Machines
-		
-		// $VMparam = array(
-		// 	"name"=>$_POST['VM_name'],
-		// 	"memory"=>$_POST['ram'],
-		// 	"ip"=>$ip,
-		// 	"netmask"=>"255.255.252.0",
-		// 	"gateway"=>"172.31.100.1",
-		// 	"hostname"=>"localhost"
-		// );
-
-	// 	// createVM($_POST['hypervisor'],$VMparam,$_POST['os']);
+		header("location:hadoop_details.php");
+		die();
+	}else{
+		header("location:dashboard.php");
+		die();
+	}	
 
 
-		 // Insert New Created VM in the Table
-		$db=null;
+
+	/*
+	 * UTILITY FUNCTIONS
+	 * 
+	 */
+
+	/**
+	 * Returns the number of Free IPs in the IP pool
+	 */
+	function countAvailableIP(){
 		$db = getDBConnection();
-		$sql = 'INSERT INTO cluster (hadoop_name,VM_name,ip,role) VALUES (:hadoop_name,:vm_name,:ip,:role)';
-		$stmt = prepareQuery($db,$sql);
-		if(executeQuery($stmt,$param)){
-			die("" . $sql . "<br>" . $db->error);
+		$query = "SELECT COUNT(*) as count FROM `ip_pool` WHERE `status`!='allocated'";
+		$stmt = prepareQuery($db, $query);
+		if(!executeQuery($stmt, array())){
+			header("location:error.php?error=1105");
+			die("cannot count * ");
 		}
-		// //set IP to allocated in database
+		$row = $stmt->fetch();
+		return $row['count']; 
+	} 
 
-		// $sql = 'UPDATE ip_pool SET status = "allocated" WHERE ip =:ip';
-		// $stmt = prepareQuery($db,$sql);
-		// executeQuery($stmt,$param);
-
-	// 	// Delete requested entry 
-	// 	$sql = 'DELETE FROM VMrequest WHERE VM_name = :vm_name';
-	// 	$stmt = prepareQuery($db,$sql);
-	// 	if(executeQuery($stmt,$param)){
-	// 		die("" . $sql . "<br>" . $db->error);
-	// 	}
-
-
-	// }
-	}
-		//	header("location:VMdetails.php");
-	}
 
 ?>

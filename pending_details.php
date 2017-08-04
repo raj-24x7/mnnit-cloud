@@ -1,9 +1,10 @@
 <?php 
 
   session_start();
+  
+  require 'checksession.php';
   require 'header.php';
   require 'db_connect.php';
-  require 'checksession.php';
 ?>
 
 <script type="text/javascript">
@@ -147,7 +148,7 @@
                 executeQuery($stmt,$param);
 
 ?>
-<!--
+
 <br>
     <h2>Hadoop Cluster Requests : </h2><br>
       <table class="table">
@@ -158,7 +159,6 @@
                   echo '<th>Username</th>';
                 }?>
                 <th>Number of Slaves</th>
-                <th>Operating System</th>
                 <th>CPU#</th>
                 <th>Storage</th>
                 <th>RAM</th>
@@ -181,7 +181,6 @@
                       echo 
                       ' 
                       <td>'.$row['number_slave'].'</td>
-                      <td>'.$row['os'].'</td>
                       <td>'.$row['cpu'].'</td>
                       <td>'.$row['storage'].'</td>
                       <td>'.$row['ram'].'</td>
@@ -210,5 +209,5 @@
     </div>
 </div>
 
--->
+
 

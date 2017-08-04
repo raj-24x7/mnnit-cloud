@@ -34,7 +34,12 @@
 		} else if ($action == 'start') {
 			$res = $vm->start();
 		} else if ($action == 'cleanReboot') {
-			$res = $vm->cleanReboot();
+			try{
+				$res = $vm->cleanReboot();
+			}catch(Exception $e){
+				echo $vm->getPowerState()->getValue();
+				die(); 
+			}
 		} else if($action == 'destroy') {  
 			
 		} else {

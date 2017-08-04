@@ -3,8 +3,11 @@
 	<ul class="nav menu">
 		<li id="dashboard"><a href="index.php"><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"></use></svg>Dashboard</a></li>
 		<li id ="VMrequest"><a href="VMrequest.php"><svg class="glyph stroked desktop computer and mobile"><use xlink:href="#stroked-desktop-computer-and-mobile"/></svg>VM Request</a></li>
-		<!--<li id="hadoop_request"><a href="hadoop_request.php"><svg class="glyph stroked laptop computer and mobile"><use xlink:href="#stroked-laptop-computer-and-mobile"/></svg>Hadoop Request</a></li>-->
+		<li id="hadoop_request"><a href="hadoop_request.php"><svg class="glyph stroked laptop computer and mobile"><use xlink:href="#stroked-laptop-computer-and-mobile"/></svg>Hadoop Request</a></li>
 		<li id ="VMdetails"><a href="VMdetails.php"><svg class="glyph stroked line-graph"><use xlink:href="#stroked-line-graph"></use></svg> VM Details</a></li>
+
+		<li id ="hadoop_details"><a href="hadoop_details.php"><svg class="glyph stroked line-graph"><use xlink:href="#stroked-line-graph"></use></svg> Hadoop Cluster Details</a></li>
+
 		<li id="pending_details"><a href="pending_details.php"><svg class="glyph stroked table"><use xlink:href="#stroked-table"></use></svg>Pending Requests</a></li>
 		<?php
 			if($_SESSION['privilege']=='A'){

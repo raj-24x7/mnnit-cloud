@@ -5,6 +5,12 @@
  * the page only for testing purposes
  * please do not modify
  */
+
+
+
+	include 'ssh.php';
+
+	//resizeVDIFromUUID('xenserver-trial','433b7123-631b-f2bb-dccf-8fd3cb60013a', '8');
 		//require_once "ssh.php";
 	//	require_once "xen.php";
 	//	require_once "db_connect.php";
@@ -100,6 +106,9 @@
 		echo "<br>Guest VCPU Param: ";print_r($host->getGuestVCPUParam()->getValue());
 		echo "<br>Sche Policy: ";print_r($host->getSchedPolicy()->getValue());
 */
+
+		include_once "db_connect.php";
+		
 ?>		
 
 

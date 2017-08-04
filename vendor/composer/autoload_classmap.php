@@ -14,4 +14,9 @@ return array(
     'SMTP' => $vendorDir . '/phpmailer/phpmailer/class.smtp.php',
     'ntlm_sasl_client_class' => $vendorDir . '/phpmailer/phpmailer/extras/ntlm_sasl_client.php',
     'phpmailerException' => $vendorDir . '/phpmailer/phpmailer/class.phpmailer.php',
+    'xmlrpc_client' => $vendorDir . '/phpxmlrpc/phpxmlrpc/lib/xmlrpc.inc',
+    'xmlrpc_server' => $vendorDir . '/phpxmlrpc/phpxmlrpc/lib/xmlrpcs.inc',
+    'xmlrpcmsg' => $vendorDir . '/phpxmlrpc/phpxmlrpc/lib/xmlrpc.inc',
+    'xmlrpcresp' => $vendorDir . '/phpxmlrpc/phpxmlrpc/lib/xmlrpc.inc',
+    'xmlrpcval' => $vendorDir . '/phpxmlrpc/phpxmlrpc/lib/xmlrpc.inc',
 );

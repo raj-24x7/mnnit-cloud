@@ -2,7 +2,7 @@
 
 <?php
   session_start();
-  set_time_limit(5);
+  //set_time_limit(5);
     require_once 'db_connect.php';
     require_once 'checksession.php';
     require_once 'xen.php';
@@ -91,7 +91,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                        <div>
+                    </div>
                 </div>
                 
             </div>

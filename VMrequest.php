@@ -2,8 +2,9 @@
 
 <?php 
   session_start();
-    require_once 'header.php';
+  
     require_once 'checksession.php';
+    require_once 'header.php';
     require_once 'db_connect.php';
     ?>
 
@@ -140,8 +141,8 @@
                                 <label class="control-label col-sm-3" for="pwd">Storage:</label>
                                 <div class="col-sm-7">
                                     <select class="form-control" name="storage" id="storage">
-                                        <option value="8">8GB</option>
-                                        <option value="16">16GB</option>
+                                        <option value="10">10GB</option>
+                                        <option value="15">15GB</option>
                                     </select>
                                 </div>
                             </div>
@@ -171,10 +172,19 @@
                     
                 </div>
             </div>
+
+      
             <div class="col-sm-2">
             </div>
         </div>
+    <h4 style="color:red;">Note</h4>
+      <ul class="list-group list">
+        <li class="list-group-item list-group-item-info">
+          <span class="glyphicon glyphicon-pencil"></span> Please fill the VM description carefully. Admin will grant VM depending on it.</li>
+          <span class="glyphicon glyphicon-pencil"></span> </li>
+      </ul>
     </div>
+
     <div class="col-sm-1"></div>
 </div>
 <br><br><br>
