@@ -2,6 +2,7 @@
 	session_start();
 	require_once 'checksession.php';
 	require_once 'db_connect.php';
+	require_once 'ssh.php';
 	//require_once 'xen.php';
 	//require_once 'ssh.php';
 
