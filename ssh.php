@@ -26,6 +26,7 @@ function createVMFromSSH($dom0name,$VMparam,$template){
 		fclose($stream);
 
 		resizeVDIFromSSH($connection, $uuid, $VMparam['storage']);
+		setVDIname($dom0name, $uuid, $VMparam['name']);
 
 		$stream = ssh2_exec($connection,'xe vm-start name-label='.$VMparam['name']);
 		
@@ -77,6 +78,30 @@ function resizeVDIFromSSH($connection, $uuid, $newSize){
 		}*/
 
 		$stream = ssh2_exec($connection, 'xe vdi-resize uuid='.$vdiUUID.' disk-size='.$newSize.'GiB');
+		fclose($stream);
+}
+
+
+function setVDIname($dom0name, $VMuuid, $newName){
+
+		$sonnection = getHypervisorConnection($dom0name);
+
+		$stream = ssh2_exec($connection, 'xe vm-disk-list uuid='.$VMuuid);
+		stream_set_blocking($stream, true);
+		$data = stream_get_contents($stream);
+		fclose($stream);
+		//echo $data;
+		$pos = strpos($data, "VDI:\nuuid ( RO)");
+		$pos=$pos+10;
+		$newpos1=strpos($data, ":",$pos);
+		$newpos1=$newpos1+2;
+		$newpos2=strpos($data,"\n",$newpos1);
+		$vdiUUID =  substr($data, $newpos1, $newpos2-$newpos1);
+		/*if($vdiUUID === '26581f32-f0c6-4c06-aae7-a582b6b9cbbf'){
+			echo 'YES';
+		}*/
+
+		$stream = ssh2_exec($connection, 'xe vdi-param-set uuid='.$vdiUUID.' name-label='.$newName);
 		fclose($stream);
 }
 
