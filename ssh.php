@@ -4,25 +4,7 @@
 require_once 'db_connect.php';
 
 function createVMFromSSH($dom0name,$VMparam,$template){
-		$db = getDBConnection();
-		$sql = 'SELECT * FROM `hypervisor` WHERE name=:name';
-		$param = array(":name"=>$dom0name);
-		$stmt = prepareQuery($db,$sql);
-		if(!executeQuery($stmt,$param)){
-			echo '<br>Cannot Execute : '.$stmt->queryString;
-		}
-		
-		$row = $stmt->fetch();
-		$ip=$row['ip'];
-		$username=$row['userid'];
-		$password=$row['password'];
-
-		if(!($connection = ssh2_connect($ip, 22))){
-			header("location:error.php?error=1201");
-		}
-		if(!(ssh2_auth_password($connection, $username, $password))){
-			header("location:error.php?error=1201");
-		}
+		$connection = getHypervisorConnection($dom0name);
 
 		$stream = ssh2_exec($connection, 'xe vm-install template="'.$template.'" new-name-label='.$VMparam['name']);
 		stream_set_blocking($stream, true);
@@ -56,25 +38,7 @@ function createVMFromSSH($dom0name,$VMparam,$template){
 
 function resizeVDIFromUUID($dom0name, $uuid, $newSize){
 
-		$db = getDBConnection();
-		$sql = 'SELECT * FROM `hypervisor` WHERE name=:name';
-		$param = array(":name"=>$dom0name);
-		$stmt = prepareQuery($db,$sql);
-		if(!executeQuery($stmt,$param)){
-			echo '<br>Cannot Execute : '.$stmt->queryString;
-		}
-		
-		$row = $stmt->fetch();
-		$ip=$row['ip'];
-		$username=$row['userid'];
-		$password=$row['password'];
-
-		if(!($connection = ssh2_connect($ip, 22))){
-			header("location:error.php?error=1201");
-		}
-		if(!(ssh2_auth_password($connection, $username, $password))){
-			header("location:error.php?error=1201");
-		}
+		$sonnection = getHypervisorConnection($dom0name);
 
 		$stream = ssh2_exec($connection, 'xe vm-disk-list uuid='.$uuid);
 		stream_set_blocking($stream, true);
@@ -118,6 +82,25 @@ function resizeVDIFromSSH($connection, $uuid, $newSize){
 
 function createHadoopCluster($dom0name ,$name, $ram, $noofslaves, $ips){
 
+		$connection = getHypervisorConnection($dom0name);
+
+		$command = "bash ~/utilityScripts/createCluster.sh ".$name." ".$ram." ".$noofslaves;
+
+		for($i=0; $i<=$noofslaves; $i++){
+			$command = $ccommand." ".$ips[$i];
+		}
+
+		$command = $command." "."&";
+
+		$stream = ssh2_exec($connection, $command);
+		
+		fclose($stream);
+
+		return true;
+}
+
+function getHypervisorConnection($dom0name){
+		
 		$db = getDBConnection();
 		$sql = 'SELECT * FROM `hypervisor` WHERE name=:name';
 		$param = array(":name"=>$dom0name);
@@ -137,20 +120,6 @@ function createHadoopCluster($dom0name ,$name, $ram, $noofslaves, $ips){
 		if(!(ssh2_auth_password($connection, $username, $password))){
 			header("location:error.php?error=1201");
 		}
-
-		$command = "bash ~/utilityScripts/createCluster.sh ".$name." ".$ram." ".$noofslaves;
-
-		for($i=0; $i<=$noofslaves; $i++){
-			$command = $ccommand." ".$ips[$i];
-		}
-
-		$command = $command." "."&";
-
-		$stream = ssh2_exec($connection, $command);
-		
-		fclose($stream);
-
-		return true;
 }
 
 ?>

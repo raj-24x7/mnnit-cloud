@@ -16,11 +16,11 @@
                 if($_SESSION['privilege']=='A') {// A for admin
                     
                     $query = " 
-                        SELECT * FROM `VMdetails` WHERE 1 AND `iscluster`=''"; 
+                        SELECT * FROM `VMdetails` WHERE 1 AND `iscluster` IS NULL"; 
                     $param = array();
                 } else {
                     $query = " 
-                        SELECT * FROM `VMdetails` WHERE `username`=:username AND `iscluster`=''"; 
+                        SELECT * FROM `VMdetails` WHERE `username`=:username AND `iscluster` IS NULL"; 
                     $param = array(":username"=>$_SESSION['username']);
                 }
 

@@ -52,7 +52,7 @@
     else if (isset($_POST['button']) && $_POST['button']=='approve') {
         $param = array (
                 ":username" => $_POST['username'],
-                ":password" => md5($_POST['password'])
+                ":password" => $_POST['password']
             );
     
         $db = getDBConnection();
@@ -113,7 +113,7 @@
     <div class="col-sm-3">
         <?php include 'navigation_bar.php'; ?>
     </div>
-    <div class="col-sm-8">
+    <div class="col-sm-9">
         <br>
         <table class="table">
             <thead class="thead-inverse">
@@ -121,6 +121,7 @@
                     <th>Name</th>
                     <th>Username</th>
                     <th>Department</th>
+                    <th> Programme </th>
                     <th>E-mail</th>
                     <th>Contact</th>
                     <th>Status</th>
@@ -133,9 +134,10 @@
                         echo'<td>'.$row['name'].'</td>
                         <td>'.$row['username'].'</td>
                         <td>'.$row['department'].'</td>
+                        <td>'.$row['programme'].'</td>
                         <td>'.$row['email'].'</td>
                         <td>'.$row['contact'].'</td>
-                        <td>';
+                        <td colspan="2">';
                         
                         if($row['status']=='p'){
                         echo   ' <form action="user_requests.php" method="POST">
@@ -157,8 +159,6 @@
                     ?>
             </tbody>
         </table>
-    </div>
-    <div class="col-sm-1">
     </div>
 </div>
 <!-- <form action="user_requests.php" method="POST" name="approval">

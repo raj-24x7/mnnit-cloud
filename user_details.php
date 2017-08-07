@@ -20,26 +20,7 @@
 		header("location:user_details.php");
 	}
 
-	if(isset($_POST['username'])){
-		$sql = "SELECT * FROM `user` WHERE username=:username";
-		$param = array(
-				":username"=>$_POST['username']
-			);
-		$stmt = prepareQuery($db,$sql);
-		executeQuery($stmt,$param);
-		if($row = $stmt->fetch()){
-			header("location:user_details.php?err=1");
-		} else {
-			$param = array(
-				":username"=>$_POST['username'],
-				":password"=>md5($_POST['password']),
-				":privilege"=>$_POST['privilege']
-			);
-			$sql = "INSERT INTO `user` VALUES (:username,:password,:privilege)";
-			$stmt = prepareQuery($db,$sql);
-			executeQuery($stmt,$param);
-		}
-	}
+	
 
 	require "header.php";
 	$sql = "SELECT * FROM `user` WHERE privilege!='A'";
@@ -63,18 +44,7 @@
 		<?php include "navigation_bar.php";?>
 	</div>
 	<div class="col-sm-8">
-		<?php 
-			if(isset($_GET['err'])){
-		?>
-
-		<div class="panel panel-danger">
-			<div class="panel-heading">	
-				User Already Registered
-			</div>
-		</div>
-		<?php		
-			}
-		?>
+	
 		<br>
 		<h4>Users : </h4>
 		<div class="panel panel-default">

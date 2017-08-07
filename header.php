@@ -329,39 +329,38 @@
         var b=document.forms["signup"]["name"].value;
         var c=document.forms["signup"]["email"].value;
         var d=document.forms["signup"]["contact"].value;
-        var e=document.forms["signup"]["signup_conform_password"].value;
+        var e=document.forms["signup"]["signup_confirm_password"].value;
         var f=document.forms["signup"]["signup_username"].value;
         var g=document.getElementById('result').innerHTML ;
         
-            var n = g.localeCompare("Invalid");
-        //alert("trtkjtr"+g+n);
-           // return false;        
+        var n = g.localeCompare("Invalid");
         if(n==0){
-            alert("change username");
+            alert("Username Already in Use.");
             return false;
         }
 
-        // if (a==null || a==""||b==null || b==""||c==null || c==""||d==null || d==""||e==null || e==""||f==null || f==""){
-        //      alert("Please Fill All Required Field");
-        //      return false;
-        //  }
+        if(!matchPassword()){
+        	return false;
+        }
+
         if (a==null || a.localeCompare("")==0 ||b==null || b.localeCompare("")==0||c==null || c.localeCompare("")==0||d==null || d.localeCompare("")==0||e==null || e.localeCompare("")==0||f==null || f.localeCompare("")==0){
              alert("Please Fill All Required Field");
              return false;
-         }
+        }
     }
     
 
 
     function matchPassword(){
         var password=document.getElementById('signup_password').value;
-        var cpassword=document.getElementById('signup_conform_password').value;
+        var cpassword=document.getElementById('signup_confirm_password').value;
         if(password!=cpassword){
-            document.getElementById('signup_conform_password').value="";
-            alert("password doesnot match"+password+cpassword);
+            document.getElementById('signup_confirm_password').value="";
+            alert("password doesnot match");
+        	return false;
         }
 
-
+        return true;
     }
 
     function usernameValidity(){

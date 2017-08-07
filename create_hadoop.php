@@ -44,7 +44,8 @@
 
 		// creating the hadoop cluster
 		//Here
-		createHadoopCluster($_POST['hypervisor'], $_POST['hadoop_name'], $_POST['ram'], $noofslaves, $ip);	
+		createHadoopCluster($_POST['hypervisor'], $_POST['hadoop_name'], $_POST['ram'], $noofslaves, $ip);
+			
 		// Updating the request
 		
 		$query = "UPDATE `hadoop` SET `status`='created'";
