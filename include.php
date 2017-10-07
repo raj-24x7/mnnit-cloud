@@ -1,10 +1,8 @@
-<script src="js/jquery-1.11.1.min.js"></script>
+
 	<script src="js/bootstrap.min.js"></script>
-	<script src="js/chart.min.js"></script>
-	<script src="js/chart-data.js"></script>
-	<script src="js/easypiechart.js"></script>
-	<script src="js/easypiechart-data.js"></script>
 	<script src="js/bootstrap-datepicker.js"></script>
+	<!-- Include Modernizr in the head, before any other Javascript -->
+	<script src="includes/modernizr-2.6.2.min.js"></script>
 	<script>
 		$('#calendar').datepicker({
 		});

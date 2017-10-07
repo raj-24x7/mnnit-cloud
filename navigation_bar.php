@@ -14,6 +14,8 @@
 		?>
 		<li id ="xen_host_view"><a href="xen_host_view.php"><svg class="glyph stroked clipboard with paper"><use xlink:href="#stroked-clipboard-with-paper"/></svg>Host Details (dom0)</a></li>
 
+		<li id="storage"><a href="storage.php"><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"></use></svg>storage</a></li>
+
 		<li id="management"><a href="#manage-collapse" data-toggle="collapse"><svg class="glyph stroked gear"><use xlink:href="#stroked-gear"/></svg>Management&nbsp;&nbsp;<svg id="arrow" class="glyph stroked chevron down"><use xlink:href="#stroked-chevron-down"/></svg></a>
 			<ul class=" nav menu collapse" id="manage-collapse">
 				<li id ="user_details"><a href="user_details.php">&nbsp;&nbsp;&nbsp;&nbsp;<svg class="glyph stroked male user "><use xlink:href="#stroked-male-user"/></svg>Manage Users</a></li>

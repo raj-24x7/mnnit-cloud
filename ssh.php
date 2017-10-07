@@ -84,7 +84,7 @@ function resizeVDIFromSSH($connection, $uuid, $newSize){
 
 function setVDIname($dom0name, $VMuuid, $newName){
 
-		$sonnection = getHypervisorConnection($dom0name);
+		$connection = getHypervisorConnection($dom0name);
 
 		$stream = ssh2_exec($connection, 'xe vm-disk-list uuid='.$VMuuid);
 		stream_set_blocking($stream, true);
@@ -119,6 +119,9 @@ function createHadoopCluster($dom0name ,$name, $ram, $noofslaves, $ips){
 
 		$stream = ssh2_exec($connection, $command);
 		
+		stream_set_blocking($stream, true);
+		$uuid = stream_get_contents($stream);
+		
 		fclose($stream);
 
 		return true;
@@ -145,6 +148,7 @@ function getHypervisorConnection($dom0name){
 		if(!(ssh2_auth_password($connection, $username, $password))){
 			header("location:error.php?error=1201");
 		}
+		return $connection;
 }
 
 ?>

@@ -11,6 +11,8 @@
 
 	<!-- Mobile viewport optimized -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	
+	<script src="js/jquery-1.11.0.min.js"></script>
 	<link rel="shortcut icon" href="images/logo-MNNIT.png" type="image/png">
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/datepicker3.css" rel="stylesheet">
@@ -19,18 +21,9 @@
 	<!-- <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
 	<!-- <link href="includes/css/bootstrap-glyphicons.css" rel="stylesheet">
  -->
-	<!-- Custom CSS -->	
-	<link rel="stylesheet" href="includes/css/styles.css">
+	
 
-	<!-- Include Modernizr in the head, before any other Javascript -->
-	<script src="includes/js/modernizr-2.6.2.min.js"></script>
-
-	<script>window.jQuery || document.write('<script src="includes/js/jquery-1.8.2.min.js"><\/script>')</script>
-	<!-- Bootstrap JS -->
-	<!-- Custom JS -->
-	<script src="includes/js/script.js"></script>
-
-
+	
 	<!--Icons-->
 	<script src="js/lumino.glyphs.js"></script>
 	<?php   require 'include.php';?>

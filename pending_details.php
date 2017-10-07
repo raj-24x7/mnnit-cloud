@@ -5,6 +5,17 @@
   require 'checksession.php';
   require 'header.php';
   require 'db_connect.php';
+
+  function getMemoryString($data){
+    $size = array("Bytes", "KiB", "MiB", "GiB", "TiB");
+    $div = 1;
+    $i = 0;
+    while($data/$div >= 1024){
+      $div = $div*1024;
+      $i = $i + 1;
+    }
+    return round((float)$data/$div, 3)." ".$size[$i];
+  }
 ?>
 
 <script type="text/javascript">
@@ -202,8 +213,76 @@
 
           </tbody>   
       </table>
+<?php
+  $db=null;
+  $db=getDBConnection();
+    if($_SESSION['privilege']=='A') {// A for admin
+                    
+                    $query = " 
+                        SELECT * FROM `storage_request` WHERE `status`='pending'"; 
+                    $param = array();
+                } else {
+                    $query = " 
+                        SELECT * FROM `storage_request` WHERE `username`=:username AND `status`='pending'"; 
+                    $param = array(":username"=>$_SESSION['username']);
+                }
 
-    </div>
+                $stmt = prepareQuery($db,$query);
+                executeQuery($stmt,$param);
+
+?>
+
+
+      <h2>Storage Requests : </h2><br>
+      <table class="table">
+          <thead class="thead-inverse">
+            <tr>
+                <?php if($_SESSION['privilege']=='A'){
+                  echo '<th>Username</th>';
+                }?>
+                <th>Alloted Space</th>
+                <th>New Requirement</th>
+                <th>Description</th>
+                <th>Status</th>
+            </tr>
+          </thead>
+      
+          <tbody>
+              
+              <?php   
+                while($row=$stmt->fetch()){
+                    echo '
+                    <tr>';
+                      if($_SESSION['privilege']=='A'){
+                        echo '<td>'.$row['username'].'</td>';
+                      }
+                      echo '
+                      <td>'.getMemoryString($row['alloted_space']).'</td>
+                      <td>'.getMemoryString($row['new_demand']).'</td>
+                      <td>'.$row['description'].'</td>';
+
+                    if($row['status']!='rejected'){
+                        if($_SESSION['privilege']=='A'){
+                          echo '<th>'.'<a href="create_storage_repo.php?username">approve/reject</a>'.'</th>';
+                        } else {
+                          echo '<th>Pending...</th>';
+                        }
+                    } else {
+                      echo '<th>Rejected <a href="#"><span class="glyphicon glyphicon-remove"></span></a></th>';
+                    }
+                    
+                      echo '</tr>';         
+            }
+            ?>
+
+          </tbody>   
+      </table>
+
+      </div>
+
+
+
+
 
     <div class="col-sm-1">
     </div>

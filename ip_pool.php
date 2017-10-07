@@ -15,7 +15,7 @@
 			}
 
 	}
-	$query1="SELECT * FROM ip_pool";
+	$query1="SELECT p.ip,p.status,v.VM_name,v.username FROM ip_pool p, VMdetails v WHERE p.ip = v.ip";
 	$stmt=$db->prepare($query1);
 	$stmt->execute();
 
@@ -83,6 +83,8 @@
 				<tr>
 					<th>Ip</th>
 					<th>Status</th>
+					<th>User</th>
+					<th>VM_name</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -90,15 +92,23 @@
 				<?php
 				while($row=$stmt->fetch()){
 					echo '<tr><td>'.$row['ip'].'</td>';
-					if($row['status']!='allocated'){
-						echo '<td> free </td>';
-					}
-					else{
-						echo '<td>  alloted  </td>';
-					}
+					
+					echo '<td>  alloted  </td>';
+					echo '<td>'.$row['username'].'</td>';
+					echo '<td>'.$row['VM_name'].'</td>';
+				
 					echo '</tr>';
 				}
+				$query1="SELECT p.ip,p.status FROM ip_pool p WHERE p.ip NOT IN (SELECT ip FROM VMdetails)";
+				$stmt=$db->prepare($query1);
+				$stmt->execute();
 				
+
+				while($row=$stmt->fetch()){
+					echo '<tr><td>'.$row['ip'].'</td>';
+					echo '<td> free </td>';
+					echo '</tr>';
+				}
 				?>
 			</tbody>
 		</table>

@@ -8,7 +8,7 @@
 
 
 
-	include 'ssh.php';
+	//include 'ssh.php';
 
 	//resizeVDIFromUUID('xenserver-trial','433b7123-631b-f2bb-dccf-8fd3cb60013a', '8');
 		//require_once "ssh.php";
@@ -107,7 +107,43 @@
 		echo "<br>Sche Policy: ";print_r($host->getSchedPolicy()->getValue());
 */
 
-		include_once "db_connect.php";
+		/// Testing File listing tools
+		/*$dir = "js";
+		echo file_exists($dir);
+
+		foreach( scandir($dir) as $f){
+			echo $f.'<br>';
+		}*/
+
+		include "ssh.php";
+
+
+function createHadoop($dom0name ,$name, $ram, $noofslaves, $ips){
+
+		$connection = getHypervisorConnection($dom0name);
+
+		$command = "bash ~/utilityScripts/createCluster.sh ".$name." ".$ram." ".$noofslaves;
+
+		for($i=0; $i<=$noofslaves; $i++){
+			$command = $command." ".$ips[$i];
+		}
+
+		$command = $command." "."&";
+
+		echo $command;
+		$stream = ssh2_exec($connection, $command);
+		
+		stream_set_blocking($stream, true);
+		$uuid = stream_get_contents($stream);
+		echo $uuid."<br>";
+
+		fclose($stream);
+
+		return true;
+}
+
+createHadoop("xenserver-trial", "test", "256MiB", "1", array(0=>"172.31.131.220", 1=>"172.31.131.221"));
+
 		
 ?>		
 
