@@ -67,6 +67,25 @@
                     }
                 }
 
+                // Delete Storage Entry
+                if(isset($_GET['username']) 
+                  && !empty($_GET['username']) ){
+                    $sql = 'DELETE FROM `storage_request` WHERE `username`=:username';
+                    $param = array(
+                        ":username"=>$_GET['username']
+                      );
+                    $stmt = prepareQuery($db,$sql);
+                    if(!executeQuery($stmt,$param)){
+                      die("Cannot Delete Entry for hadoop");
+                    }
+
+                    $sql = 'DELETE FROM `name_description` WHERE `name`=:hadoop_name';
+                    $stmt = prepareQuery($db,$sql);
+                    if(!executeQuery($stmt,$param)){
+                      die("Cannot Delete Entry for hadoop");
+                    }
+                }
+
 
                 if($_SESSION['privilege']=='A') {// A for admin
                     
@@ -263,12 +282,12 @@
 
                     if($row['status']!='rejected'){
                         if($_SESSION['privilege']=='A'){
-                          echo '<th>'.'<a href="create_storage_repo.php?username">approve/reject</a>'.'</th>';
+                          echo '<th>'.'<a href="create_storage_repo.php?username="'.$row['username'].'>approve/reject</a>'.'</th>';
                         } else {
                           echo '<th>Pending...</th>';
                         }
                     } else {
-                      echo '<th>Rejected <a href="#"><span class="glyphicon glyphicon-remove"></span></a></th>';
+                      echo '<th>Rejected <a href="pending_details.php?storage='.$row['username'].'><span class="glyphicon glyphicon-remove"></span></a></th>';
                     }
                     
                       echo '</tr>';         

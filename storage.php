@@ -129,6 +129,17 @@
 <br>
     <h2>Extend Storage</h2><br>
     <form action="VMrequest.php" method="GET" name="extend_storage">
+
+    <div class="form-group">
+      
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-sm-3" for="description">Description:</label>
+        <div class="col-sm-7">
+            <textarea class="form-control" name="description" id="description"></textarea>
+        </div>
+    </div>
       <table class="table">
           <thead class="thead-inverse">
             <tr>

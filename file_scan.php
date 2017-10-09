@@ -1,6 +1,8 @@
 <?php
 
-$dir = "first";
+$username = $_SESSION['username'];
+	
+$dir = $username;
 
 // Run the recursive function 
 
