@@ -8,13 +8,20 @@
 
 		<li id ="hadoop_details"><a href="hadoop_details.php"><svg class="glyph stroked line-graph"><use xlink:href="#stroked-line-graph"></use></svg> Hadoop Cluster Details</a></li>
 
+
+		<li id="storage"><a href="storage.php"><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"></use></svg>storage</a></li>
+
 		<li id="pending_details"><a href="pending_details.php"><svg class="glyph stroked table"><use xlink:href="#stroked-table"></use></svg>Pending Requests</a></li>
 		<?php
 			if($_SESSION['privilege']=='A'){
 		?>
 		<li id ="xen_host_view"><a href="xen_host_view.php"><svg class="glyph stroked clipboard with paper"><use xlink:href="#stroked-clipboard-with-paper"/></svg>Host Details (dom0)</a></li>
 
-		<li id="storage"><a href="storage.php"><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"></use></svg>storage</a></li>
+
+		<li id="storage_server"><a href="storage_server.php"><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"></use></svg>Storage Servers</a></li>
+
+
+		<li id="user_storage"><a href="user_storage.php"><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"></use></svg>User Storage</a></li>
 
 		<li id="management"><a href="#manage-collapse" data-toggle="collapse"><svg class="glyph stroked gear"><use xlink:href="#stroked-gear"/></svg>Management&nbsp;&nbsp;<svg id="arrow" class="glyph stroked chevron down"><use xlink:href="#stroked-chevron-down"/></svg></a>
 			<ul class=" nav menu collapse" id="manage-collapse">
@@ -29,6 +36,6 @@
 		?>
 		<li role="presentation" class="divider"></li>
 	</ul>
-</div><br><br>
-	<div class="attribution">Developed by : <a href="#">Big Data Centre MNNIT</a><br/><a href="#" style="color: #333;">Students</a></div>
+</div><br><br><!-- 
+	<div class="attribution">Developed by : <a href="#">Big Data Centre MNNIT</a><br/><a href="#" style="color: #333;">Students</a></div> -->
 </div><!--/.sidebar-->

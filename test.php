@@ -11,23 +11,24 @@
 	//include 'ssh.php';
 
 	//resizeVDIFromUUID('xenserver-trial','433b7123-631b-f2bb-dccf-8fd3cb60013a', '8');
-		//require_once "ssh.php";
-	//	require_once "xen.php";
-	//	require_once "db_connect.php";
-	//	$xen = makeXenconnection("xenserver-trial");
-	//	$host = $xen->getHostByNameLabel("xenserver-trial");
-	//$vm = $xen->getVMByNameLabel("radhe");//Ubuntu 14.04 Template
+		require_once "ssh.php";
+		require_once "xen.php";
+		require_once "db_connect.php";
+		$xen = makeXenconnection("xenserver-trial");
+		$host = $xen->getHostByNameLabel("xenserver-trial");
+	$vm = $xen->getVMByNameLabel("centos7");//Ubuntu 14.04 Template
 		
 
-		/*$x = $vm->setNameLabel("Ubuntu14.04");
-		echo $x->getValue().'<br>';
-		echo $x->getStatus().'<br>';
-		echo $vm->getIsATemplate()->getValue();*/
+//		$x = $vm->setNameLabel("Ubuntu14.04");
+//		echo $x->getValue().'<br>';
+//		echo $x->getStatus().'<br>';
+		echo $vm->getIsATemplate()->getValue();
 		
-//		$val = true;
-//		$vm->setIsATemplate($val);
+		$val = true;
+		$vm->setIsATemplate($val);
+		//$vm->start();
 
-
+/*
 
 		// $vm = $xen->getVMByNameLabel("pankaj");
 		// $res = $vm->hardReboot();
@@ -115,9 +116,9 @@
 			echo $f.'<br>';
 		}*/
 
-		include "ssh.php";
+//		include "ssh.php";
 
-
+/*
 function createHadoop($dom0name ,$name, $ram, $noofslaves, $ips){
 
 		$connection = getHypervisorConnection($dom0name);
@@ -143,7 +144,7 @@ function createHadoop($dom0name ,$name, $ram, $noofslaves, $ips){
 }
 
 createHadoop("xenserver-trial", "test", "256MiB", "1", array(0=>"172.31.131.220", 1=>"172.31.131.221"));
-
+*/
 		
 ?>		
 

@@ -7,7 +7,7 @@
   require 'db_connect.php';
 
   function getMemoryString($data){
-    $size = array("Bytes", "KiB", "MiB", "GiB", "TiB");
+    $size = array("KiB", "MiB", "GiB", "TiB");
     $div = 1;
     $i = 0;
     while($data/$div >= 1024){
@@ -282,7 +282,7 @@
 
                     if($row['status']!='rejected'){
                         if($_SESSION['privilege']=='A'){
-                          echo '<th>'.'<a href="create_storage_repo.php?username="'.$row['username'].'>approve/reject</a>'.'</th>';
+                          echo '<th>'.'<a href="storage_approval.php?username='.$row['username'].'">approve/reject</a>'.'</th>';
                         } else {
                           echo '<th>Pending...</th>';
                         }
@@ -291,7 +291,7 @@
                     }
                     
                       echo '</tr>';         
-            }
+              }
             ?>
 
           </tbody>   

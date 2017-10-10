@@ -20,4 +20,6 @@
 
 1501:Wrong Credentials !
 
+1601:Request Not Properly Made .
+
 <-- A new line at the end required -->

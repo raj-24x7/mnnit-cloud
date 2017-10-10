@@ -174,9 +174,7 @@
                             <div class="form-group">
                                 <label class="control-label col-sm-3" for="pwd">CPU:</label>
                                 <div class="col-sm-7">
-                                    <select class="form-control" name="cpu" id="cpu" onChange="" value=<?php echo '"'.$cpu.'"'; ?> >
-                                        <option value="1">1</option>
-                                    </select>
+                                    <input class="form-control" type="integer" name="cpu" id="cpu" />
                                 </div>
                             </div>
                             <div class="form-group">
@@ -185,6 +183,7 @@
                                     <select class="form-control" name="storage" id="storage" value=<?php echo '"'.$storage.'"'; ?> >
                                         <option value="10">10GB</option>
                                         <option value="15">15GB</option>
+                                        <option value="50">50GB</option>
                                     </select>
                                 </div>
                             </div>

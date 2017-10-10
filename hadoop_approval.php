@@ -222,3 +222,6 @@
 </div>
 <div class="col-sm-1"></div>
 <br>
+
+
+<?php require_once('footer.php');?>
