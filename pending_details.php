@@ -68,22 +68,17 @@
                 }
 
                 // Delete Storage Entry
-                if(isset($_GET['username']) 
-                  && !empty($_GET['username']) ){
+                if(isset($_GET['storage']) 
+                  && !empty($_GET['storage']) ){
                     $sql = 'DELETE FROM `storage_request` WHERE `username`=:username';
                     $param = array(
-                        ":username"=>$_GET['username']
+                        ":username"=>$_GET['storage']
                       );
                     $stmt = prepareQuery($db,$sql);
                     if(!executeQuery($stmt,$param)){
-                      die("Cannot Delete Entry for hadoop");
+                      die("Cannot Delete Entry for Storage");
                     }
 
-                    $sql = 'DELETE FROM `name_description` WHERE `name`=:hadoop_name';
-                    $stmt = prepareQuery($db,$sql);
-                    if(!executeQuery($stmt,$param)){
-                      die("Cannot Delete Entry for hadoop");
-                    }
                 }
 
 
@@ -238,11 +233,11 @@
     if($_SESSION['privilege']=='A') {// A for admin
                     
                     $query = " 
-                        SELECT * FROM `storage_request` WHERE `status`='pending'"; 
+                        SELECT * FROM `storage_request` WHERE 1"; 
                     $param = array();
                 } else {
                     $query = " 
-                        SELECT * FROM `storage_request` WHERE `username`=:username AND `status`='pending'"; 
+                        SELECT * FROM `storage_request` WHERE `username`=:username"; 
                     $param = array(":username"=>$_SESSION['username']);
                 }
 
@@ -280,14 +275,14 @@
                       <td>'.getMemoryString($row['new_demand']).'</td>
                       <td>'.$row['description'].'</td>';
 
-                    if($row['status']!='rejected'){
+                    if($row['status']!='Rejected'){
                         if($_SESSION['privilege']=='A'){
-                          echo '<th>'.'<a href="storage_approval.php?username='.$row['username'].'">approve/reject</a>'.'</th>';
+                          echo '<th>'.'<a href="storage_approval.php?username='.$row['username'].'">approve/reject</a>'.'<a href="pending_details.php?storage='.$row['username'].'" data-toggle="tooltip" title="Cancel Request" ><span class="glyphicon glyphicon-remove"></span></a>'.'</th>';
                         } else {
                           echo '<th>Pending...</th>';
                         }
                     } else {
-                      echo '<th>Rejected <a href="pending_details.php?storage='.$row['username'].'><span class="glyphicon glyphicon-remove"></span></a></th>';
+                      echo '<th>Rejected <a href="pending_details.php?storage='.$row['username'].'"><span class="glyphicon glyphicon-remove"></span></a></th>';
                     }
                     
                       echo '</tr>';         

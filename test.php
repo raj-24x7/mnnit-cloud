@@ -8,25 +8,25 @@
 
 
 
-	//include 'ssh.php';
+	//include 'ssh.php'/*/*/*/*/*;
 
 	//resizeVDIFromUUID('xenserver-trial','433b7123-631b-f2bb-dccf-8fd3cb60013a', '8');
-		require_once "ssh.php";
+/*		require_once "ssh.php";
 		require_once "xen.php";
 		require_once "db_connect.php";
 		$xen = makeXenconnection("xenserver-trial");
 		$host = $xen->getHostByNameLabel("xenserver-trial");
 	$vm = $xen->getVMByNameLabel("centos7");//Ubuntu 14.04 Template
-		
+*/		
 
 //		$x = $vm->setNameLabel("Ubuntu14.04");
 //		echo $x->getValue().'<br>';
 //		echo $x->getStatus().'<br>';
-		echo $vm->getIsATemplate()->getValue();
+//		echo $vm->getIsATemplate()->getValue();
 		
-		$val = true;
-		$vm->setIsATemplate($val);
-		//$vm->start();
+//		$val = true;
+//		$vm->setIsATemplate($val);
+		//$vm->start();*/*/*/*/*/
 
 /*
 
@@ -145,7 +145,55 @@ function createHadoop($dom0name ,$name, $ram, $noofslaves, $ips){
 
 createHadoop("xenserver-trial", "test", "256MiB", "1", array(0=>"172.31.131.220", 1=>"172.31.131.221"));
 */
+
+/*require_once('db_connect.php');
+function createNewLinuxUser($username, $storage_server, $password){
+		$db = getDBConnection();
+		$sql = 'SELECT * FROM `storage_servers` WHERE `server_name`=:name';
+		$param = array(":name"=>$storage_server);
+		$stmt = prepareQuery($db,$sql);
+		if(!executeQuery($stmt,$param)){
+			echo '<br>Cannot Execute : '.$stmt->queryString;
+		}
 		
+		$row = $stmt->fetch();
+		$ip=$row['ip'];
+		$sr_username=$row['login_name'];
+		$sr_password=$row['login_password'];
+		$connection = null;
+		if(!($connection = ssh2_connect($ip, 22))){
+			header("location:error.php?error=1201");
+			die();
+		}
+		if(!(ssh2_auth_password($connection, $sr_username, $sr_password))){
+			header("location:error.php?error=1201");
+			die();
+		}
+
+		$command = "openssl passwd -crypt ".$password;
+		$stream = ssh2_exec($connection, $command);
+		stream_set_blocking($stream, true);
+		echo $encrypted_password = stream_get_contents($stream);
+		fclose($stream);
+
+		$command = "useradd ".$username." -p ".$encrypted_password;
+		$stream = ssh2_exec($connection, $command);
+
+		$errorStream = ssh2_fetch_stream($stream, SSH2_STREAM_STDERR);
+		stream_set_blocking($errorStream, true);
+		stream_set_blocking($stream, true);
+/*
+		echo "Output: " . stream_get_contents($stream);
+		echo "Error: " . stream_get_contents($errorStream);
+		*/
+/*		fclose($stream);
+}
+
+*/
+
+//include("ssh.php");
+
+//print_r(getUsedSpace("admin","storage-server-1"));		
 ?>		
 
 

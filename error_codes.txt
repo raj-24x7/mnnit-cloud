@@ -20,6 +20,8 @@
 
 1501:Wrong Credentials !
 
-1601:Request Not Properly Made .
+1601: Form Request Not Properly Made .
+
+1701:Not Enough Space
 
 <-- A new line at the end required -->

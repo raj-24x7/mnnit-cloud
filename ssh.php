@@ -109,7 +109,7 @@ function createHadoopCluster($dom0name ,$name, $ram, $noofslaves, $ips){
 
 		$connection = getHypervisorConnection($dom0name);
 
-		$command = "bash ~/utilityScripts/createCluster.sh ".$name." ".$ram." ".$noofslaves;
+		$command = "nohup bash ~/utilityScripts/createCluster.sh ".$name." ".$ram." ".$noofslaves;
 
 		for($i=0; $i<=$noofslaves; $i++){
 			$command = $ccommand." ".$ips[$i];
@@ -119,8 +119,8 @@ function createHadoopCluster($dom0name ,$name, $ram, $noofslaves, $ips){
 
 		$stream = ssh2_exec($connection, $command);
 		
-		stream_set_blocking($stream, true);
-		$uuid = stream_get_contents($stream);
+		//stream_set_blocking($stream, true);
+		//$uuid = stream_get_contents($stream);
 		
 		fclose($stream);
 
@@ -150,5 +150,127 @@ function getHypervisorConnection($dom0name){
 		}
 		return $connection;
 }
+
+function setQuota($storage_server, $username, $new_limit){
+		$db = getDBConnection();
+		$sql = 'SELECT * FROM `storage_servers` WHERE `server_name`=:name';
+		$param = array(":name"=>$storage_server);
+		$stmt = prepareQuery($db,$sql);
+		if(!executeQuery($stmt,$param)){
+			echo '<br>Cannot Execute : '.$stmt->queryString;
+		}
+		
+		$row = $stmt->fetch();
+		$ip=$row['ip'];
+		$sr_username=$row['login_name'];
+		$password=$row['login_password'];
+		$connection = null;
+		if(!($connection = ssh2_connect($ip, 22))){
+			header("location:error.php?error=1201");
+			die();
+		}
+		if(!(ssh2_auth_password($connection, $sr_username, $password))){
+			header("location:error.php?error=1201");
+			die();
+		}
+
+		$command = "setquota -u ".$username." 0 ".$new_limit." 0 0 /home";
+
+		$stream = ssh2_exec($connection, $command);
+		stream_set_blocking($stream, true);
+		$encrypted_password = stream_get_contents($stream);
+
+		fclose($stream);
+}
+
+function createNewLinuxUser($username, $storage_server, $password){
+		$db = getDBConnection();
+		$sql = 'SELECT * FROM `storage_servers` WHERE `server_name`=:name';
+		$param = array(":name"=>$storage_server);
+		$stmt = prepareQuery($db,$sql);
+		if(!executeQuery($stmt,$param)){
+			echo '<br>Cannot Execute : '.$stmt->queryString;
+		}
+		
+		$row = $stmt->fetch();
+		$ip=$row['ip'];
+		$sr_username=$row['login_name'];
+		$sr_password=$row['login_password'];
+		$connection = null;
+		if(!($connection = ssh2_connect($ip, 22))){
+			header("location:error.php?error=1201");
+			die();
+		}
+		if(!(ssh2_auth_password($connection, $sr_username, $sr_password))){
+			header("location:error.php?error=1201");
+			die();
+		}
+
+		$command = "openssl passwd -crypt ".$password;
+		$stream = ssh2_exec($connection, $command);
+		stream_set_blocking($stream, true);
+		$encrypted_password = stream_get_contents($stream);
+		fclose($stream);
+
+		$command = "useradd ".$username." -p ".$encrypted_password;
+		$stream = ssh2_exec($connection, $command);
+
+		$errorStream = ssh2_fetch_stream($stream, SSH2_STREAM_STDERR);
+		stream_set_blocking($errorStream, true);
+		stream_set_blocking($stream, true);
+/*
+		echo "Output: " . stream_get_contents($stream);
+		echo "Error: " . stream_get_contents($errorStream);
+		*/
+		fclose($stream);
+}
+
+
+function getUsedSpace($username, $storage_server){
+	$db = getDBConnection();
+		$sql = 'SELECT * FROM `storage_servers` WHERE `server_name`=:name';
+		$param = array(":name"=>$storage_server);
+		$stmt = prepareQuery($db,$sql);
+		if(!executeQuery($stmt,$param)){
+			echo '<br>Cannot Execute : '.$stmt->queryString;
+		}
+		
+		$row = $stmt->fetch();
+		$ip=$row['ip'];
+		$sr_username=$row['login_name'];
+		$sr_password=$row['login_password'];
+		$connection = null;
+		if(!($connection = ssh2_connect($ip, 22))){
+			header("location:error.php?error=1201");
+			die();
+		}
+		if(!(ssh2_auth_password($connection, $sr_username, $sr_password))){
+			header("location:error.php?error=1201");
+			die();
+		}
+
+		$command = "repquota -avug | awk '{ if($1==\"".$username."\") print $3 }'";
+		$stream = ssh2_exec($connection, $command);
+		stream_set_blocking($stream, true);
+		$recv_data = stream_get_contents($stream);
+		fclose($stream);
+		$data = explode("\n", $recv_data);
+
+		$db = getDBConnection();
+		$query = "UPDATE `user_storage` SET `used_space`=:used_space WHERE `username`=:username AND `storage_server`=:storage_server";
+		$param = array(
+			":used_space"=>$data[0],
+			":username"=>$username,
+			":storage_server"=>$storage_server
+			);
+		$stmt_new = prepareQuery($db, $query);
+
+		if(!executeQuery($stmt_new,$param)){
+			echo '<br>Cannot Execute : '.$stmt->queryString;
+		}
+		
+		return $data[0];
+}
+
 
 ?>

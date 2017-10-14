@@ -5,6 +5,9 @@
   require 'checksession.php';
   require 'header.php';
   require 'db_connect.php';
+  require 'ssh.php';
+
+
 /*
   if(!isset($_GET['username']) && empty($_GET['username'])){
     header("location:error.php?error=");
@@ -45,17 +48,17 @@
                   $used=0;
                 
                     $query = " 
-                        SELECT alloted_space,used_space FROM `user_storage` WHERE `username`=:username"; 
+                        SELECT * FROM `user_storage` WHERE `username`=:username"; 
                     $param = array(":username"=>$_SESSION['username']);
                 
 
                 $stmt = prepareQuery($db,$query);
                 executeQuery($stmt,$param);
-                if($row=$stmt->fetch()){
+                /*if($row=$stmt->fetch()){
                     $total=$row["alloted_space"];
                     $used=$row["used_space"];
                     $free = $total - $used;
-                }                
+                }*/                
                 
 
                ?>
@@ -68,29 +71,41 @@
     <div class="col-sm-8">
     <br>
 
-    <?php if($row){ ?>
+    <?php while($row = $stmt->fetch()){
+              $total=$row["alloted_space"];
+              $used=$row["used_space"];
+              $free = $total - $used;
+              getUsedSpace($_SESSION['username'], $row['storage_server']);
+    ?>
 
-<h2>Allocated Storage </h2> <br>
+<h2> <?php echo $row['storage_server']; ?> </h2> <br>
   
 <table class="table">
-<thead class="thead-inverse">
+<tr>
+<th>
+Connect using : <?php echo 'ssh '.$_SESSION['username'].'@'.getStorageServerIP($row['storage_server']);?>
+</th>
+<th>
+Default Password : <?php echo $row['login_password'];?>
+</th>
+</tr>
+
 <tr>
   <th>
   <div class="col-sm-2" float="left">
-  
-    <h4> Total </h4> 
+    Total Storage
     <th>
       <?php  echo getMemoryString($total); ?>
     </th>
 
   </div>
   </th>
-  </tr>
+</tr>
+
 <tr>
   <th>
-  <div class="col-sm-2" float="left">
-  
-    <h4> Free </h4> 
+  <div class="col-sm-2" float="left">  
+    Free Storage
     <th>
       <?php   echo getMemoryString($free); ?>
     </th>
@@ -101,8 +116,7 @@
 <tr>
   <th>
   <div class="col-sm-2" float="left">
-  
-    <h4> Used </h4> 
+    Used Storage
     <th>
       <?php  echo getMemoryString($used); ?>
     </th>
@@ -112,9 +126,7 @@
 </tr>
 </table>
 
-      <?php } else {
-          echo '<h3>Your Storage Account Does not exists.</h3>';
-        } ?>
+      <?php } ?>
 
 <br>
     <h2>Extend Storage</h2><br>
@@ -125,13 +137,13 @@
                              <div class="form-group">
                                 <label class="control-label col-sm-3"> New Demand :</label>
                                 <div class="col-sm-4">
-                                    <input type="number" class="form-control" id="new_demand" name="new_demand" min="" max="" value="0" >
+                                    <input type="number" class="form-control" id="new_demand" name="new_demand" min="0" max="1024 " value="0" >
                                 </div>
                                 <div class="col-sm-3">
                                   <select class="form-control" name="unit" name="unit">
-                                    <option value="MiB">KiB</option>
+                                    <option value="KiB">KiB</option>
                                     <option value="MiB">MiB</option>
-                                    <option value="MiB">GiB</option>
+                                    <option value="GiB">GiB</option>
                                   </select>
                                 </div>
                             </div>
@@ -155,4 +167,16 @@
 
     
 </div>
+
+<?php 
+  function getStorageServerIP($storage_server){
+    $db = getDBConnection();
+    $query = "SELECT ip FROM `storage_servers` WHERE `server_name`=:server_name";
+    $stmt = prepareQuery($db, $query);
+    executeQuery($stmt, array(":server_name"=>$storage_server));
+    $row = $stmt->fetch();
+    return $row['ip'];
+  }
+?>
+
 

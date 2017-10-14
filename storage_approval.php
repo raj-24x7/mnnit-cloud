@@ -72,7 +72,7 @@
                         <h3 class="panel-title">Requirements given by user : <?php /*echo $username;*/ ?> </h3>
                     </div>
                     
-                        <form name="request" class="form-horizontal" role="form"  action="create_vm.php" method='POST' onsubmit="return validateForm();">
+                        <form name="request" class="form-horizontal" role="form"  action="create_storage.php" method='POST'>
                             
                             <div class="form-group">
                                 <label class="control-label col-sm-3">Username:</label>
@@ -150,4 +150,6 @@
 </div>
 <div class="col-sm-1"></div>
 <br>
+
+<?php include('footer.php');?>
 

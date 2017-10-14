@@ -52,7 +52,7 @@
 ?>
 
 
-      <h2> User Storage : </h2><br>
+      <h2> Storage Servers : </h2><br>
       <table class="table">
           <thead class="thead-inverse">
             <tr>
