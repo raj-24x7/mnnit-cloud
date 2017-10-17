@@ -72,10 +72,9 @@
     <br>
 
     <?php while($row = $stmt->fetch()){
+              $used = getUsedSpace($_SESSION['username'], $row['storage_server']);
               $total=$row["alloted_space"];
-              $used=$row["used_space"];
               $free = $total - $used;
-              getUsedSpace($_SESSION['username'], $row['storage_server']);
     ?>
 
 <h2> <?php echo $row['storage_server']; ?> </h2> <br>

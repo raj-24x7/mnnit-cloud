@@ -6,7 +6,9 @@ $(function(){
 
 	// Start by fetching the file data from scan.php with an AJAX request
 
-	$.get('file_scan.php', function(data) {
+	var passwd = prompt("Enter Your Password : ");
+
+	$.get('file_scan.php?password='+passwd, function(data) {
 
 		var response = [data],
 			currentPath = '',

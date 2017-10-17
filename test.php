@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 	/**
  *  @author Raj Kumar
  * the page only for testing purposes
@@ -193,7 +193,67 @@ function createNewLinuxUser($username, $storage_server, $password){
 
 //include("ssh.php");
 
-//print_r(getUsedSpace("admin","storage-server-1"));		
+//print_r(getUsedSpace("admin","storage-server-1"));
+include('db_connect.php');
+include('ssh.php');
+
+if(!isset($_SESSION['username'])){
+	$_SESSION['username'] = "user";
+}
+
+function doesUserExists($username, $storage_server){
+
+		$db = getDBConnection();
+        $query = " 
+            SELECT alloted_space,used_space FROM `user_storage` WHERE `username`=:username AND `storage_server`=:storage_server"; 
+        $param = array(":username"=>$username, ":storage_server"=>$storage_server);
+    
+
+   		$stmt = prepareQuery($db,$query);
+    	executeQuery($stmt,$param);
+    	if($row=$stmt->fetch()){
+    		return true;
+    	}else{
+    		return false;
+    	}
+	}		
+
+	function mountUserFiles($password){
+		$username = $_SESSION['username'];
+		$cmd = "echo \"".$password."\\n\" | sshfs -o allow_other -o password_stdin ".$username."@".getStorageServer($username).": files/".$username." 2>&1";
+		echo $cmd;
+		$ret = "";
+		exec($cmd,$ret);
+		//echo " :: ";
+		return $ret;
+			
+	}
+
+		function getStorageServerIP($storage_server){
+	    $db = getDBConnection();
+	    $query = "SELECT ip FROM `storage_servers` WHERE `server_name`=:server_name";
+	    $stmt = prepareQuery($db, $query);
+	    executeQuery($stmt, array(":server_name"=>$storage_server));
+	    $row = $stmt->fetch();
+	    return $row['ip'];
+  	}
+
+	function getStorageServer($username){
+		$db = getDBConnection();
+                
+        $query = " 
+                  SELECT * FROM `user_storage` WHERE `username`=:username"; 
+        $param = array(":username"=>$_SESSION['username']);
+        $stmt = prepareQuery($db,$query);
+        executeQuery($stmt,$param);
+        $row=$stmt->fetch();
+        return getStorageServerIP($row['storage_server']);
+	}
+
+
+	print_r(mountUserFiles("brilliant"));
+
+	//echo doesUserExists("user","storage-server-1");
 ?>		
 
 

@@ -63,9 +63,13 @@
 				if(!executeQuery($stmt, $param)){
 					header("location:error.php?error=1104");
 				}
+				
+			shell_exec("mkdir files/".$username);
+			shell_exec("chmod a+rwx files/".$username);
 
 			}
 
+			
 			$space_new = getUsedSpaceOn($storage_server) + $new_demand - $alloted_space;
 			setUsedSpaceOn($storage_server, $space_new); 
 

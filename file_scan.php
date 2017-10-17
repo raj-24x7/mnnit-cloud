@@ -1,6 +1,44 @@
 <?php
+session_start();
+
+include('db_connect.php');
+include('checksession.php');
+include('ssh.php');
 
 $username = $_SESSION['username'];
+$password = $_GET['password'];
+
+	function getStorageServerIP($storage_server){
+	    $db = getDBConnection();
+	    $query = "SELECT ip FROM `storage_servers` WHERE `server_name`=:server_name";
+	    $stmt = prepareQuery($db, $query);
+	    executeQuery($stmt, array(":server_name"=>$storage_server));
+	    $row = $stmt->fetch();
+	    return $row['ip'];
+  	}
+
+	function getStorageServer($username){
+		$db = getDBConnection();
+                
+        $query = " 
+                  SELECT * FROM `user_storage` WHERE `username`=:username"; 
+        $param = array(":username"=>$_SESSION['username']);
+        $stmt = prepareQuery($db,$query);
+        executeQuery($stmt,$param);
+        $row=$stmt->fetch();
+        return getStorageServerIP($row['storage_server']);
+	}
+
+	function mountUserFiles($password){
+		$username = $_SESSION['username'];
+		$cmd = "echo \"".$password."\" | sshfs -o allow_other -o password_stdin ".$username."@".getStorageServer($username).": files/".$username." ";
+		
+		$ret = "";
+		exec($cmd,$ret);
+		//echo " :: ";
+		return $ret;		
+	}
+	mountUserFiles($password);
 	
 $dir = $username;
 

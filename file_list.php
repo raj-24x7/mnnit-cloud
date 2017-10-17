@@ -8,13 +8,24 @@
 
 ?>
 
+<script type="text/javascript">
+	 window.onload = function (){
+    	document.getElementById("file_list").className = "active";
+  	 }
+</script>
+
+<?php
+
+
+?>
+
 <!-- Include our stylesheet -->
 <link href="css/file-explorer.css" rel="stylesheet"/>
 <div class="row">
 	<div class="col-sm-1"></div>
 	<div class="col-sm-1">
 			<?php
-				if(isset($_SESSION['privilege']) && $_SESSION['privilege']=='A'){
+				if(isset($_SESSION['privilege']) ){
 					require_once 'navigation_bar.php';
 				}
 			?>
