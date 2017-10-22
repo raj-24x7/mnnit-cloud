@@ -30,7 +30,7 @@
 				}
 			?>
 	</div>
-	<div class="col-sm-7">
+	<div class="col-sm-6">
 		<div class="container">	
 			<div class="filemanager">
 

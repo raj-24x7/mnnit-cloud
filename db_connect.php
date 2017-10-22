@@ -49,4 +49,90 @@
             return false;
         }
     }
+
+    function getStorageServerIP($storage_server){
+    $db = getDBConnection();
+    $query = "SELECT ip FROM `storage_servers` WHERE `server_name`=:server_name";
+    $stmt = prepareQuery($db, $query);
+    executeQuery($stmt, array(":server_name"=>$storage_server));
+    $row = $stmt->fetch();
+    return $row['ip'];
+  }
+
+  function doesUserExists($username, $storage_server){
+
+        $db = getDBConnection();
+        $query = " 
+            SELECT alloted_space,used_space FROM `user_storage` WHERE `username`=:username AND `storage_server`=:storage_server"; 
+        $param = array(":username"=>$username, ":storage_server"=>$storage_server);
+    
+
+        $stmt = prepareQuery($db,$query);
+        executeQuery($stmt,$param);
+        if($row=$stmt->fetch()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+
+    function getUsedSpaceOn($storage_server){
+    $db = getDBConnection();
+    $query = "SELECT `used_space` FROM `storage_servers` WHERE `server_name`=:server_name";
+    $stmt = prepareQuery($db, $query);
+    executeQuery($stmt, array(":server_name"=>$storage_server));
+    $row = $stmt->fetch();
+
+    return $row['used_space']; 
+  }
+
+  function getTotalSpaceOn($storage_server){
+    $db = getDBConnection();
+    $query = "SELECT `total_space` FROM `storage_servers` WHERE `server_name`=:server_name";
+    $stmt = prepareQuery($db, $query);
+    executeQuery($stmt, array(":server_name"=>$storage_server));
+    $row = $stmt->fetch();
+
+    return $row['total_space']; 
+  }
+
+
+  function setUsedSpaceOn($storage_server, $used_space){
+    $db = getDBConnection();
+    $query = "UPDATE `storage_servers` SET `used_space`=:used_space WHERE `server_name`=:server_name";
+    $stmt = prepareQuery($db, $query);
+    executeQuery($stmt, array(":used_space"=>$used_space, ":server_name"=>$storage_server));
+  }
+
+  function getAllotedUserStorage(){
+
+        $db = getDBConnection();
+        $query = " 
+            SELECT alloted_space,used_space FROM `user_storage` WHERE `username`=:username"; 
+        $param = array(":username"=>$_SESSION['username']);
+    
+
+        $stmt = prepareQuery($db,$query);
+        executeQuery($stmt,$param);
+        if($row=$stmt->fetch()){
+            return $row['alloted_space'];
+        }else{
+            return 0;
+        }
+    }
+
+
+    function getStorageServer($username){
+        $db = getDBConnection();
+                
+        $query = " 
+                  SELECT * FROM `user_storage` WHERE `username`=:username"; 
+        $param = array(":username"=>$_SESSION['username']);
+        $stmt = prepareQuery($db,$query);
+        executeQuery($stmt,$param);
+        $row=$stmt->fetch();
+        return getStorageServerIP($row['storage_server']);
+    }
+
 ?>

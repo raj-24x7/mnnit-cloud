@@ -3,6 +3,23 @@
 
 require_once 'db_connect.php';
 
+function getLocalServerShell(){
+	$ip = $_SERVER['SERVER_ADDR'];
+	$username = "raj";
+	$password = "iptables";
+	$connection = null;
+	if(!($connection = ssh2_connect($ip, 22))){
+		return false;
+		header("location:error.php?error=1201");
+		die();
+	}
+	if(!(ssh2_auth_password($connection, $username, $password))){
+		header("location:error.php?error=1201");
+		die();
+	}
+	return $connection;
+}
+
 function createVMFromSSH($dom0name,$VMparam,$template){
 		$connection = getHypervisorConnection($dom0name);
 
@@ -241,6 +258,7 @@ function getUsedSpace($username, $storage_server){
 		$sr_password=$row['login_password'];
 		$connection = null;
 		if(!($connection = ssh2_connect($ip, 22))){
+			return false;
 			header("location:error.php?error=1201");
 			die();
 		}
@@ -270,6 +288,29 @@ function getUsedSpace($username, $storage_server){
 		}
 		
 		return $data[0];
+}
+
+function isActive($storage_server){
+	$db = getDBConnection();
+		$sql = 'SELECT * FROM `storage_servers` WHERE `server_name`=:name';
+		$param = array(":name"=>$storage_server);
+		$stmt = prepareQuery($db,$sql);
+		if(!executeQuery($stmt,$param)){
+			echo '<br>Cannot Execute : '.$stmt->queryString;
+		}
+		
+		$row = $stmt->fetch();
+		$ip=$row['ip'];
+		$sr_username=$row['login_name'];
+		$sr_password=$row['login_password'];
+		$connection = null;
+		if(!($connection = ssh2_connect($ip, 22))){
+			//return "Unable to connect";
+			header("location:error.php?error=1201");
+			die();
+		}
+
+		else return true;
 }
 
 

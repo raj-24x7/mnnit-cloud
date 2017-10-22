@@ -1,18 +1,12 @@
 <?php 
 
   session_start();
-  
+  ini_set("default_socket_timeout", 5);
   require 'checksession.php';
   require 'header.php';
   require 'db_connect.php';
   require 'ssh.php';
 
-
-/*
-  if(!isset($_GET['username']) && empty($_GET['username'])){
-    header("location:error.php?error=");
-    die();
-  }*/
 
   function getMemoryString($data){
     $size = array("KiB", "MiB", "GiB", "TiB");
@@ -31,15 +25,7 @@
     $index = array_search($new_data[1], $size);
     return (int)$new_data[0]*pow(1024, $index);
   }
-?>
-
-<script type="text/javascript">
-  window.onload = function (){
-    document.getElementById("storage").className = "active";
-  }
-</script>
-            <?php 
-                  
+    
 
                 $db = getDBConnection();
                 
@@ -54,14 +40,17 @@
 
                 $stmt = prepareQuery($db,$query);
                 executeQuery($stmt,$param);
-                /*if($row=$stmt->fetch()){
-                    $total=$row["alloted_space"];
-                    $used=$row["used_space"];
-                    $free = $total - $used;
-                }*/                
+                                
                 
 
-               ?>
+              
+?>
+
+<script type="text/javascript">
+  window.onload = function (){
+    document.getElementById("storage").className = "active";
+  }
+</script>
 <div class="row">
   
     <div class="col-sm-3">
@@ -72,7 +61,21 @@
     <br>
 
     <?php while($row = $stmt->fetch()){
-              $used = getUsedSpace($_SESSION['username'], $row['storage_server']);
+              if(!($used = getUsedSpace($_SESSION['username'], $row['storage_server']))){ ?>
+              <div class="panel panel-red">
+                <h1 style="color: white;"> 
+                <center>
+                  <?php echo $row['storage_server']; ?> 
+                 :: 
+                  Unable to connect
+                  </center>
+                </h1>
+              </div>
+
+                <br>
+
+    <?php
+              }else{
               $total=$row["alloted_space"];
               $free = $total - $used;
     ?>
@@ -125,7 +128,7 @@ Default Password : <?php echo $row['login_password'];?>
 </tr>
 </table>
 
-      <?php } ?>
+      <?php } } ?>
 
 <br>
     <h2>Extend Storage</h2><br>
@@ -168,14 +171,7 @@ Default Password : <?php echo $row['login_password'];?>
 </div>
 
 <?php 
-  function getStorageServerIP($storage_server){
-    $db = getDBConnection();
-    $query = "SELECT ip FROM `storage_servers` WHERE `server_name`=:server_name";
-    $stmt = prepareQuery($db, $query);
-    executeQuery($stmt, array(":server_name"=>$storage_server));
-    $row = $stmt->fetch();
-    return $row['ip'];
-  }
+  
 ?>
 
 

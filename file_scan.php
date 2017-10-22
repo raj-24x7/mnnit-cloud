@@ -8,37 +8,24 @@ include('ssh.php');
 $username = $_SESSION['username'];
 $password = $_GET['password'];
 
-	function getStorageServerIP($storage_server){
-	    $db = getDBConnection();
-	    $query = "SELECT ip FROM `storage_servers` WHERE `server_name`=:server_name";
-	    $stmt = prepareQuery($db, $query);
-	    executeQuery($stmt, array(":server_name"=>$storage_server));
-	    $row = $stmt->fetch();
-	    return $row['ip'];
-  	}
+	
 
-	function getStorageServer($username){
-		$db = getDBConnection();
-                
-        $query = " 
-                  SELECT * FROM `user_storage` WHERE `username`=:username"; 
-        $param = array(":username"=>$_SESSION['username']);
-        $stmt = prepareQuery($db,$query);
-        executeQuery($stmt,$param);
-        $row=$stmt->fetch();
-        return getStorageServerIP($row['storage_server']);
-	}
+	function mountUserFiles($username, $password){
+		$ip = getStorageServer($username);
 
-	function mountUserFiles($password){
-		$username = $_SESSION['username'];
-		$cmd = "echo \"".$password."\" | sshfs -o allow_other -o password_stdin ".$username."@".getStorageServer($username).": files/".$username." ";
+		// For mounting using sshfs
+		$connection = getLocalServerShell();
+
+		$command = "bash /var/www/html/project/mount.bash ".$ip." ".$username." ".$password." 2>&1";;
+		$stream = ssh2_exec($connection, $command);
+		stream_set_blocking($stream, true);
+		$recv_data = stream_get_contents($stream);
+		fclose($stream);
+
+		return $recv_data;
 		
-		$ret = "";
-		exec($cmd,$ret);
-		//echo " :: ";
-		return $ret;		
 	}
-	mountUserFiles($password);
+	mountUserFiles($username, $password);
 	
 $dir = $username;
 
@@ -73,7 +60,7 @@ function scan($dir){
 					"name" => $f,
 					"type" => "folder",
 					"path" => $name_dir . '/' . $f,
-					"items" => scan($dir . '/' . $f) // Recursively get the contents of the folder
+					"items" => scan($name_dir . '/' . $f) // Recursively get the contents of the folder
 				);
 			}
 			

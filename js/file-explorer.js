@@ -333,7 +333,7 @@ $(function(){
 
 					icon = '<span class="icon file f-'+fileType+'">.'+fileType+'</span>';
 
-					var file = $('<li class="files"><a href="'+ f.path+'" title="'+ f.path +'" class="files">'+icon+'<span class="name">'+ name +'</span> <span class="details">'+fileSize+'</span></a></li>');
+					var file = $('<li class="files"><a href="files/'+ f.path+'" title="'+ f.path +'" class="files">'+icon+'<span class="name">'+ name +'</span> <span class="details">'+fileSize+'</span></a></li>');
 					file.appendTo(fileList);
 				});
 

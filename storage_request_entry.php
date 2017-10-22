@@ -31,22 +31,7 @@
 		die();
 	}
 
-	function getAllotedUserStorage(){
-
-		$db = getDBConnection();
-        $query = " 
-            SELECT alloted_space,used_space FROM `user_storage` WHERE `username`=:username"; 
-        $param = array(":username"=>$_SESSION['username']);
-    
-
-   		$stmt = prepareQuery($db,$query);
-    	executeQuery($stmt,$param);
-    	if($row=$stmt->fetch()){
-    		return $row['alloted_space'];
-    	}else{
-    		return 0;
-    	}
-	}
+	
 
 
   function getMemoryFromString($data){
