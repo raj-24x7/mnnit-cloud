@@ -17,6 +17,7 @@
 
 1401:Not enough IP for Cluster
 1402:wrong
+1403: Unable to create cluster !
 
 1501:Wrong Credentials !
 

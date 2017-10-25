@@ -126,19 +126,21 @@ function createHadoopCluster($dom0name ,$name, $ram, $noofslaves, $ips){
 
 		$connection = getHypervisorConnection($dom0name);
 
-		$command = "nohup bash ~/utilityScripts/createCluster.sh ".$name." ".$ram." ".$noofslaves;
+		$command = "bash ~/utilityScripts/createCluster.sh ".$name." ".$ram." ".$noofslaves;
 
 		for($i=0; $i<=$noofslaves; $i++){
-			$command = $ccommand." ".$ips[$i];
+			$command = $command." ".$ips[$i];
 		}
 
-		$command = $command." "."&";
+		$command = $command." "."";
 
-		$stream = ssh2_exec($connection, $command);
+		if(!($stream = ssh2_exec($connection, $command))){
+			header("location:error.php?error=");
+		}
 		
-		//stream_set_blocking($stream, true);
-		//$uuid = stream_get_contents($stream);
-		
+		stream_set_blocking($stream, true);
+		$uuid = stream_get_contents($stream);
+		//echo $uuid;
 		fclose($stream);
 
 		return true;

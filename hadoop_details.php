@@ -16,11 +16,11 @@
                 if($_SESSION['privilege']=='A') {// A for admin
                     
                     $query = " 
-                        SELECT * FROM `hadoop` WHERE 1"; 
+                        SELECT * FROM `hadoop` WHERE `status`='created'"; 
                     $param = array();
                 } else {
                     $query = " 
-                        SELECT * FROM `hadoop` WHERE `username`=:username"; 
+                        SELECT * FROM `hadoop` WHERE `username`=:username AND `status`='created'"; 
                     $param = array(":username"=>$_SESSION['username']);
                 }
 
