@@ -1,22 +1,23 @@
 <?php
 session_start();
 
+@ini_set("default_socket_timeout", 5);
 include('db_connect.php');
 include('checksession.php');
 include('ssh.php');
-
 $username = $_SESSION['username'];
-$password = $_GET['password'];
 
 	
 
-	function mountUserFiles($username, $password){
-		$ip = getStorageServer($username);
+	function mountUserFiles($username){
+		$row = getStorageServer($username);
 
 		// For mounting using sshfs
 		$connection = getLocalServerShell();
 
-		$command = "bash /var/www/html/project/mount.bash ".$ip." ".$username." ".$password." 2>&1";;
+		
+
+		$command = "bash /var/www/html/project/mount.bash ".$row['ip']." ".$username." ".$row['login_password']." 2>&1";
 		$stream = ssh2_exec($connection, $command);
 		stream_set_blocking($stream, true);
 		$recv_data = stream_get_contents($stream);
@@ -25,7 +26,7 @@ $password = $_GET['password'];
 		return $recv_data;
 		
 	}
-	mountUserFiles($username, $password);
+	mountUserFiles($username);
 	
 $dir = $username;
 

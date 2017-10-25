@@ -6,9 +6,8 @@ $(function(){
 
 	// Start by fetching the file data from scan.php with an AJAX request
 
-	var passwd = prompt("Enter Your Password : ");
 
-	$.get('file_scan.php?password='+passwd, function(data) {
+	$.get('file_scan.php', function(data) {
 
 		var response = [data],
 			currentPath = '',
@@ -385,6 +384,41 @@ $(function(){
 			return text.replace(/\&/g,'&amp;').replace(/\</g,'&lt;').replace(/\>/g,'&gt;');
 		}
 
+		$("form[id='uploadForm']").submit(function(evt){	 
+	      	evt.preventDefault();
+	      	var formData = new FormData($(this)[0]);
+	      	formData.append('path',currentPath);
+	   		$.ajax({
+	       		url: 'file_options.php',
+	       		type: 'POST',
+	       		data: formData,
+	       		cache: false,
+	       		contentType: false,
+	       		enctype: 'multipart/form-data',
+	       		processData: false,
+	       		success: function (response) {
+	        				alert(response);
+	        				location.reload();
+	       				},
+	       		beforeSend: function (xhr){
+	       			if(xhr.upload){
+	       				xhr.upload.addEventListener('progress',renderProgressBar);
+	       			} else {
+	       				console.log("xhr.upload not readable");
+	       			}
+	       		}
+
+	   		});
+	   		return false;
+	 	});
+
+		function renderProgressBar(e){
+			if(e.lengthComputable){
+				var percent = e.loaded/e.total;
+				$('#progress-bar').html('<p> '+percent+' % </p>');
+			}
+		}
+
 
 		// Convert file sizes from bytes to human readable units
 
@@ -396,4 +430,7 @@ $(function(){
 		}
 
 	});
+
+
+
 });

@@ -33,7 +33,7 @@
             
            	return $result;
         } catch(PDOException $ex) { 
-            die("<strong>Failed to run query:</strong><br> " . $ex->getMessage()."<br>");
+            die("<strong>Failed to run query:</strong><br> " . $ex->getMessage()."<br>".print_r($params));
             //echo "<strong>Failed to run query:</strong><br> " . $ex->getMessage()."<br>"; 
             return false;
         }     
@@ -43,7 +43,7 @@
         try{
             return $db->prepare($query);
         }catch(PDOException $ex){
-            die("<strong>Failed to run query:</strong><br> " .$query.$ex->getMessage()."<br>");
+            //die("<strong>Failed to run query:</strong><br> " .$query.$ex->getMessage()."<br>");
             //  header("location:error.php?error=1104");
             //echo "<strong>Failed to run query:</strong><br> " .$query.$ex->getMessage()."<br>"; 
             return false;
@@ -132,7 +132,11 @@
         $stmt = prepareQuery($db,$query);
         executeQuery($stmt,$param);
         $row=$stmt->fetch();
-        return getStorageServerIP($row['storage_server']);
+        $query = "SELECT * FROM `storage_servers` WHERE `server_name`=:server_name";
+        $stmt = prepareQuery($db, $query);
+        executeQuery($stmt, array(":server_name"=>$row['storage_server']));
+        $row = $stmt->fetch();
+        return $row;
     }
 
 ?>

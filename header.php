@@ -171,7 +171,7 @@
 			</div>					
 		</div><!-- /.container-fluid -->
 	</nav>
-
+<!-- Login Modal -->
 	<div class="container">
     <div class="modal fade" id="myModal" role="dialog" style="z-index: 10000">
         <div class="modal-dialog modal-sm">

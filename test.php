@@ -11,23 +11,26 @@ session_start();
 	//include 'ssh.php'/*/*/*/*/*;
 
 	//resizeVDIFromUUID('xenserver-trial','433b7123-631b-f2bb-dccf-8fd3cb60013a', '8');
-/*		require_once "ssh.php";
+	require_once "ssh.php";
 		require_once "xen.php";
 		require_once "db_connect.php";
 		$xen = makeXenconnection("xenserver-trial");
 		$host = $xen->getHostByNameLabel("xenserver-trial");
-	$vm = $xen->getVMByNameLabel("centos7");//Ubuntu 14.04 Template
-*/		
+		$vm = $xen->getVMByNameLabel("centos7");//Ubuntu 14.04 Template
+		
 
 //		$x = $vm->setNameLabel("Ubuntu14.04");
 //		echo $x->getValue().'<br>';
 //		echo $x->getStatus().'<br>';
 //		echo $vm->getIsATemplate()->getValue();
 		
-//		$val = true;
-//		$vm->setIsATemplate($val);
-		//$vm->start();*/*/*/*/*/
+		// $val = false;
+		// $vm->setIsATemplate($val);
+		// $vm->start();
 
+		$vm->cleanShutdown();
+		$val = true;
+		$vm->setIsATemplate($val);
 /*
 
 		// $vm = $xen->getVMByNameLabel("pankaj");
@@ -194,7 +197,7 @@ function createNewLinuxUser($username, $storage_server, $password){
 //include("ssh.php");
 
 //print_r(getUsedSpace("admin","storage-server-1"));
-include('db_connect.php');
+/*include('db_connect.php');
 include('ssh.php');
 
 if(!isset($_SESSION['username'])){
@@ -240,7 +243,7 @@ function testing(){
 
 
 	print_r(testing());
-
+*/
 //echo is_dir("files/admin/Arduino");
 
 

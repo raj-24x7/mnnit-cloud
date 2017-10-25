@@ -21,3 +21,7 @@
 		  if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
 		})
 	</script>	
+
+	<?php 
+  		ini_set("default_socket_timeout", 5);
+	?>
