@@ -69,7 +69,7 @@
             return false;
         }*/
 
-        alert("hello");
+        //alert("hello");
         if(!isValidDate(date)){
             alert("Date Format is : mm/dd/yyyy");
             return false;
@@ -77,7 +77,7 @@
         var x = date.split("/");
         var newdate = ""+x[2]+"-"+x[0]+"-"+x[1]+"";
         document.forms["request"]["doe"].value = newdate;
-        alert(""+newdate);
+        //alert(""+newdate);
         return true;
     }
 

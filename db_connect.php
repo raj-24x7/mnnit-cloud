@@ -1,9 +1,9 @@
 <?php 
     function getDBConnection(){
 
-        $username = "raj"; 
-        $password = "hello"; 
-        $host = "localhost"; 
+        $username = "cloud-user"; 
+        $password = "mnnitcloud"; 
+        $host = "172.31.76.68"; 
         $dbname = "cloud"; 
  
         $options = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
