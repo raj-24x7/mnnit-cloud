@@ -176,6 +176,9 @@
     <div class="modal fade" id="myModal" role="dialog" style="z-index: 10000">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
+
+
+
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">Login</h4>
@@ -189,7 +192,8 @@
                             <input type="password" class="form-control" id="password" placeholder="password" name="password">
                         </div>
                         <div class="form-group modal-body" width="30%">
-                            <input type="submit" class="btn btn-info btn-sm pull-right form-horizontal-sm" value="Login">
+                			<a href="forgetPass.php">	Forget Password</a>
+                            <input type ="submit" class="btn btn-info btn-sm pull-right form-horizontal-sm" value="Login">
                         </div>
                     </form>
                 </div>

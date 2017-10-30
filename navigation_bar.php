@@ -1,4 +1,4 @@
-<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
 <div>
 	<ul class="nav menu">
 		<li id="dashboard"><a href="index.php" onclick="abortAll();"><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"></use></svg>Dashboard</a></li>
@@ -10,6 +10,11 @@
 
 
 		<li id ="file_list"><a href="file_list.php" onclick="abortAll();"><svg class="glyph stroked line-graph"><use xlink:href="#stroked-line-graph"></use></svg> Storage File List </a></li>
+
+
+
+
+
 
 
 		<li id="storage"><a href="storage.php"><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"></use></svg>storage</a></li>
@@ -33,7 +38,11 @@
 
 				<li id="ip_pool"><a href="ip_pool.php">&nbsp;&nbsp;&nbsp;&nbsp;<svg class="glyph stroked basket"><use xlink:href="#stroked-basket"/></svg>Ip Pool</a></li>
 			</ul>
-		</li>	
+		</li>
+
+		
+
+
 		<?php	
 			}
 		?>

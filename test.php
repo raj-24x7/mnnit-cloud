@@ -6,18 +6,18 @@ session_start();
  * please do not modify
  */
 
-
+echo time();
 
 	//include 'ssh.php'/*/*/*/*/*;
 
 	//resizeVDIFromUUID('xenserver-trial','433b7123-631b-f2bb-dccf-8fd3cb60013a', '8');
-	require_once "ssh.php";
+	/*require_once "ssh.php";
 		require_once "xen.php";
 		require_once "db_connect.php";
 		$xen = makeXenconnection("xenserver-trial");
 		$host = $xen->getHostByNameLabel("xenserver-trial");
 		$vm = $xen->getVMByNameLabel("centos7");//Ubuntu 14.04 Template
-		
+	*/	
 
 //		$x = $vm->setNameLabel("Ubuntu14.04");
 //		echo $x->getValue().'<br>';
@@ -27,11 +27,11 @@ session_start();
 		// $val = false;
 		// $vm->setIsATemplate($val);
 		// $vm->start();
-
+/*
 		$vm->cleanShutdown();
 		$val = true;
 		$vm->setIsATemplate($val);
-/*
+*//*
 
 		// $vm = $xen->getVMByNameLabel("pankaj");
 		// $res = $vm->hardReboot();
