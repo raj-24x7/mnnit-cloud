@@ -78,32 +78,32 @@
 
 
     function getUsedSpaceOn($storage_server){
-    $db = getDBConnection();
-    $query = "SELECT `used_space` FROM `storage_servers` WHERE `server_name`=:server_name";
-    $stmt = prepareQuery($db, $query);
-    executeQuery($stmt, array(":server_name"=>$storage_server));
-    $row = $stmt->fetch();
+        $db = getDBConnection();
+        $query = "SELECT `used_space` FROM `storage_servers` WHERE `server_name`=:server_name";
+        $stmt = prepareQuery($db, $query);
+        executeQuery($stmt, array(":server_name"=>$storage_server));
+        $row = $stmt->fetch();
 
-    return $row['used_space']; 
-  }
+        return $row['used_space']; 
+      }
 
-  function getTotalSpaceOn($storage_server){
-    $db = getDBConnection();
-    $query = "SELECT `total_space` FROM `storage_servers` WHERE `server_name`=:server_name";
-    $stmt = prepareQuery($db, $query);
-    executeQuery($stmt, array(":server_name"=>$storage_server));
-    $row = $stmt->fetch();
+    function getTotalSpaceOn($storage_server){
+        $db = getDBConnection();
+        $query = "SELECT `total_space` FROM `storage_servers` WHERE `server_name`=:server_name";
+        $stmt = prepareQuery($db, $query);
+        executeQuery($stmt, array(":server_name"=>$storage_server));
+        $row = $stmt->fetch();
 
-    return $row['total_space']; 
-  }
+        return $row['total_space']; 
+    }
 
 
   function setUsedSpaceOn($storage_server, $used_space){
-    $db = getDBConnection();
-    $query = "UPDATE `storage_servers` SET `used_space`=:used_space WHERE `server_name`=:server_name";
-    $stmt = prepareQuery($db, $query);
-    executeQuery($stmt, array(":used_space"=>$used_space, ":server_name"=>$storage_server));
-  }
+        $db = getDBConnection();
+        $query = "UPDATE `storage_servers` SET `used_space`=:used_space WHERE `server_name`=:server_name";
+        $stmt = prepareQuery($db, $query);
+        executeQuery($stmt, array(":used_space"=>$used_space, ":server_name"=>$storage_server));
+    }
 
   function getAllotedUserStorage(){
 
@@ -123,7 +123,7 @@
     }
 
 
-    function getStorageServer($username){
+    function getUserStorageServer($username){
         $db = getDBConnection();
                 
         $query = " 
@@ -132,11 +132,58 @@
         $stmt = prepareQuery($db,$query);
         executeQuery($stmt,$param);
         $row=$stmt->fetch();
+        return getStorageServer($row['storage_server']);
+    }
+
+    function getStorageServer($storage_server){
+        $db = getDBConnection();
         $query = "SELECT * FROM `storage_servers` WHERE `server_name`=:server_name";
         $stmt = prepareQuery($db, $query);
-        executeQuery($stmt, array(":server_name"=>$row['storage_server']));
+        executeQuery($stmt, array(":server_name"=>$storage_server));
         $row = $stmt->fetch();
         return $row;
+    }
+    function getRemainingSpaceOn($storage_server){
+        return getTotalSpaceOn($storage_server) - getUsedSpaceOn($storage_server);
+    }
+
+    function getMemoryString($data){
+        $size = array("KiB", "MiB", "GiB", "TiB");
+        $div = 1;
+        $i = 0;
+        while($data/$div >= 1024){
+            $div = $div*1024;
+            $i = $i + 1;
+        }
+        return round((float)$data/$div, 3)." ".$size[$i];
+    }
+  
+    function getMemoryFromString($data){
+        $new_data = explode(" ", $data);
+        $size = array("KiB", "MiB", "GiB", "TiB");
+        $index = array_search($new_data[1], $size);
+        return (int)$new_data[0]*pow(1024, $index);
+    }
+
+    function generateRandomString($length = 8) {
+        $characters = '0123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
+    }
+
+    function getUserStorage(){
+        $db = getDBConnection();  
+        $query = "SELECT * FROM `user_storage` WHERE `username`=:username"; 
+        $param = array(":username"=>$_SESSION['username']);
+
+
+        $stmt = prepareQuery($db,$query);
+        executeQuery($stmt,$param);
+        return $stmt->fetch();
     }
 
 ?>

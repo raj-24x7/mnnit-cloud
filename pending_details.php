@@ -6,16 +6,6 @@
   require 'header.php';
   require 'db_connect.php';
 
-  function getMemoryString($data){
-    $size = array("KiB", "MiB", "GiB", "TiB");
-    $div = 1;
-    $i = 0;
-    while($data/$div >= 1024){
-      $div = $div*1024;
-      $i = $i + 1;
-    }
-    return round((float)$data/$div, 3)." ".$size[$i];
-  }
 ?>
 
 <script type="text/javascript">
@@ -113,9 +103,9 @@
                   echo '<th>Username</th>';
                 }?>
                 <th>Operating System</th>
-          			<th>CPU#</th>
-          			<th>Storage</th>
-          			<th>RAM</th>
+          			<th>No of vCPU</th>
+          			<th>Storage(GB)</th>
+          			<th>RAM(MB)</th>
           			<th>Expire On</th>
 
           			<th>Status</th>
@@ -184,9 +174,9 @@
                   echo '<th>Username</th>';
                 }?>
                 <th>Number of Slaves</th>
-                <th>CPU#</th>
-                <th>Storage</th>
-                <th>RAM</th>
+                <th>No of vCPU</th>
+                <th>Storage(GB)</th>
+                <th>RAM(MB)</th>
                 <th>Expire On</th>
 
                 <th>Status</th>

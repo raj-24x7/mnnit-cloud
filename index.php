@@ -1,5 +1,3 @@
-
-
 <?php 
     session_start();
     	require_once "db_connect.php";
@@ -41,7 +39,6 @@
     
     ?>
 
-<!--Login Modal -->
 
 <!--Carousel-->
 <div id="myCarousel" class="carousel slide" data-ride="carousel" style="margin: 10px 0 0 0;">

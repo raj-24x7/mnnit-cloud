@@ -24,6 +24,7 @@
 1601: Form Request Not Properly Made .
 
 1701:Not Enough Space
+1702:Cannot Shrink beyond the used size
 
 1801:Email  Not found
 

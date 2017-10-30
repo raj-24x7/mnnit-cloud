@@ -1,32 +1,20 @@
 <?php
 session_start();
 
+register_shutdown_function(function(){
+	if(connection_status()==2){
+		echo 'There was a timeout unable to connect';
+	}
+});
+
 @ini_set("default_socket_timeout", 5);
 include('db_connect.php');
 include('checksession.php');
 include('ssh.php');
 $username = $_SESSION['username'];
 
-	
+mountUserFiles($username);
 
-	function mountUserFiles($username){
-		$row = getStorageServer($username);
-
-		// For mounting using sshfs
-		$connection = getLocalServerShell();
-
-		
-
-		$command = "bash /var/www/html/project/mount.bash ".$row['ip']." ".$username." ".$row['login_password']." 2>&1";
-		$stream = ssh2_exec($connection, $command);
-		stream_set_blocking($stream, true);
-		$recv_data = stream_get_contents($stream);
-		fclose($stream);
-
-		return $recv_data;
-		
-	}
-	mountUserFiles($username);
 	
 $dir = $username;
 

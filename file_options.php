@@ -1,4 +1,6 @@
 <?php
+session_start();
+require_once('db_connect.php');
 
 if(isset($_POST)){
 	$path = $_POST['path'];
@@ -7,13 +9,18 @@ if(isset($_POST)){
 	$uploadOk = 1;
 	$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 
-	if (file_exists($target_file)) {
-	    echo "Sorry, file already exists.";
+	if($uploadOk && $_FILES["fileToUpload"]["size"]==0){
+		echo "Nothing Sent. Send a file. \n";
+		$uploadOk = 0;
+	}
+	if ($uploadOk && file_exists($target_file)) {
+	    echo "Sorry, file already exists. \n";
 	    $uploadOk = 0;
 	}
 	// Check file size
-	if ($_FILES["fileToUpload"]["size"] > 1024*1024*1024*200) {
-	    echo "Sorry, your file is too large.";
+	$row = getUserStorage();
+	if ($uploadOk && $_FILES["fileToUpload"]["size"] > 1024*($row['alloted_space'] - $row['used_space'])) {
+	    echo "Sorry, your file is too large. \n";
 	    $uploadOk = 0;
 	}
 

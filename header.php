@@ -99,12 +99,18 @@
 	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 		<div class="container-fluid">
 			<div class="navbar-header">
+				<?php 
+					if(isset($_SESSION['username'])){
+				?>
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#sidebar-collapse">
 					<span class="sr-only">Toggle navigation</span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
+				<?php
+					}
+				 ?>
 				<a class="navbar-brand" href="#"><h4 style="color: white;"><b>MNNIT<span>data</span>Cloud</b></h4></a>
 				<ul class="user-menu">
 	    			<?php 
@@ -119,20 +125,24 @@
 
 
 						<li class="dropdown pull-right">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user" style="margin: 0 0 5px 0;"></span><font size=3><b> <?php echo $_SESSION['username']?> </b></font><strong class="caret"></strong></a>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user" style="margin: 0 0 5px 0;"></span></a>
 								<ul class="dropdown-menu">
 									<li>
-										<a href="user_profile.php"><span class="glyphicon glyphicon-wrench"></span> Profile Settings</a>
+										<center><font size=3><b> <?php echo $_SESSION['username']?> </b></font></center>
+									</li>
 									<li class="divider"></li>
 
+									<li>
+										<a href="user_profile.php"><span class="glyphicon glyphicon-wrench"></span> Profile Settings</a>
+									
 									<li>
 										<a href="logout.php"><span class="glyphicon glyphicon-off"></span> Sign out</a>
 									</li>
 								</ul>
 						</li>
 					<?php } else { 
-								echo '<button type="button" class="btn btn-info btn-sm pull-right" data-toggle="modal" data-target="#myModal" style="margin: 0 0 5px 0;"><font size=3><b>Login</b></font></button>';
-								echo '<button type="button" class="btn btn-info btn-sm pull-right" data-toggle="modal" data-target="#signupModal" style="margin: 0 15px 5px 0;"><font size=3><b>Sign UP</b></font></button>';
+								echo '<button type="button" class="btn btn-info btn-sm pull-right" data-toggle="modal" data-target="#myModal" style="margin: 0 0 5px 0;"><font size=2><b>Login</b></font></button>';
+								echo '<button type="button" class="btn btn-info btn-sm pull-right" data-toggle="modal" data-target="#signupModal" style="margin: 0 15px 5px 0;"><font size=2><b>Signup</b></font></button>';
 						  }
 					?>
 						 
@@ -209,7 +219,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Sign Up</h4>
+                    <h4 class="modal-title">Signup</h4>
                 </div>
                 <div class="modal-body">
                     <form class="form-horizontal-sm" role="form" action="signup.php" method="POST" name="signup" onsubmit="return validateForm();">
