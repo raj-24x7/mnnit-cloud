@@ -10,6 +10,11 @@
 		$new_demand = getMemoryFromString($_POST['new_demand']." ".$_POST['unit']);
 		$status = "pending";
 
+		if($new_demand < getUsedSpace($username)){
+			header("location:error.php?error=1702");
+			die();
+		}
+
 		$db = getDBConnection();
 		$query = "INSERT INTO `storage_request` VALUES (:username,:alloted_space,:new_demand,'',:status)";
 		$param = array(
@@ -31,14 +36,4 @@
 		die();
 	}
 
-	
-
-
-  function getMemoryFromString($data){
-    $new_data = explode(" ", $data);
-   // echo $data." ".$new_data[0];
-    $size = array("KiB", "MiB", "GiB", "TiB");
-    $index = array_search($new_data[1], $size);
-    return (int)$new_data[0]*pow(1024, $index);
-  }
 ?>

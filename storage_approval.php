@@ -31,26 +31,7 @@
         } else {
             die("Hell");
         }
-        
-  function getMemoryString($data){
-    $size = array("KiB", "MiB", "GiB", "TiB");
-    $div = 1;
-    $i = 0;
-    while($data/$div >= 1024){
-      $div = $div*1024;
-      $i = $i + 1;
-    }
-    return round((float)$data/$div, 3)." ".$size[$i];
-  }
-  
-  function getMemoryFromString($data){
-    $new_data = explode(" ", $data);
-    $size = array("KiB", "MiB", "GiB", "TiB");
-    $index = array_search($new_data[1], $size);
-    return (int)$new_data[0]*pow(1024, $index);
-  }
-    
-    
+      
     ?>
 <link rel="stylesheet" href="includes/css/jquery-ui.css">
 <script src="includes/js/jquery.min.js"></script>

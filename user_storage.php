@@ -2,8 +2,8 @@
 
   session_start();
   
-  require 'checksession.php';
-  require 'header.php';
+    require 'checksession.php';
+    require 'header.php';
   require 'db_connect.php';
 
   if($_SESSION['privilege']!='A'){
@@ -11,16 +11,6 @@
     die();
   }
 
-  function getMemoryString($data){
-    $size = array("KiB", "MiB", "GiB", "TiB");
-    $div = 1;
-    $i = 0;
-    while($data/$div >= 1024){
-      $div = $div*1024;
-      $i = $i + 1;
-    }
-    return round((float)$data/$div, 3)." ".$size[$i];
-  }
 ?>
 
 <script type="text/javascript">
@@ -41,13 +31,13 @@
   $db=null;
   $db=getDBConnection();
 
-                    $query = " 
-                        SELECT * FROM `user_storage`"; 
-                    $param = array();
+  $query = " 
+      SELECT * FROM `user_storage`"; 
+  $param = array();
                 
 
-                $stmt = prepareQuery($db,$query);
-                executeQuery($stmt,$param);
+  $stmt = prepareQuery($db,$query);
+  executeQuery($stmt,$param);
 
 ?>
 
@@ -85,10 +75,6 @@
       </table>
 
       </div>
-
-
-
-
 
     <div class="col-sm-1">
     </div>

@@ -7,43 +7,8 @@
   require 'db_connect.php';
   require 'ssh.php';
 
-
-  function getMemoryString($data){
-    $size = array("KiB", "MiB", "GiB", "TiB");
-    $div = 1;
-    $i = 0;
-    while($data/$div >= 1024){
-      $div = $div*1024;
-      $i = $i + 1;
-    }
-    return round((float)$data/$div, 3)." ".$size[$i];
-  }
-  
-  function getMemoryFromString($data){
-    $new_data = explode(" ", $data);
-    $size = array("KiB", "MiB", "GiB", "TiB");
-    $index = array_search($new_data[1], $size);
-    return (int)$new_data[0]*pow(1024, $index);
-  }
-    
-
-                $db = getDBConnection();
-                
-                  $free=0;
-                  $total=0;
-                  $used=0;
-                
-                    $query = " 
-                        SELECT * FROM `user_storage` WHERE `username`=:username"; 
-                    $param = array(":username"=>$_SESSION['username']);
-                
-
-                $stmt = prepareQuery($db,$query);
-                executeQuery($stmt,$param);
-                                
-                
-
-              
+  $row = getUserStorage();
+      
 ?>
 
 <script type="text/javascript">
@@ -60,8 +25,8 @@
     <div class="col-sm-8">
     <br>
 
-    <?php while($row = $stmt->fetch()){
-              if(!($used = getUsedSpace($_SESSION['username'], $row['storage_server']))){ ?>
+    <?php {
+              if(!($used = getUsedSpace($_SESSION['username']))){ ?>
               <div class="panel panel-red">
                 <h1 style="color: white;"> 
                 <center>
@@ -73,7 +38,6 @@
               </div>
 
                 <br>
-
     <?php
               }else{
               $total=$row["alloted_space"];
@@ -143,7 +107,6 @@ Default Password : <?php echo $row['login_password'];?>
                                 </div>
                                 <div class="col-sm-3">
                                   <select class="form-control" name="unit" name="unit">
-                                    <option value="KiB">KiB</option>
                                     <option value="MiB">MiB</option>
                                     <option value="GiB">GiB</option>
                                   </select>
@@ -163,11 +126,7 @@ Default Password : <?php echo $row['login_password'];?>
                             </div>
                         </form>
                     </div>
-       
                 </div>
-                
-
-    
 </div>
 
 <?php 

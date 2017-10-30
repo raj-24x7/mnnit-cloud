@@ -20,6 +20,21 @@ function getLocalServerShell(){
 	return $connection;
 }
 
+function mountUserFiles($username){
+		$row = getUserStorageServer($username);
+
+		// For mounting using sshfs
+		$connection = getLocalServerShell();
+		$command = "bash /var/www/html/project/mount.bash ".$row['ip']." ".$username." ".$row['login_password']." 2>&1";
+		$stream = ssh2_exec($connection, $command);
+		stream_set_blocking($stream, true);
+		$recv_data = stream_get_contents($stream);
+		fclose($stream);
+
+		return $recv_data;
+		
+	}
+
 function createVMFromSSH($dom0name,$VMparam,$template){
 		$connection = getHypervisorConnection($dom0name);
 
@@ -203,15 +218,8 @@ function setQuota($storage_server, $username, $new_limit){
 }
 
 function createNewLinuxUser($username, $storage_server, $password){
-		$db = getDBConnection();
-		$sql = 'SELECT * FROM `storage_servers` WHERE `server_name`=:name';
-		$param = array(":name"=>$storage_server);
-		$stmt = prepareQuery($db,$sql);
-		if(!executeQuery($stmt,$param)){
-			echo '<br>Cannot Execute : '.$stmt->queryString;
-		}
 		
-		$row = $stmt->fetch();
+		$row = getStorageServer($storage_server);
 		$ip=$row['ip'];
 		$sr_username=$row['login_name'];
 		$sr_password=$row['login_password'];
@@ -245,16 +253,9 @@ function createNewLinuxUser($username, $storage_server, $password){
 }
 
 
-function getUsedSpace($username, $storage_server){
-	$db = getDBConnection();
-		$sql = 'SELECT * FROM `storage_servers` WHERE `server_name`=:name';
-		$param = array(":name"=>$storage_server);
-		$stmt = prepareQuery($db,$sql);
-		if(!executeQuery($stmt,$param)){
-			echo '<br>Cannot Execute : '.$stmt->queryString;
-		}
-		
-		$row = $stmt->fetch();
+function getUsedSpace($username){
+
+		$row = getUserStorageServer($username);
 		$ip=$row['ip'];
 		$sr_username=$row['login_name'];
 		$sr_password=$row['login_password'];
@@ -292,16 +293,9 @@ function getUsedSpace($username, $storage_server){
 		return $data[0];
 }
 
-function isActive($storage_server){
-	$db = getDBConnection();
-		$sql = 'SELECT * FROM `storage_servers` WHERE `server_name`=:name';
-		$param = array(":name"=>$storage_server);
-		$stmt = prepareQuery($db,$sql);
-		if(!executeQuery($stmt,$param)){
-			echo '<br>Cannot Execute : '.$stmt->queryString;
-		}
-		
-		$row = $stmt->fetch();
+function isActiveStorgaeServer($storage_server){
+	
+		$row = getStorageServer($storage_server);
 		$ip=$row['ip'];
 		$sr_username=$row['login_name'];
 		$sr_password=$row['login_password'];
