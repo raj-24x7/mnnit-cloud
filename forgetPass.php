@@ -3,7 +3,7 @@
   
   	require_once 'db_connect.php';
   	require_once 'mail.php';
-    
+    require_once 'logging.php';
 
     if (!empty($_POST)) {
             
@@ -34,14 +34,16 @@
                 		// send mail
                 		$msg = "
                 			Dear ".$row['username'].",\n
-                			\tPassword Reset Link : 172.31.76.68/mnnit-cloud/reset_password.php?username=".$row['username']."&token=".$token."\n 
+                			\tPassword Reset Link : 172.31.76.68/mnnit-cloud/reset_password.php?username=".$row['username']."&token=".$token."\n
+                            \tIt is valid for 2 hours.\n\n
+                            admin 
                 		";
                 		notifyByMail($row['email'], $row['username'], "Password Reset",$msg);
 
                 		break;
                 	}
             }    
-             if($cc==0)
+            if($cc==0)
                 header('location:error.php?error=1801');
             
         }
@@ -78,11 +80,6 @@
                                 <div class="col-sm-2" id="res"></div>
                             </div>
 
-                            
-                          
-                           
-                          
-                            
                             <div class="form-group">
                             	 <div class="col-sm-5">
                                    
