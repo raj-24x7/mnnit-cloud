@@ -5,6 +5,7 @@
   require 'checksession.php';
   require 'header.php';
   require 'db_connect.php';
+  require_once('logging.php');
 
 ?>
 
@@ -13,79 +14,89 @@
     document.getElementById("pending_details").className = "active";
   }
 </script>
-            <?php 
-                  
+<?php 
+      
 
-                $db = getDBConnection();
-                // Delete VM Entry
-                if(isset($_GET['VM_name']) 
-                  && !empty($_GET['VM_name']) ){
+    $db = getDBConnection();
+    // Delete VM Entry
+    if(isset($_GET['VM_name']) 
+      && !empty($_GET['VM_name']) ){
 
-                    $sql = 'DELETE FROM `VMrequest` WHERE `VM_name`=:VM_name';
-                    $param = array(
-                        ":VM_name"=>$_GET['VM_name']
-                      );
-                    $stmt = prepareQuery($db,$sql);
-                    if(!executeQuery($stmt,$param)){
-                      die("Cannot Delete Entry for VM");
-                    }
+        $sql = 'DELETE FROM `VMrequest` WHERE `VM_name`=:VM_name';
+        $param = array(
+            ":VM_name"=>$_GET['VM_name']
+          );
+        $stmt = prepareQuery($db,$sql);
+        if(!executeQuery($stmt,$param)){
+          $l = logError("1101");
+          $l[0]->log($l[1]);
+        }
 
-                    $sql = 'DELETE FROM `name_description` WHERE `name`=:VM_name';
-                    $stmt = prepareQuery($db,$sql);
-                    if(!executeQuery($stmt,$param)){
-                      die("Cannot Delete Entry for VM");
-                    }
-
-
-                }
-              // Delete Hadoop Entry 
-                if(isset($_GET['hadoop_name']) 
-                  && !empty($_GET['hadoop_name']) ){
-                    $sql = 'DELETE FROM `hadoop` WHERE `hadoop_name`=:hadoop_name';
-                    $param = array(
-                        ":hadoop_name"=>$_GET['hadoop_name']
-                      );
-                    $stmt = prepareQuery($db,$sql);
-                    if(!executeQuery($stmt,$param)){
-                      die("Cannot Delete Entry for hadoop");
-                    }
-
-                    $sql = 'DELETE FROM `name_description` WHERE `name`=:hadoop_name';
-                    $stmt = prepareQuery($db,$sql);
-                    if(!executeQuery($stmt,$param)){
-                      die("Cannot Delete Entry for hadoop");
-                    }
-                }
-
-                // Delete Storage Entry
-                if(isset($_GET['storage']) 
-                  && !empty($_GET['storage']) ){
-                    $sql = 'DELETE FROM `storage_request` WHERE `username`=:username';
-                    $param = array(
-                        ":username"=>$_GET['storage']
-                      );
-                    $stmt = prepareQuery($db,$sql);
-                    if(!executeQuery($stmt,$param)){
-                      die("Cannot Delete Entry for Storage");
-                    }
-
-                }
+        $sql = 'DELETE FROM `name_description` WHERE `name`=:VM_name';
+        $stmt = prepareQuery($db,$sql);
+        if(!executeQuery($stmt,$param)){
+          $l = logError("1101");
+          $l[0]->log($l[1]);
+          header("location:");
+          die();
+        }
 
 
-                if($_SESSION['privilege']=='A') {// A for admin
-                    
-                    $query = " 
-                        SELECT * FROM `VMrequest` WHERE 1"; 
-                    $param = array();
-                } else {
-                    $query = " 
-                        SELECT * FROM `VMrequest` WHERE `username`=:username"; 
-                    $param = array(":username"=>$_SESSION['username']);
-                }
+    }
+  // Delete Hadoop Entry 
+    if(isset($_GET['hadoop_name']) 
+      && !empty($_GET['hadoop_name']) ){
+        $sql = 'DELETE FROM `hadoop` WHERE `hadoop_name`=:hadoop_name';
+        $param = array(
+            ":hadoop_name"=>$_GET['hadoop_name']
+          );
+        $stmt = prepareQuery($db,$sql);
+        if(!executeQuery($stmt,$param)){
+          $l = logError("1104");
+            $l[0]->log($l[1]);
+          die("Cannot Delete Entry for hadoop");
+        }
 
-                $stmt = prepareQuery($db,$query);
-                executeQuery($stmt,$param);
-               ?>
+        $sql = 'DELETE FROM `name_description` WHERE `name`=:hadoop_name';
+        $stmt = prepareQuery($db,$sql);
+        if(!executeQuery($stmt,$param)){
+          $l = logError("1104");
+            $l[0]->log($l[1]);
+          die("Cannot Delete Entry for hadoop");
+        }
+    }
+
+    // Delete Storage Entry
+    if(isset($_GET['storage']) 
+      && !empty($_GET['storage']) ){
+        $sql = 'DELETE FROM `storage_request` WHERE `username`=:username';
+        $param = array(
+            ":username"=>$_GET['storage']
+          );
+        $stmt = prepareQuery($db,$sql);
+        if(!executeQuery($stmt,$param)){
+          $l = logError("1104");
+            $l[0]->log($l[1]);
+          die("Cannot Delete Entry for Storage");
+        }
+
+    }
+
+
+    if($_SESSION['privilege']=='A') {// A for admin
+        
+        $query = " 
+            SELECT * FROM `VMrequest` WHERE 1"; 
+        $param = array();
+    } else {
+        $query = " 
+            SELECT * FROM `VMrequest` WHERE `username`=:username"; 
+        $param = array(":username"=>$_SESSION['username']);
+    }
+
+    $stmt = prepareQuery($db,$query);
+    executeQuery($stmt,$param);
+   ?>
 <div class="row">
   
     <div class="col-sm-3">

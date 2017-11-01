@@ -2,6 +2,7 @@
 
 	require_once __DIR__.'/vendor/autoload.php';
 	require_once 'db_connect.php';
+  require_once('logging.php');
 	use Sircamp\Xenapi\Xen as Xen;
 	
 	function makeXenConnection($dom0name){
@@ -50,15 +51,6 @@
 		$vm->cleanReboot();
 	} 
 
-	/*
-		$VMparam = array(
-			"name"=>$_POST['VM_name'],
-			"memory"=>$_POST['ram'],
-			"ip"=>$ip,
-			"netmask"=>"255.255.252.0",
-			"gateway"=>"172.31.100.1",
-			"hostname"=>"localhost"
-		);*/
 
 
 ?>

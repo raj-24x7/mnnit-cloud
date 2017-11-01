@@ -3,6 +3,7 @@
 	require "checksession.php";
 	require "db_connect.php";
 	require "header.php";
+  require_once('logging.php');
 ?>
 
 <div class="row">
@@ -12,13 +13,11 @@
 	</div>
 	<div class="col-sm-8">
 		<div class="panel panel-info">
-			<div class="panel-heading">
-				<h2><strong><?php echo $_SESSION['username'];?></strong></h2>
+			<div class="panel panel-heading">
+				<center><h2><strong><?php echo $_SESSION['username'];?></strong></h2></center>
 			<div>	
-			<div class="panel-body">
-				<div>
-					<a class="btn btn-sm" href="reset_password.php">Change Password</a>
-				</div>
+			<div class="panel panel-body">
+				<a class="btn btn-info" href="reset_password.php">Change Password</a>
 				<form class="form-control">
 					
 				</form>

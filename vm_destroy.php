@@ -6,6 +6,7 @@
   require 'checksession.php';
 	require_once "header.php";
 	require_once 'xen.php';
+  require_once('logging.php');
 	//require_once 'navigation_bar.php';
 
 		if($_SESSION['privilege']!='A')
@@ -43,6 +44,7 @@
        	if(!executeQuery($stmt,$param)){
             die("Cannot Delete Entry from VMdetails"); 
         }
+        logVMdestroy($_GET['VM_name'], $_SESSION['username']);
         $param = array(
             ":ip"=>$ip 
           );

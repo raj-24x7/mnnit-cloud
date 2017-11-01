@@ -1,6 +1,8 @@
 <?php 
     session_start();
     	require_once "db_connect.php";
+        require_once('logging.php');
+
     if(isset($_SESSION['username'])){
     header("location:dashboard.php");
     die();
@@ -28,9 +30,16 @@
                 session_start();
                 $_SESSION['username']  = $row['username'];
                 $_SESSION['privilege'] = $row['privilege'];
+
+                logUserLogin($row['username'],$_SERVER['REMOTE_ADDR']);
                 header('location:index.php');
+                die();
             } else {
+                logFailedUserLogin($_POST['username'],$_SERVER['REMOTE_ADDR']);
+                $l = logError("1501");
+                $l[0]->log($l[1]);
                 header('location:error.php?error=1501');
+                die();
             }
         }
     }

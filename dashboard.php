@@ -1,6 +1,7 @@
 <?php 
     session_start();
     require_once 'checksession.php';
+  require_once('logging.php');
     include 'header.php'; 
 ?>
 <script type="text/javascript">

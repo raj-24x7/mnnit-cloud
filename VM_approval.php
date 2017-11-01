@@ -4,7 +4,7 @@
     require_once 'checksession.php' ;
     require_once 'db_connect.php';
     require_once 'header.php';
-     
+    require_once('logging.php');
 
     if($_SESSION['privilege']!='A'){
         header("location:VMdetails.php");
@@ -19,7 +19,10 @@
         $db = getDBConnection();
         $stmt = PrepareQuery($db,$query);
         if(!executeQuery($stmt,$param)){
+            $l = logError("1101");
+            $l[0]->log($l[1]);
             header("location:error.php?error=1101");
+            die();
         }
         
         if($row = $stmt->fetch()){
@@ -35,7 +38,10 @@
         $query = "SELECT description FROM name_description WHERE name=:vm_name";
         $stmt = prepareQuery($db,$query);
         if(!executeQuery($stmt,$param)){
+            $l = logError("1102");
+            $l[0]->log($l[1]);
             header("location:error.php?error=1102");
+            die();
         }
         $row = $stmt->fetch();
         $description = $row['description'];

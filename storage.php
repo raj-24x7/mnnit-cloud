@@ -5,6 +5,7 @@
   require 'checksession.php';
   require 'header.php';
   require 'db_connect.php';
+  require_once('logging.php');
   require 'ssh.php';
 
   $row = getUserStorage();

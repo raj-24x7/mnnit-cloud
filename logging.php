@@ -19,7 +19,7 @@
 	$LOGIN_LOG = "logs/login.log";
 	$LOGIN_CONF = array(	'mode' => 0644,
 							'timeFormat' => '%x %X', 
-							'lineFormat'=>'%{timestamp} %{file}:%{line} [INFO]:[%{ident}] : %{message}'
+							'lineFormat'=>'%{timestamp} [%{ident}] : %{message}'
 						);
 	/**
 	 * getLoginLogger
@@ -27,6 +27,7 @@
 	 * @return logger handle for logging
 	 */
 	function getLoginLogger($identifier){
+		global $LOGIN_LOG, $LOGIN_CONF;
 		return Log::singleton('file', $LOGIN_LOG, $identifier, $LOGIN_CONF);
 	}
 
@@ -39,7 +40,7 @@
 	$REQUEST_LOG = "logs/resource.log";
 	$REQUEST_CONF = array(	'mode' => 0644,
 							'timeFormat' => '%x %X', 
-							'lineFormat'=>'%{timestamp} %{file}:%{line} [INFO]:[%{ident}] : %{message}'
+							'lineFormat'=>'%{timestamp} [%{ident}] : %{message}'
 						);
 	/**
 	 * getResourceLogger
@@ -47,6 +48,7 @@
 	 * @return logger handle for logging
 	 */
 	function getResourceLogger($identifier){
+		global $REQUEST_LOG, $REQUEST_CONF;
 		return Log::singleton('file', $REQUEST_LOG, $identifier, $REQUEST_CONF);
 	}
 
@@ -62,6 +64,7 @@
 							'lineFormat'=>'%{timestamp} %{file}:%{line} [ERROR] : %{message}'
 						);
 	function logError($code){
+		global $ERROR_LOG, $ERROR_CONF;
 		$logger = Log::singleton('file', $ERROR_LOG, 'ERROR', $ERROR_CONF);
 		$file_handle = fopen("error_codes.txt", "r");
 		$str = fread($file_handle,8192);
@@ -71,7 +74,7 @@
 		$out = substr($str, $pos, $nl - $pos);
 
 		fclose($file_handle);
-		$logger->log($out);
+		return array($logger,$out);
 	}
 
 	// Login logs
@@ -99,11 +102,6 @@
 	function logSignupRejected($username,$admin){
 		$logger = getLoginLogger("SIGNUP");
 		$logger->log($username." signup request rejected by ".$admin);
-	}
-
-	function logUserCreated($username){
-		$logger = getLoginLogger("SIGNUP");
-		$logger->log("");
 	}
 
 	function logForgotPassword($username){
@@ -143,6 +141,11 @@
 		$logger->log($vm_name." vm  Created ");
 	}
 
+	function logVMDestroy($vm_name, $username){
+		$logger = getResourceLogger("VM");
+		$logger->log($vm_name." vm  Destoyed by : ".$username);
+	}
+
 	function logHadoopRequest($cluster_name, $username){
 		$logger = getResourceLogger("HADOOP");
 		$logger->log("cluster".$cluster_name." request made by ".$username);
@@ -163,7 +166,6 @@
 		$logger->log("cluster".$cluster_name." Created");
 	}
 
-
 	function logStorageRequest($username){
 		$logger = getResourceLogger("STORAGE");
 		$logger->log($username." storage extension request made");
@@ -174,14 +176,14 @@
 		$logger->log($username." storage extension request approved by ".$admin);
 	}
 
-	function logStorageRejected($username){
+	function logStorageRejected($username, $admin){
 		$logger = getResourceLogger("STORAGE");
 		$logger->log($username." storage extension request Rejected by ".$admin);
 	}
 
 	function logFileUpload($username,$filename){
 		$logger = getResourceLogger("STORAGE");
-		$logger->log($username." uploaded file ".$file);
+		$logger->log($username." uploaded file ".$filename);
 	}
 
 

@@ -10,6 +10,7 @@ register_shutdown_function(function(){
 @ini_set("default_socket_timeout", 5);
 include('db_connect.php');
 include('checksession.php');
+  require_once('logging.php');
 include('ssh.php');
 $username = $_SESSION['username'];
 

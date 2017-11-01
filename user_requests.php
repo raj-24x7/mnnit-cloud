@@ -4,6 +4,7 @@
     require 'db_connect.php';
     require 'checksession.php';
     require 'mail.php';
+    require_once('logging.php');
     ?>
 <script type="text/javascript">
     window.onload = function (){
@@ -23,15 +24,15 @@
         $query='SELECT * FROM `new_user` WHERE username =:username ';
              $stmt = prepareQuery($db,$query);
         if (!executeQuery($stmt,$param)) {
+            $l = logError("1104");
+            $l[0]->log($l[1]);
             header("location:error.php?error=1104");
+            die();
         }
         if($row=$stmt->fetch()){
                 $email=$row['email'];
                 $uname=$row['name'];           
         }
-       // echo "tgtiyytyt".$email;
-        
-        //sendmail($email,'r');
         notifyByMail(
                 $email,
                 $uname,
@@ -43,7 +44,9 @@
         $sql = 'DELETE FROM `new_user` WHERE username = :username';
         $stmt = prepareQuery($db,$sql);
         if (executeQuery($stmt,$param)) {
+            logSignupRejected($_POST['username'],$_SESSION['username']);
             header("location:user_requests.php");
+            die();
         }
         
     
@@ -59,9 +62,11 @@
         $sql = "INSERT INTO `user` VALUES (:username,:password,'U')";
         
         $stmt = prepareQuery($db,$sql);
-        if (executeQuery($stmt,$param)) {
-           header("location:user_requests.php");
-    
+        if (!executeQuery($stmt,$param)) {
+            $l = logError("1104");
+            $l[0]->log($l[1]);
+            header("location:error.php?error=1104");
+            die();
         }
     
         $query="UPDATE `new_user` SET  `status`='a' where `username` =:username";
@@ -70,8 +75,10 @@
                 );
             $stmt = prepareQuery($db,$query);
         if (!executeQuery($stmt,$param)) {
-           header("location:error.php?error=1104");
-    
+            $l = logError("1104");
+            $l[0]->log($l[1]);
+            header("location:error.php?error=1104");
+            die();
         }
     
         $query='SELECT * FROM `new_user` WHERE `username` =:username ';
@@ -82,8 +89,6 @@
                 $email=$row['email'];          
                 $uname=$row['name']; 
         }
-         //echo "".$email;
-       // sendmail($email,'a');
         notifyByMail(
                 $email,
                 $uname,
@@ -91,7 +96,10 @@
                 "$uname, <br>\n &nbsp;&nbsp;&nbsp;&nbsp;\t Your Request for Account on MNNIT Data Cloud has been <b>Accepted</b>. <br>&nbsp;&nbsp;&nbsp;&nbsp;\n Please login to use the services. \n
                 <br>Admin.<br>Big Data Center<br>MNNIT Allahabad"
             );
+
+            logSignupApproved($_POST['username'],$_SESSION['username']);
             header("location:user_requests.php");
+            die();
         }
             
     }
@@ -161,7 +169,3 @@
         </table>
     </div>
 </div>
-<!-- <form action="user_requests.php" method="POST" name="approval">
-    <input type="button" class="btn btn-success" name="approve" value="Approve">
-    <input type="button" class="btn btn-danger" name="reject" value="Reject">
-    </form> -->

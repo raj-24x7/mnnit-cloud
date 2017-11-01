@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once('db_connect.php');
+require_once('logging.php');
 
 if(isset($_POST)){
 	$path = $_POST['path'];
@@ -30,6 +31,7 @@ if(isset($_POST)){
 	// if everything is ok, try to upload file
 	} else {
 	    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+	    	logFileUpload($_SESSION['username'],$_FILES["fileToUpload"]["name"]);
 	        echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
 	    } else {
 	        echo "Sorry, there was an error uploading your file.";

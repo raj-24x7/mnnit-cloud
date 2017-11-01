@@ -3,9 +3,7 @@
 	require_once 'checksession.php';
 	require_once 'db_connect.php';
 	require_once 'ssh.php';
-	//require_once 'xen.php';
-	//require_once 'ssh.php';
-
+	require_once 'logging.php';
 	
 	// If the Request is rejected. 
 	if($_POST['button']=='Reject'){
@@ -16,6 +14,7 @@
 		$db = getDBConnection();
 		$stmt = prepareQuery($db,$sql);
 		if(executeQuery($stmt,$param)){
+			logHadoopRejected($_POST['hadoop_name'], $_SESSION['username']);
 			header("location:pending_details.php");
 			die();
 		}
@@ -23,16 +22,23 @@
 
 
 	//If the request is accepted.
-	if($_POST['button']=='Approve' ){	
+	if($_POST['button']=='Approve' ){
+		
+		logHadoopApproved($_POST['hadoop_name']);	
 		$noofslaves=$_POST['number_slave'];
 		if(countAvailableIP() < $noofslaves+1){
+			$l = logError("1301");
+            $l[0]->log($l[1]);
 			header("location:error.php?error=1301");
+			die();
 		}
 
 		$db = getDBConnection();
 		$query = "SELECT `ip` FROM `ip_pool` WHERE `status`!='allocated'";
 		$stmt = prepareQuery($db, $query);
 		if(!executeQuery($stmt, array())){
+			$l = logError("1104");
+            $l[0]->log($l[1]);
 			header("location:error.php?error=1104");
 			die();
 		}
@@ -45,12 +51,14 @@
 		// creating the hadoop cluster
 		//Here
 		createHadoopCluster($_POST['hypervisor'], $_POST['hadoop_name'], $_POST['ram'], $noofslaves, $ip);
-			
+			logHadoopCreated($_POST['hadoop_name']);
 		// Updating the request
 		
 		$query = "UPDATE `hadoop` SET `status`='created'";
 		$stmt = prepareQuery($db, $query);
 		if(!executeQuery($stmt, array())){
+			$l = logError("1104");
+            $l[0]->log($l[1]);
 			header("location:error.php?error=1104");
 			die();
 		}
@@ -76,6 +84,8 @@
 		$sql = 'INSERT INTO VMdetails (username,VM_name,cpu,ram,storage,hypervisor_name,ip,doe,iscluster) VALUES (:username,:VM_name,:cpu,:ram,:storage,:hypervisor_name,:ip,:doe,:iscluster)';
 		$stmt = prepareQuery($db,$sql);
 		if(!executeQuery($stmt,$param)){
+			$l = logError("1204");
+            $l[0]->log($l[1]);
 			header("location:error.php?error=1204");	//ERROR
 			die();
 		}
@@ -88,6 +98,8 @@
 			$sql = 'INSERT INTO VMdetails (username,VM_name,cpu,ram,storage,hypervisor_name,ip,doe,iscluster) VALUES (:username,:VM_name,:cpu,:ram,:storage,:hypervisor_name,:ip,:doe,:iscluster)';
 			$stmt = prepareQuery($db,$sql);
 			if(!executeQuery($stmt,$param)){
+				$l = logError("1104");
+                $l[0]->log($l[1]);
 				header("location:error.php?error=1104");	//ERROR
 				die();
 			}
@@ -101,11 +113,12 @@
 					":ip" => $ip[$i]
 				);
 			if(!executeQuery($stmt, $param)){
+				$l = logError("1104");
+                $l[0]->log($l[1]);
 				header("location:error.php?error=1104");
 				die();
 			}
 		}
-
 		header("location:hadoop_details.php");
 		die();
 	}else{
@@ -128,6 +141,8 @@
 		$query = "SELECT COUNT(*) as count FROM `ip_pool` WHERE `status`!='allocated'";
 		$stmt = prepareQuery($db, $query);
 		if(!executeQuery($stmt, array())){
+			$l = logError("1105");
+            $l[0]->log($l[1]);
 			header("location:error.php?error=1105");
 			die("cannot count * ");
 		}

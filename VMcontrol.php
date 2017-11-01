@@ -5,6 +5,7 @@
     require_once 'checksession.php';
     require_once 'db_connect.php';
     require_once 'xen.php';
+    require_once('logging.php');
     
     if(isset($_GET['VM_name'])){
     	$query = "  SELECT 
@@ -33,7 +34,10 @@
         $db = getDBConnection();
         $stmt = prepareQuery($db,$query);
         if(!executeQuery($stmt,$param)){
+            $l = logError("1103");
+            $l[0]->log($l[1]);
             header("location:error.php?error=1103");
+            die();
         }
         $row = $stmt->fetch();
      //   echo $row['hypervisor_name'].'hello';
@@ -41,20 +45,29 @@
        	try {
           $xen = makeXenconnection($row['hypervisor_name']);  
         } catch (Exception $e) {
+          $l = logError("1201");
+          $l[0]->log($l[1]);
           header("location:error.php?error=1201");
+          die();
         }
         try{
             $vm = $xen->getVMByNameLabel($_GET['VM_name']);
            	$metrics = $vm->getMetrics()->getValue(); 
            	$guestMetrics = $vm->getGuestMetrics()->getValue(); 
         }catch(Exception $e){
+          $l = logError("1202");
+          $l[0]->log($l[1]);
           header("location:error.php?error=1202");
+          die();
         }
         $sql = 'SELECT description FROM `name_description` WHERE `name` = :VM_name';
         $param = array(":VM_name"=>$_GET['VM_name']);
         $stmt2 = prepareQuery($db,$sql);
         if(!(executeQuery($stmt2,$param))){
+            $l = logError("1102");
+            $l[0]->log($l[1]);
             header("location:error.php?error=1102");
+          die();
         }
         $val = $stmt2->fetch();
         $description = $val['description'];

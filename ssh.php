@@ -2,6 +2,7 @@
 <?php
 
 require_once 'db_connect.php';
+  require_once('logging.php');
 
 function getLocalServerShell(){
 	$ip = $_SERVER['SERVER_ADDR'];

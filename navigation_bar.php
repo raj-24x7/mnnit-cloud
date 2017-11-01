@@ -11,12 +11,6 @@
 
 		<li id ="file_list"><a href="file_list.php" onclick="abortAll();"><svg class="glyph stroked line-graph"><use xlink:href="#stroked-line-graph"></use></svg> Storage File List </a></li>
 
-
-
-
-
-
-
 		<li id="storage"><a href="storage.php"><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"></use></svg>storage</a></li>
 
 		<li id="pending_details"><a href="pending_details.php"><svg class="glyph stroked table"><use xlink:href="#stroked-table"></use></svg>Pending Requests</a></li>

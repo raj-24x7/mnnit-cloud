@@ -1,4 +1,6 @@
-<?php 
+<?php
+    
+  require_once('logging.php'); 
     function getDBConnection(){
 
         $username = "cloud-user"; 

@@ -5,6 +5,7 @@
   require 'checksession.php';
   require 'header.php';
   require 'db_connect.php';
+  require_once('logging.php');
 
   if($_SESSION['privilege']!='A'){
     header("location:error.php?error=1001");

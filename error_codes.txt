@@ -21,6 +21,7 @@
 1401:Not enough IP for Cluster
 1402:wrong
 1403: Unable to create cluster !
+1404:Hadoop request entry not available
 
 1501:Wrong Credentials !
 1502:Link Expired. Retry Forgot Password

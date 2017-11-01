@@ -1,6 +1,7 @@
 <?php 
     session_start();
     	require_once "db_connect.php";
+  require_once('logging.php');
     if(isset($_SESSION['username'])){
     header("location:dashboard.php");
     }
@@ -25,10 +26,14 @@
         $db = getDBConnection();
         $stmt = prepareQuery($db,$query);
         if(!executeQuery($stmt,$param)){
-
-                    header("location:error.php?error=1104");
+            $l = logError("1101");
+            $l[0]->log($l[1]);
+            header("location:error.php?error=1104");
+            die();
         }else{
-                    header("location:index.php");
+            logSignupRequest($_POST['username']);
+            header("location:index.php");
+            die();
         }
     }
 }

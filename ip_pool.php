@@ -4,6 +4,7 @@
     require_once 'checksession.php';
 	require_once "db_connect.php";
 	require_once "header.php";
+  require_once('logging.php');
 	$db = getDBConnection();
 	if(isset($_POST['ip'])){
 		
@@ -11,7 +12,10 @@
 			$stmt=PrepareQuery($db,$query);
 			$param=array(':ip'=>$_POST['ip']);
 			if(!(ExecuteQuery($stmt,$param))){
+				$l = logError("1105");
+            	$l[0]->log($l[1]);
 				header("location:error.php?error=1105");
+				die();
 			}
 
 	}

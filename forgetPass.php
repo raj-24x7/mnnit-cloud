@@ -28,9 +28,12 @@
                 		$insert_query = "INSERT INTO `forgot_password` VALUES (:username,:token, :tm)";
                 		$stmt = prepareQuery($db, $insert_query);
                 		if(!executeQuery($stmt, array(":username"=>$row['username'], ":token"=>$token, ":tm"=>time()))){
+                            $l = logError("1104");
+                            $l[0]->log($l[1]);
                 			header("location:error.php?error=1104");
-                		}
-
+                		    die();
+                        }
+                        logForgotPassword($username);
                 		// send mail
                 		$msg = "
                 			Dear ".$row['username'].",\n
@@ -43,8 +46,12 @@
                 		break;
                 	}
             }    
-            if($cc==0)
+            if($cc==0){
+                $l = logError("1801");
+                $l[0]->log($l[1]);
                 header('location:error.php?error=1801');
+                die();
+            }
             
         }
     

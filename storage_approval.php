@@ -4,6 +4,7 @@
     require_once 'checksession.php' ;
     require_once 'db_connect.php';
     require_once 'header.php';
+  require_once('logging.php');
      
 
     if($_SESSION['privilege']!='A'){
@@ -16,9 +17,12 @@
                 ":username"=>$_GET['username']
             );
         $db = getDBConnection();
-        $stmt = PrepareQuery($db,$query);
+        $stmt = PrepareQuery($db,$query)4
         if(!executeQuery($stmt,$param)){
+            $l = logError("1104");
+            $l[0]->log($l[1]);
             header("location:error.php?error=1101");
+            die();
         }
         $username = "";
               $alloted_space = "";
@@ -29,7 +33,7 @@
               $alloted_space = getMemoryString($row['alloted_space']);
               $new_demand = getMemoryString($row['new_demand']);
         } else {
-            die("Hell");
+            die();
         }
       
     ?>

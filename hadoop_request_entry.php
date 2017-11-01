@@ -6,7 +6,7 @@
             require 'db_connect.php';
             session_start();
             require 'checksession.php';
-
+            require 'logging.php';
 
             if($_SERVER['REQUEST_METHOD']=='POST'){
                 $param = array(
@@ -30,6 +30,7 @@
                     );
                 $stmt = prepareQuery($db,$sql);
                 if(executeQuery($stmt,$param)){
+                    logHadoopRequest($_POST['hadoop_name'],$_SESSION['username']);
                     header("location:pending_details.php");
                 }
                          

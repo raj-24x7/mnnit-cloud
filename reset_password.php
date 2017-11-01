@@ -1,38 +1,40 @@
 <?php
+	session_start();
 	require_once('logging.php');
 
-	if(!isset($_SESSION) && isset($_GET)){
-		$username = $_GET['username'];
-		$token = $_GET['token'];
+	if(!isset($_SESSION['username']) && empty($_SESSION['username'])){
+		if(isset($_GET['username'])&&!empty($_GET['username'])){
+			$username = $_GET['username'];
+			$token = $_GET['token'];
 
-		$query = "SELECT `timestamp` FROM `forgot_password` WHERE `username`=:username AND `token`=:token";
-		$param = array(
-				":username"=>$username,
-				":token"=>$token
-			);
-		$stmt = prepareQuery(getDBConnection(),$query);
-		if(!executeQuery($stmt, $param)){
-			header("location:error.php?error=1104");
-			die();
-		}
+			$query = "SELECT `timestamp` FROM `forgot_password` WHERE `username`=:username AND `token`=:token";
+			$param = array(
+					":username"=>$username,
+					":token"=>$token
+				);
+			$stmt = prepareQuery(getDBConnection(),$query);
+			if(!executeQuery($stmt, $param)){
+				header("location:error.php?error=1104");
+				die();
+			}
 
-		if($row=$stmt->fetch()){
-			if(time() - $row['timestamp'] < 3*3600){
-				session_start();
-				$_SESSION['username']=$username;
-			}else {
-				header("location:error.php?error=1502");
+			if($row=$stmt->fetch()){
+				if(time() - $row['timestamp'] < 3*3600){
+					$_SESSION['username']=$username;
+				}else {
+					header("location:error.php?error=1502");
+					die();
+				}
+			}else{
+				header("location:error.php?error=1503");
 				die();
 			}
 		}else{
 			header("location:error.php?error=1503");
 			die();
 		}
-	}else{
-		header("location:error.php?error=1503");
-		die();
 	}
-
+	require_once('checksession.php');
 	require_once("header.php");
 ?>
 
@@ -48,11 +50,9 @@
 		<br>
 		<br>
 		<br>
-		<!-- Collapse Controller header-->
 		<div class="panel">
 			<div class="panel-heading">
 				<div class="col-sm-4"> Change Password </div>
-				<a class="glyphicon glyphicon-plus" data-toggle="collapse" href="#fill-collapse"></a>
 			</div>
 					<form name="change_password" class="form-horizontal" method="POST" action="change_password.php">
 						<div class="form-group">

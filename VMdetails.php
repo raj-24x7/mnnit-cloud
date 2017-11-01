@@ -26,7 +26,10 @@
 
                 $stmt = prepareQuery($db,$query);
                 if(!executeQuery($stmt,$param)){
+                      $l = logError("1104");
+                      $l[0]->log($l[1]);
                       header("location:error.php?error=1104");
+                      die();
                 }
              ?> 
 

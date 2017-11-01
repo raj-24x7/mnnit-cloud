@@ -4,6 +4,8 @@
   require 'checksession.php';
   require 'header.php';
   require 'db_connect.php';
+  require 'logging.php';
+
 ?>
 <script type="text/javascript">
   window.onload = function (){
@@ -26,7 +28,10 @@
 
                 $stmt = prepareQuery($db,$query);
                 if(!executeQuery($stmt,$param)){
+                      $l = logError("1104");
+                      $l[0]->log($l[1]);
                       header("location:error.php?error=1104");
+                      die();
                 }
              ?> 
 

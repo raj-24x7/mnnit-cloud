@@ -7,6 +7,7 @@
     require_once 'checksession.php';
     require_once 'xen.php';
     require_once 'header.php';
+  require_once('logging.php');
     if($_SESSION['privilege']!='A'){
       header("location: index.php");
     }

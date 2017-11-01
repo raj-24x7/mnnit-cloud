@@ -1,6 +1,7 @@
 <?php
 	session_start();
 	require_once "db_connect.php";
+  require_once('logging.php');
 	if($_SESSION['privilege']!='A'){
 		header("location:index.php");
 	}
@@ -14,6 +15,8 @@
 			);
 		$stmt = prepareQuery($db,$sql);
 		if(!executeQuery($stmt,$param)){
+			$l = logError("1108");
+            $l[0]->log($l[1]);
 			header("location:error.php?error=1108");
 			die();
 		}
