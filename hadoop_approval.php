@@ -62,13 +62,6 @@
         //var name = document.forms["request"]["hadoop_name"].value;
         var date = document.forms["request"]["doe"].value;
         
-        //var val = document.getElementById("res");
-        //alert("wait:"+name+"res:"+val.innerHTML);
-        //checkVMNameValidity();
-        /*if(name=="" || val.innerHTML!="Valid"){
-            alert("Hadoop name should be unique and should not contain special characters or spaces");
-            return false;
-        }*/
 
         //alert("hello");
         if(!isValidDate(date)){
@@ -152,9 +145,9 @@
                                 </div>
                             </div>
                                  <div class="form-group">
-                                <label class="control-label col-sm-3">Number of Slaves:</label>
+                                <label class="control-label col-sm-3">Number of VMs:</label>
                                 <div class="col-sm-7">
-                                    <input type="number" class="form-control" id="number_slave" name="number_slave" value=<?php echo '"'.$number_slave.'"'; ?> >
+                                    <input type="number" class="form-control" id="number_slave" name="number_slave" value=<?php echo '"'.(string)((int)$number_slave+1).'"'; ?> >
                                 </div>
                             </div>      
                             

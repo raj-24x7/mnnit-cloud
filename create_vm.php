@@ -41,7 +41,7 @@
 			header("location:error.php?error=1106");
 			die();
 		}
-
+			logVMRejected($_POST['VM_name'], $_SESSION['username']);
 			header("location:pending_details.php");
 			die();
 	}
@@ -132,7 +132,7 @@
 		if(!executeQuery($stmt,$nameParam)){
 			$l = logError("1104");
             $l[0]->log($l[1]);
-            header("location:error.php?error=1104")
+            header("location:error.php?error=1104");
 			die();	//ERROR
 		}
 

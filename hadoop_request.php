@@ -108,9 +108,9 @@
                             </div>
 
                             <div class="form-group" >
-                                <label class="control-label col-sm-3" for="pwd">Number of Slaves</label>
+                                <label class="control-label col-sm-3" for="pwd">Number of VMs</label>
                                 <div class="col-sm-7" >
-                                    <input type="number" class="form-control" name="number_slave" id="number_slave" >
+                                    <input type="number" class="form-control" name="number_vm" id="number_vm" >
                                 </div>
                                 <div class="col-sm-2" id="res"></div>
                             </div>

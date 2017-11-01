@@ -1,2 +1,5 @@
 10/31/17 22:45:06 /var/www/html/project/logging.php:89 [INFO]:[LOGIN] : admin Failed login atttempt from 127.0.0.1
 10/31/17 23:07:47 [LOGIN] : admin Failed login atttempt from 127.0.0.1
+11/01/17 11:55:34 [FORGOT PASSWORD] :  request made 
+11/01/17 13:24:54 [LOGIN] : pankaj logged in from 127.0.0.1
+11/01/17 14:05:34 [LOGIN] : admin logged in from 127.0.0.1

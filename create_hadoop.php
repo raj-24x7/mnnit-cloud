@@ -119,6 +119,7 @@
 				die();
 			}
 		}
+		
 		header("location:hadoop_details.php");
 		die();
 	}else{

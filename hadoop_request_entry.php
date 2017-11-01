@@ -3,15 +3,15 @@
 <html>
     <body>
         <?php
-            require 'db_connect.php';
+            require_once 'db_connect.php';
             session_start();
-            require 'checksession.php';
-            require 'logging.php';
+            require_once 'checksession.php';
+            require_once 'logging.php';
 
             if($_SERVER['REQUEST_METHOD']=='POST'){
                 $param = array(
                 	":hadoop_name" => $_POST['hadoop_name'],
-                    ":number_slave" => $_POST['number_slave'],
+                    ":number_slave" => (int)$_POST['number_slave']-1,
                 	":ram" => $_POST['ram'],
                 	":cpu" => $_POST['cpu'],
                 	":storage" => $_POST['storage'],

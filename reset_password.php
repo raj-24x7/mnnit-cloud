@@ -1,6 +1,7 @@
 <?php
 	session_start();
 	require_once('logging.php');
+	require_once('db_connect.php');
 
 	if(!isset($_SESSION['username']) && empty($_SESSION['username'])){
 		if(isset($_GET['username'])&&!empty($_GET['username'])){
@@ -21,6 +22,7 @@
 			if($row=$stmt->fetch()){
 				if(time() - $row['timestamp'] < 3*3600){
 					$_SESSION['username']=$username;
+					$_SESSION['privilege']='U';
 				}else {
 					header("location:error.php?error=1502");
 					die();

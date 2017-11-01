@@ -33,7 +33,7 @@
                 			header("location:error.php?error=1104");
                 		    die();
                         }
-                        logForgotPassword($username);
+                        logForgotPassword($row['username']);
                 		// send mail
                 		$msg = "
                 			Dear ".$row['username'].",\n

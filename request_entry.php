@@ -6,7 +6,7 @@
             require 'db_connect.php';
             session_start();
             require 'checksession.php';
-  require_once('logging.php');
+            require_once('logging.php');
 
 
             if($_SERVER['REQUEST_METHOD']=='POST'){
@@ -25,7 +25,7 @@
                 $stmt = prepareQuery($db,$sql);
                 if(!executeQuery($stmt,$param)){
                     $l = logError("1104");
-                    $l[0]->log($l[1])   
+                    $l[0]->log($l[1]);   
                     header("location:error.php?error=1104");
                     die();
                 }

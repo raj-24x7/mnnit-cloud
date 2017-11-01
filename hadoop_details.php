@@ -4,7 +4,7 @@
   require 'checksession.php';
   require 'header.php';
   require 'db_connect.php';
-  require 'logging.php';
+  require_once('logging.php');
 
 ?>
 <script type="text/javascript">
