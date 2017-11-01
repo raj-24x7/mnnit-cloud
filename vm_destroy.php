@@ -13,6 +13,7 @@
 		{
 			//die("ddddddd");
 			header('location:VMcontrol.php?VM_name='.$_GET['VM_name']);
+      die();
 		}
 //echo "hello";
 
@@ -69,13 +70,6 @@
 
 
     }
-
-	//$domname=$_GET['VM_name'];
-
-	//makeXenConnection($domname);
-
-
-
 
 ?>
 

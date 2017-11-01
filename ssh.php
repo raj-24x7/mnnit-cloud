@@ -283,7 +283,7 @@ function getUsedSpace($username){
 		$param = array(
 			":used_space"=>$data[0],
 			":username"=>$username,
-			":storage_server"=>$storage_server
+			":storage_server"=>$row['server_name']
 			);
 		$stmt_new = prepareQuery($db, $query);
 
