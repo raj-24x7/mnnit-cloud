@@ -5,6 +5,7 @@
 	require_once('checksession.php');
 	require_once('db_connect.php');
 	require_once('logging.php');
+	require_once('ssh.php');
 
 	if(isset($_POST) && !empty($_POST)){
 		$username = $_SESSION['username'];

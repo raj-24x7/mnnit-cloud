@@ -257,7 +257,7 @@
                 }?>
                 <th>Alloted Space</th>
                 <th>New Requirement</th>
-                <th>Description</th>
+                <!--<th>Description</th>-->
                 <th>Status</th>
             </tr>
           </thead>
@@ -274,7 +274,7 @@
                       echo '
                       <td>'.getMemoryString($row['alloted_space']).'</td>
                       <td>'.getMemoryString($row['new_demand']).'</td>
-                      <td>'.$row['description'].'</td>';
+                      <!--<td>'.$row['description'].'</td>-->';
 
                     if($row['status']!='Rejected'){
                         if($_SESSION['privilege']=='A'){

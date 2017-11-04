@@ -1,3 +1,24 @@
 11/01/17 13:51:32 [VM] : xcuse vm request made by pankaj
 11/01/17 14:04:47 [HADOOP] : clusterxcusemeagain request made by pankaj
 11/01/17 14:07:11 [HADOOP] : clusterxcusemeagain request rejected by admin
+11/03/17 14:32:10 [STORAGE] : admin uploaded file Lingashtakam - S P Balasubrahmanyam Mp3 Download.mp3
+11/03/17 14:46:13 [STORAGE] : admin uploaded file tutorial.pdf
+11/03/17 14:47:29 [STORAGE] : admin uploaded file SPOJ-tutorial.pdf
+11/03/17 14:48:14 [STORAGE] : admin uploaded file prog9srv.png
+11/03/17 16:47:14 [HADOOP] : clusteradmin request made by 
+11/03/17 16:50:24 [HADOOP] : clusteradmin request made by 
+11/03/17 16:50:55 [STORAGE] : admin storage extension request approved by 
+11/03/17 16:58:14 [HADOOP] : clusteradmin request made by 
+11/03/17 16:58:18 [STORAGE] : admin storage extension request approved by admin
+11/03/17 17:14:10 [STORAGE] : admin uploaded file mail_inherent.py
+11/03/17 23:26:25 [VM] : newTrial vm request made by admin
+11/04/17 00:15:00 [HADOOP] : clusteradmin request made by 
+11/04/17 00:15:04 [STORAGE] : admin storage extension request approved by admin
+11/04/17 09:25:13 [STORAGE] : admin uploaded file vnc_python.py
+11/04/17 09:26:10 [STORAGE] : admin uploaded file pyRename.zip
+11/04/17 10:30:53 [VM] : xcuse vm request rejected by admin
+11/04/17 10:31:30 [HADOOP] : clustertrying request rejected by admin
+11/04/17 10:47:51 [VM] : test1 vm request made by aksingh
+11/04/17 10:48:08 [VM] : test1 vm request rejected by admin
+11/04/17 10:49:42 [HADOOP] : clusteraksingh request made by 
+11/04/17 12:05:25 [VM] : aks-vmbox vm request made by aksingh

@@ -17,7 +17,7 @@
                 ":username"=>$_GET['username']
             );
         $db = getDBConnection();
-        $stmt = PrepareQuery($db,$query)4
+        $stmt = PrepareQuery($db,$query);
         if(!executeQuery($stmt,$param)){
             $l = logError("1104");
             $l[0]->log($l[1]);

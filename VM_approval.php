@@ -178,7 +178,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-sm-3" for="pwd">CPU:</label>
+                                <label class="control-label col-sm-3" for="pwd">vCPU:</label>
                                 <div class="col-sm-7">
                                     <input class="form-control" type="integer" name="cpu" id="cpu" />
                                 </div>

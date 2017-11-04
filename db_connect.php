@@ -188,4 +188,16 @@
         return $stmt->fetch();
     }
 
+    function getVMHypervisor($vm_name){
+        $db = getDBConnection();
+        $query = "  SELECT * FROM `VMdetails` WHERE `VM_name`=:vm_name";
+        $param = array(
+            ":vm_name"=>$vm_name
+          );
+        $stmt = prepareQuery($db, $query);
+        executeQuery($stmt, $param);
+        $row = $stmt->fetch();
+        return $row['hypervisor_name'];
+    }
+
 ?>

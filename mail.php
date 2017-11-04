@@ -1,6 +1,6 @@
 <?php 
 require_once "vendor/autoload.php";
-
+/*
 function notifyByMail($to, $to_name, $subject, $msg) {
 	$mail = new PHPMailer;
 
@@ -13,8 +13,8 @@ function notifyByMail($to, $to_name, $subject, $msg) {
 	//Set this to true if SMTP host requires authentication to send email
 	$mail->SMTPAuth = true;                          
 	//Provide username and password     
-	$mail->Username = "";                 
-	$mail->Password = "";                           
+	$mail->Username = "mnnitcloud@gmail.com";                 
+	$mail->Password = "admin@mnnit";                           
 	//If SMTP requires TLS encryption then set it
 	$mail->SMTPSecure = "tls";                           
 	//Set TCP port to connect to 
@@ -33,12 +33,47 @@ function notifyByMail($to, $to_name, $subject, $msg) {
 
 	if(!$mail->send()) 
 	{
-	    //echo "Mailer Error: " . $mail->ErrorInfo;
+	    echo "Mailer Error: " . $mail->ErrorInfo;
 	} 
 	else 
 	{
-	   // echo "Message has been sent successfully";
+	    echo "Message has been sent successfully";
 	}
 
+}
+
+// testing 
+
+notifyByMail("241096raj@gmail.com","Raj kumar","hello","hi how are you ?");
+*/
+function notifyByMail($to, $to_name, $subject, $msg) {
+	$req = array(
+			"REQUEST_TYPE"=>"mail",
+			"REQUEST_DATA"=>array(
+					"TO"=>$to,
+					"TO_NAME"=>$to_name,
+					"SUBJECT"=>$subject,
+					"MESSAGE"=>$msg
+				)
+		);
+	/* Create a TCP/IP socket. */
+		$socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
+		if ($socket === false) {
+		    echo "socket_create() failed: reason: " . socket_strerror(socket_last_error()) . "\n";
+		} else {
+		    //echo "OK.\n";
+		}
+
+		$address = "127.0.0.1";
+		$service_port = 1234;
+		//echo "Attempting to connect to '$address' on port '$service_port'...";
+		$result = socket_connect($socket, $address, $service_port);
+		if ($result === false) {
+		    echo "socket_connect() failed.\nReason: ($result) " . socket_strerror(socket_last_error($socket)) . "\n";
+		} else {
+		    //echo "OK.\n";
+		}
+		$jsondata = json_encode($req);
+		socket_write($socket, $jsondata, strlen($jsondata));
 }
 ?>

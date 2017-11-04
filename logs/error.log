@@ -2,3 +2,7 @@
 10/31/17 23:07:47 /var/www/html/project/index.php:40 [ERROR] : Wrong Credentials !
 11/01/17 11:55:08 /var/www/html/project/forgetPass.php:51 [ERROR] : Email Not found
 11/01/17 14:46:33 /var/www/html/project/create_vm.php:62 [ERROR] : IP not available for new machine.!!ABORT!!.
+11/02/17 10:44:42 /var/www/html/project/forgetPass.php:51 [ERROR] : Email Not found
+11/03/17 16:47:02 /var/www/html/project/storage_request_entry.php:18 [ERROR] : Cannot Shrink beyond the used size
+11/03/17 23:26:35 /var/www/html/project/create_vm.php:62 [ERROR] : IP not available for new machine.!!ABORT!!.
+11/04/17 09:36:22 /var/www/html/project/forgetPass.php:51 [ERROR] : Email Not found

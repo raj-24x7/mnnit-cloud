@@ -151,7 +151,7 @@ function createHadoopCluster($dom0name ,$name, $ram, $noofslaves, $ips){
 		$command = $command." "."";
 
 		if(!($stream = ssh2_exec($connection, $command))){
-			header("location:error.php?error=");
+			header("location:error.php?error=1201");
 		}
 		
 		stream_set_blocking($stream, true);
@@ -163,7 +163,24 @@ function createHadoopCluster($dom0name ,$name, $ram, $noofslaves, $ips){
 }
 
 function getHypervisorConnection($dom0name){
-		
+	
+		$row = getHypervisorDetails($dom0name);
+		$ip=$row['ip'];
+		$username=$row['userid'];
+		$password=$row['password'];
+
+		if(!($connection = ssh2_connect($ip, 22))){
+			header("location:error.php?error=1201");
+			die();
+		}
+		if(!(ssh2_auth_password($connection, $username, $password))){
+			header("location:error.php?error=1202");
+			die();
+		}
+		return $connection;
+}
+
+function getHypervisorDetails($dom0name){
 		$db = getDBConnection();
 		$sql = 'SELECT * FROM `hypervisor` WHERE name=:name';
 		$param = array(":name"=>$dom0name);
@@ -173,17 +190,7 @@ function getHypervisorConnection($dom0name){
 		}
 		
 		$row = $stmt->fetch();
-		$ip=$row['ip'];
-		$username=$row['userid'];
-		$password=$row['password'];
-
-		if(!($connection = ssh2_connect($ip, 22))){
-			header("location:error.php?error=1201");
-		}
-		if(!(ssh2_auth_password($connection, $username, $password))){
-			header("location:error.php?error=1201");
-		}
-		return $connection;
+		return $row;
 }
 
 function setQuota($storage_server, $username, $new_limit){
@@ -292,6 +299,30 @@ function getUsedSpace($username){
 		}
 		
 		return $data[0];
+}
+
+function reownFile($username, $filename){
+	$row = getUserStorageServer($username);
+	$ip=$row['ip'];
+	$sr_username=$row['login_name'];
+	$sr_password=$row['login_password'];
+	$connection = null;
+	if(!($connection = ssh2_connect($ip, 22))){
+		return false;
+		header("location:error.php?error=1201");
+		die();
+	}
+
+	if(!(ssh2_auth_password($connection, $sr_username, $sr_password))){
+		header("location:error.php?error=1201");
+		die();
+	}
+
+	$command = "chown ".$username." /home/".$username."/".$filename;
+	$stream = ssh2_exec($connection, $command);
+	stream_set_blocking($stream, true);
+	$recv_data = stream_get_contents($stream);
+	fclose($stream);
 }
 
 function isActiveStorgaeServer($storage_server){

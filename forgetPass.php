@@ -37,7 +37,7 @@
                 		// send mail
                 		$msg = "
                 			Dear ".$row['username'].",\n
-                			\tPassword Reset Link : 172.31.76.68/mnnit-cloud/reset_password.php?username=".$row['username']."&token=".$token."\n
+                			\tPassword Reset Link : 172.31.76.68/project/reset_password.php?username=".$row['username']."&token=".$token."\n
                             \tIt is valid for 2 hours.\n\n
                             admin 
                 		";

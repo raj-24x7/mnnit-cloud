@@ -1,5 +1,7 @@
 $(function(){
 
+	//$('.progress-bar').css("width", 70+"%");
+
 	var filemanager = $('.filemanager'),
 		breadcrumbs = $('.breadcrumbs'),
 		fileList = filemanager.find('.data');
@@ -400,13 +402,16 @@ $(function(){
 	        				alert(response);
 	        				location.reload();
 	       				},
-	       		beforeSend: function (xhr){
-	       			if(xhr.upload){
-	       				xhr.upload.addEventListener('progress',renderProgressBar);
-	       			} else {
-	       				console.log("xhr.upload not readable");
-	       			}
-	       		}
+	       		xhr: function (){
+		            var xhr = new XMLHttpRequest();
+		            if(xhr.upload){
+		       				xhr.upload.addEventListener('progress',renderProgressBar, true);
+
+		       			} else {
+		       				console.log("xhr.upload not readable");
+		       			}
+		            return xhr;
+       			}
 
 	   		});
 	   		return false;
@@ -414,8 +419,8 @@ $(function(){
 
 		function renderProgressBar(e){
 			if(e.lengthComputable){
-				var percent = e.loaded/e.total;
-				$('#progress-bar').html('<p> '+percent+' % </p>');
+				var percent = e.loaded/e.total*100;
+				$('.progress-bar').css("width", percent+"%");
 			}
 		}
 

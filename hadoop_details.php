@@ -10,6 +10,9 @@
 <script type="text/javascript">
   window.onload = function (){
     document.getElementById("hadoop_details").className = "active";
+      var prevClass = document.getElementById("hadoop-collapse").className;
+
+      document.getElementById("hadoop-collapse").className = prevClass+" in";
   }
 </script>
               <?php     
@@ -52,9 +55,9 @@
                   echo '<th>Username</th>';
                 }?>
                 <th>No of Slaves</th>
-                <th>CPU#(per VM)</th>
-          			<th>Storage(per VM)</th>
-          			<th>RAM(per VM)</th>
+                <th>No Of vCPU(per VM)</th>
+          			<th>Storage(GB per VM)</th>
+          			<th>RAM(MB per VM)</th>
           			<th>Expire On</th>
           			<th></th>
         		</tr>

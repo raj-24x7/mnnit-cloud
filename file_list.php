@@ -10,9 +10,12 @@
 ?>
 
 <script type="text/javascript">
-	 window.onload = function (){
-    	document.getElementById("file_list").className = "active";
-  	 }
+  window.onload = function (){
+    document.getElementById("file_list").className = "active";    var prevClass = document.getElementById("storage-collapse").className;
+
+      document.getElementById("storage-collapse").className = prevClass+" in";
+  
+  }
 </script>
 
 <?php
@@ -73,6 +76,12 @@
                         <form id="uploadForm" class="form-horizontal-sm">
 							<div class="form-group">
 								<input class="" type="file" name="fileToUpload" id="fileToUpload" />
+							</div>
+							<div class="progress">
+							  <div class="progress-bar" role="progressbar" aria-valuenow="70"
+							  aria-valuemin="0" aria-valuemax="100" style="width:0%">
+							    <span class="sr-only">70% Complete</span>
+							  </div>
 							</div>
 							<div class="form-group">
 								<input class="form-control btn btn-info" type="submit" value="Upload" name="submit" id="upload"/>

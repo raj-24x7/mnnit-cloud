@@ -8,6 +8,9 @@
 <script type="text/javascript">
   window.onload = function (){
     document.getElementById("VMdetails").className = "active";
+      var prevClass = document.getElementById("vm-collapse").className;
+
+      document.getElementById("vm-collapse").className = prevClass+" in";
   }
 </script>
               <?php     
@@ -51,9 +54,9 @@
                   echo '<th>Username</th>';
                 }?>
           			<th>Template</th>
-          			<th>CPU#</th>
-          			<th>Storage</th>
-          			<th>RAM</th>
+          			<th>No Of vCPU</th>
+          			<th>Storage(GB)</th>
+          			<th>RAM(MB)</th>
           			<th>Expire On</th>
           			<th>Info</th>
         		</tr>

@@ -804,6 +804,10 @@ class XenVirtualMachine extends XenElement {
 		return $this->getXenconnection()->VM__get_memory_dynamic_min($this->getVmId());
 	}
 
+	public function getDomID(){
+		return $this->getXenconnection()->VM__get_domid($this->getVmId());
+	}
+
 }
 ?>
 	

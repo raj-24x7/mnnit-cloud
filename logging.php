@@ -181,6 +181,7 @@
 		$logger->log($username." storage extension request Rejected by ".$admin);
 	}
 
+
 	function logFileUpload($username,$filename){
 		$logger = getResourceLogger("STORAGE");
 		$logger->log($username." uploaded file ".$filename);

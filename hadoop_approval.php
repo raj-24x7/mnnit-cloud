@@ -152,7 +152,7 @@
                             </div>      
                             
                             <div class="form-group">
-                                <label class="control-label col-sm-3" for="pwd">CPU:</label>
+                                <label class="control-label col-sm-3" for="pwd">vCPU:</label>
                                 <div class="col-sm-7">
                                     <select class="form-control" name="cpu" id="cpu" value=<?php echo '"'.$cpu.'"'; ?> >
                                         <option value="1">1</option>

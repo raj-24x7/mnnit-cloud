@@ -15,6 +15,10 @@
 <script type="text/javascript">
   window.onload = function (){
     document.getElementById("VMrequest").className = "active"; //VMrequest is on navbar
+
+      var prevClass = document.getElementById("vm-collapse").className;
+
+      document.getElementById("vm-collapse").className = prevClass+" in";
   }
 </script>
 <script type="text/javascript">
@@ -130,7 +134,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-sm-3" for="pwd">CPU:</label>
+                                <label class="control-label col-sm-3" for="pwd">vCPU:</label>
                                 <div class="col-sm-7">
                                     <select class="form-control" name="cpu" id="cpu" onChange="">
                                         <option value="1">1</option>

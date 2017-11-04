@@ -14,7 +14,10 @@
 
 <script type="text/javascript">
   window.onload = function (){
-    document.getElementById("storage").className = "active";
+    document.getElementById("storage-details").className = "active";    var prevClass = document.getElementById("storage-collapse").className;
+
+      document.getElementById("storage-collapse").className = prevClass+" in";
+  
   }
 </script>
 <div class="row">
