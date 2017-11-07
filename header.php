@@ -32,6 +32,7 @@
 	<script type="text/javascript">
 		function remove_notification(){
 			console.log('Remove notification');
+	        $('#datacount').html(0);
 			var values = [];
 			$('#notification_dropdown li').each(function(){
 			    values.push($(this).attr('value'));
@@ -56,39 +57,58 @@
 					id_numbers = msg;
 			        var str="";
 			        console.log(msg);
-			        $('#datacount').html(msg.length);
 			        if(msg.length == 0){
 			        	$("#notification_dropdown").append('<li class="list-group-item">No Pending Notification</li>');
-			        	return;
+			        	
 			        }
 			        for(var i=0;i<msg.length;i++){
 			 			
-			 			var st = 'You request for Virtual Machine <b>'+msg[i]["vmname"]+'</b>has been ';
-			 			if(msg[i]["status"]=='a'){
-			 				st = st+'<b>Accepted</b>';
-			 			} else {
-			 				st = st+' <b>Rejected</b>';
-			 			}
-			        	$("#notification_dropdown").append('<li class="list-group-item notification" value="'+msg[i]["id"]+'">'+st+'</li>');
+			        	var str = msg[i]['message'];
+
+			        	$("#notification_dropdown").append('<li class="list-group-item notification" value="'+msg[i]["id"]+'">'+str+'</li>');
 
 			        }
-			        console.log(str);
+			        //console.log(str);
 				}	
 				function get_notification_from_php(){
 					$('#notification_dropdown').empty();
 					$.ajax({
-					    url:"notification.php",
+					    url:"get_notification.php?s=n",
 					    type:"POST",
 					    success:function(msg){
+					    	console.log("msg : "+msg);
+			
+			        		$('#datacount').html(msg.length);
 					        append_html(msg);
 					    },
 					    dataType:"json"
 					});
+				}
+
+				function get_old_notification_from_php(){
+					//$("#old_notifications").preventDefaultAction();
+					$('#notification_dropdown').empty();
+					$.ajax({
+					    url:"get_notification.php?s=o",
+					    type:"POST",
+					    success:function(msg){
+					    	console.log("old" + msg);
+					        append_html(msg);
+					    },
+					    dataType:"json"
+					});
+					console.log("got old one");
+					$('#dropdown').focus().click();
 				}			
 	    $(document).ready(function() { 
-	    	
-			get_notification_from_php();
-			setInterval(get_notification_from_php, 30000);
+	    	console.log("start");
+			//get_notification_from_php();
+			console.log("first done");
+			
+			setInterval(get_notification_from_php, 5000);
+	    	console.log("start");
+	    	$("#old_notifications").click(get_old_notification_from_php());
+			
 	    });
 
 	</script>
@@ -115,17 +135,18 @@
 				<ul class="user-menu">
 	    			<?php 
 	    			if(isset($_SESSION['username'])) {?>	
-	    				<li class="dropdown pull-left" onclick="remove_notification();">
+	    				<li class="dropdown pull-right" onclick="remove_notification();" id="dropdown">
 	    					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span style="font-size: 20px;" class="glyphicon glyphicon-bell" ></span><font size="3"></font><span class="badge badge-success" style="background-color: red;"><div id="datacount"></div></span></a>
 
 								<ul class="dropdown-menu" id="notification_dropdown">
 									
 								</ul>
+								
 	    				</li>&nbsp;&nbsp;&nbsp;&nbsp;
 
 
 						<li class="dropdown pull-right">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user" style="margin: 0 0 5px 0;"></span></a>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user" style="margin: 0 10px 5px 0;"></span></a>
 								<ul class="dropdown-menu">
 									<li>
 										<center><font size=3><b> <?php echo $_SESSION['username']?> </b></font></center>

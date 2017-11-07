@@ -11,7 +11,7 @@
   // here i would like use foreach:
 
   foreach($data as $d){
-    $query="DELETE from notification where `id`='$d'";
+    $query="UPDATE `notification` SET `status`='o' WHERE `id`='$d'";
     $db=getDBConnection();
     $stmt = prepareQuery($db,$query);
     $param=array();

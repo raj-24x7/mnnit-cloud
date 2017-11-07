@@ -55,6 +55,8 @@
 <?php } ?>
 		</ul>
 		<li id="pending_details"><a href="pending_details.php"><svg class="glyph stroked table"><use xlink:href="#stroked-table"></use></svg>Pending Requests</a></li>
+
+		<li id="notifications"><a href="display_notifications.php"><svg class="glyph stroked table"><use xlink:href="#stroked-table"></use></svg>Notifications</a></li>
 		<?php
 			if($_SESSION['privilege']=='A'){
 		?>
