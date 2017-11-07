@@ -26,10 +26,14 @@
 				header("location:error.php?error=1106");
 				die();
 			}
+
+			notifyUser($_POST['username'], "STORAGE", "Your Request for storage extension of '".$_POST['new_demand']."' has been Rejected");
 			logStorageRejected($_POST['username'],$_SESSION['username']);
 		} else if($_POST['button']==='Approve') {
 			// For Approved Requests
 			logStorageApproved($_POST['username'],$_SESSION['username']);
+			
+			notifyUser($_POST['username'], "STORAGE", "Your Request for storage extension of '".$_POST['new_demand']."' has been Approved");
 			$username = $_POST['username'];
 			$storage_server = $_POST['storage_server'];
 			$alloted_space = getMemoryFromString($_POST['alloted_space']);

@@ -89,7 +89,7 @@
 					//$("#old_notifications").preventDefaultAction();
 					$('#notification_dropdown').empty();
 					$.ajax({
-					    url:"get_notification.php?s=o",
+					    url:"get_notification.php?s=n",
 					    type:"POST",
 					    success:function(msg){
 					    	console.log("old" + msg);
@@ -102,12 +102,12 @@
 				}			
 	    $(document).ready(function() { 
 	    	console.log("start");
-			//get_notification_from_php();
+			get_notification_from_php();
 			console.log("first done");
 			
-			setInterval(get_notification_from_php, 5000);
+			setInterval(get_notification_from_php, 15000);
 	    	console.log("start");
-	    	$("#old_notifications").click(get_old_notification_from_php());
+	    	//$("#old_notifications").click(get_old_notification_from_php());
 			
 	    });
 
@@ -142,11 +142,11 @@
 									
 								</ul>
 								
-	    				</li>&nbsp;&nbsp;&nbsp;&nbsp;
+	    				</li>&nbsp;&nbsp;
 
 
 						<li class="dropdown pull-right">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user" style="margin: 0 10px 5px 0;"></span></a>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user" style="margin: 0 10px 5px 10px;"></span></a>
 								<ul class="dropdown-menu">
 									<li>
 										<center><font size=3><b> <?php echo $_SESSION['username']?> </b></font></center>

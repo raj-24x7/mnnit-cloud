@@ -33,6 +33,7 @@
 
 1701:Not Enough Space
 1702:Cannot Shrink beyond the used size
+1703: user does not exixts
 
 1801:Email Not found
 

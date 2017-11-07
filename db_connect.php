@@ -1,6 +1,7 @@
 <?php
     
   require_once('logging.php'); 
+  require_once('notification.php');
     function getDBConnection(){
 
         $username = "cloud-user"; 
@@ -198,6 +199,26 @@
         executeQuery($stmt, $param);
         $row = $stmt->fetch();
         return $row['hypervisor_name'];
+    }
+
+    function notifyAllAdmins($type, $message){
+        $db = getDBConnection();
+        $sql = "SELECT * FROM `user` WHERE `privilege`='A'";
+        $stmt = prepareQuery($db, $sql);
+        executeQuery($stmt, array());
+
+        while($row = $stmt->fetch()){
+            notifyUser($row['username'], $type, $message);
+        }
+    }
+
+    function getUserEmail($username){
+        $db = getDBConnection();
+        $sql = "SELECT * FROM `new_user` WHERE `username`=:username";
+        $stmt = prepareQuery($db, $sql);
+        executeQuery($stmt, array());
+        $row = $stmt-fetch();
+        return $row['email'];
     }
 
 ?>

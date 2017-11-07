@@ -15,6 +15,7 @@
 		$stmt = prepareQuery($db,$sql);
 		if(executeQuery($stmt,$param)){
 			logHadoopRejected($_POST['hadoop_name'], $_SESSION['username']);
+			notifyUser($_POST['username'], "HADOOP", "Your Request for hadoop cluster '".$_POST['hadoop_name']."' has been Rejected");
 			header("location:pending_details.php");
 			die();
 		}
@@ -120,6 +121,7 @@
 			}
 		}
 		
+			notifyUser($_POST['username'], "HADOOP", "Your Request for hadoop cluster '".$_POST['hadoop_name']."' has been Approved");
 		header("location:hadoop_details.php");
 		die();
 	}else{

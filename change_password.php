@@ -3,6 +3,7 @@
 	session_start();
 	require_once('checksession.php');
 	require_once('db_connect.php');
+	
 
 		$db = getDBConnection();
 	if(isset($_POST['new_password'])){
@@ -26,6 +27,7 @@
 			);
 		$stmt = prepareQuery($db,$sql);
 		executeQuery($stmt,$param);
+		notifyUser($_SESSION['username'], "PASSWD", " Your Password Changed Successfully");
 		header("location:error.php?error=1505");
 		die();	
 	} else {

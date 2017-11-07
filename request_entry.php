@@ -37,6 +37,8 @@
                 $stmt = prepareQuery($db,$sql);
                 if(executeQuery($stmt,$param)){
                     logVMRequest($_POST['VM_name'], $_SESSION['username']);
+
+                    notifyAllAdmins("VM", $_SESSION['username']." requested Virtual Machine ".$_POST['VM_name']);
                     header("location:pending_details.php");
                     die();
                 }else{

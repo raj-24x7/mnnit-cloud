@@ -11,19 +11,7 @@
 	// If the Request is rejected. 
 	if($_POST['button']=='Reject'){
 		//inserting to notification table
-		$parameter = array(
-				":username"=>$_POST['username'],
-				":vm_name"=>$_POST['VM_name']
-			);
-		$query="INSERT INTO notification (username,vmname,status) VALUES (:username,:vm_name,'r')";
-		$db = getDBConnection();
-		$statement = prepareQuery($db,$query);
-        if(!executeQuery($statement,$parameter)){
-        	$l = logError("1104");
-            $l[0]->log($l[1]);
-        	header("location:error.php?error=1104");
-        	die();
-        }
+		
 
 
 
@@ -42,6 +30,8 @@
 			die();
 		}
 			logVMRejected($_POST['VM_name'], $_SESSION['username']);
+
+			notifyUser($_POST['username'], "VM", "Your Request for Virtual Machine '".$_POST['VM_name']."' has been Rejected");
 			header("location:pending_details.php");
 			die();
 	}
@@ -50,7 +40,8 @@
 	//If the request is accepted.
 	if($_POST['button']=='Approve' ){
 		$db = getDBConnection();
-			
+		
+			notifyUser($_POST['username'], "VM", "Your Request for Virtual Machine '".$_POST['VM_name']."' has been Approved");
 		// Selecting an unallocated IP from the provided set
 		$sql = 'SELECT ip FROM ip_pool WHERE status != "allocated"';
 		$stmt = prepareQuery($db,$sql);

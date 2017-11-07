@@ -30,6 +30,7 @@
                     );
                 $stmt = prepareQuery($db,$sql);
                 if(executeQuery($stmt,$param)){
+                    notifyAllAdmins("HADOOP", $_SESSION['username']." requested hadoop cluster ".$_POST['hadoop_name']);
                     logHadoopRequest($_POST['hadoop_name'],$_SESSION['username']);
                     header("location:pending_details.php");
                 }

@@ -42,6 +42,9 @@
                 <?php if($_SESSION['privilege']=='A'){ 
                 ?>
                 <div class="panel">
+                	<div class="panel panel-heading">
+                		<h2><center>Send Notifications : </center></h2>
+                	</div>
                     <div class="panel-body">
                         <form name="notify" class="form-horizontal" role="form"  action="#" method='POST' >
                              <div class="form-group">
@@ -69,6 +72,13 @@
                 </div>
             <?php } ?>
             	<div class="col-sm-8">
+            		<div>
+            			<h2>
+            				<center>
+            					All Notifications	
+            				</center>
+            			</h2>
+            		</div>
 					<table class="table">
 						<thead class="table-inverse">
 							<tr>

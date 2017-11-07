@@ -5,8 +5,8 @@ session_start();
  * the page only for testing purposes
  * please do not modify
  */
-
-echo time();
+/*$date = new DateTime();
+echo $date->format("Y-m-d H:i:s");*/
 
 	//include 'ssh.php'/*/*/*/*/*;
 

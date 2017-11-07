@@ -36,6 +36,8 @@
 			die();
 		} else {
 			logHadoopRequest($_SESSION['username']);
+
+            notifyAllAdmins("STORGAE", $_SESSION['username']." requested storage extension by".$new_demand);
 			header("location:pending_details.php");
 			die();
 		}

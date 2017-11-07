@@ -6,3 +6,5 @@
 11/03/17 16:47:02 /var/www/html/project/storage_request_entry.php:18 [ERROR] : Cannot Shrink beyond the used size
 11/03/17 23:26:35 /var/www/html/project/create_vm.php:62 [ERROR] : IP not available for new machine.!!ABORT!!.
 11/04/17 09:36:22 /var/www/html/project/forgetPass.php:51 [ERROR] : Email Not found
+11/06/17 15:33:05 /var/www/html/project/display_notifications.php:23 [ERROR] :  user does not exixts
+11/06/17 15:36:05 /var/www/html/project/display_notifications.php:22 [ERROR] :  user does not exixts

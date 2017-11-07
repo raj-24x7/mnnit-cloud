@@ -31,6 +31,8 @@
             header("location:error.php?error=1104");
             die();
         }else{
+
+            notifyAllAdmins("SIGNUP", "new user Requests pending : ".$_POST['username']);
             logSignupRequest($_POST['username']);
             header("location:index.php");
             die();
