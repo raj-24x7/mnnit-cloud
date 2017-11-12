@@ -8,3 +8,6 @@
 11/04/17 09:36:22 /var/www/html/project/forgetPass.php:51 [ERROR] : Email Not found
 11/06/17 15:33:05 /var/www/html/project/display_notifications.php:23 [ERROR] :  user does not exixts
 11/06/17 15:36:05 /var/www/html/project/display_notifications.php:22 [ERROR] :  user does not exixts
+11/07/17 13:38:32 /var/www/html/project/create_vm.php:145 [ERROR] : VM request entry does not exists
+11/07/17 18:36:08 /var/www/html/project/VMcontrol.php:49 [ERROR] : Connection Error. Could not connect to Cloud.
+11/12/17 10:43:47 /var/www/html/project/index.php:40 [ERROR] : Wrong Credentials !

@@ -22,3 +22,11 @@
 11/04/17 10:48:08 [VM] : test1 vm request rejected by admin
 11/04/17 10:49:42 [HADOOP] : clusteraksingh request made by 
 11/04/17 12:05:25 [VM] : aks-vmbox vm request made by aksingh
+11/07/17 13:30:07 [VM] : testier vm request made by aksingh
+11/07/17 13:35:45 [VM] : testier vm request rejected by admin
+11/07/17 13:36:45 [VM] : testier vm request rejected by admin
+11/07/17 13:37:16 [VM] : testier vm request rejected by admin
+11/07/17 13:38:15 [VM] : testier vm request rejected by admin
+11/07/17 13:38:38 [VM] : testier vm request rejected by admin
+11/12/17 10:56:05 [VM] : firstVM vm request made by raj
+11/12/17 11:04:42 [VM] : firstVM vm request rejected by admin

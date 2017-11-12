@@ -1,9 +1,9 @@
 <?php 
     session_start();
     
-    require 'db_connect.php';
-    require 'checksession.php';
-    require 'mail.php';
+    require_once 'db_connect.php';
+    require_once 'checksession.php';
+    require_once 'mail.php';
     require_once('logging.php');
     ?>
 <script type="text/javascript">

@@ -2,6 +2,7 @@
     
   require_once('logging.php'); 
   require_once('notification.php');
+  require_once('mail.php');
     function getDBConnection(){
 
         $username = "cloud-user"; 
@@ -36,7 +37,7 @@
             
            	return $result;
         } catch(PDOException $ex) { 
-            die("<strong>Failed to run query:</strong><br> " . $ex->getMessage()."<br>".print_r($params));
+            //die("<strong>Failed to run query:</strong><br> " . $ex->getMessage()."<br>".print_r($params));
             //echo "<strong>Failed to run query:</strong><br> " . $ex->getMessage()."<br>"; 
             return false;
         }     
@@ -216,8 +217,8 @@
         $db = getDBConnection();
         $sql = "SELECT * FROM `new_user` WHERE `username`=:username";
         $stmt = prepareQuery($db, $sql);
-        executeQuery($stmt, array());
-        $row = $stmt-fetch();
+        executeQuery($stmt, array(":username"=>$username));
+        $row = $stmt->fetch();
         return $row['email'];
     }
 

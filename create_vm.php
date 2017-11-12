@@ -14,7 +14,7 @@
 		
 
 
-
+		$db = getDBConnection();
 		//updating VMrequest table setting status as rejected
 		$sql = 'UPDATE VMrequest SET status = "rejected" WHERE VM_name= :vm_name';
 		$param = array(

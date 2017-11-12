@@ -20,6 +20,14 @@
         	header("location:error.php?error=1104");
         	die();
         }
+        // send mail
+		$msg = "
+			Dear ".$username.",\n
+			".$message."
+			\n
+            administrator 
+		";
+		notifyByMail(getUserEmail($username), $username, "Notification",$msg);
 	}
 
 	function getAllNotifications(){
