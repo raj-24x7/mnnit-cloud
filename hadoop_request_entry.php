@@ -9,16 +9,17 @@
             require_once 'logging.php';
 
             if($_SERVER['REQUEST_METHOD']=='POST'){
+                $no_of_slaves = $_POST['number_vm']-1;
+                
                 $param = array(
                 	":hadoop_name" => $_POST['hadoop_name'],
-                    ":number_slave" => (int)$_POST['number_slave']-1,
+                    ":number_slave" => $no_of_slaves,
                 	":ram" => $_POST['ram'],
-                	":cpu" => $_POST['cpu'],
+                	":cpu" => (int)$_POST['cpu'],
                 	":storage" => $_POST['storage'],
                 	":doe" => $_POST['date'],
                     ":username"=>$_SESSION['username']
                 );
-            
                 $db = getDBConnection();	
                 $sql="INSERT INTO `hadoop` (username,hadoop_name,number_slave,cpu,ram,storage,doe,status) VALUES (:username,:hadoop_name,:number_slave,:cpu,:ram,:storage,:doe,'pending')";
                 $stmt = prepareQuery($db,$sql);

@@ -56,7 +56,13 @@ function notifyByMail($to, $to_name, $subject, $msg) {
 					"MESSAGE"=>$msg
 				)
 		);
-	/* Create a TCP/IP socket. */
+
+		$jsondata = json_encode($req);
+		requestServer($jsondata);
+}
+
+function requestServer($jsondata){
+		/* Create a TCP/IP socket. */
 		$socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
 		if ($socket === false) {
 		    echo "socket_create() failed: reason: " . socket_strerror(socket_last_error()) . "\n";
@@ -73,7 +79,6 @@ function notifyByMail($to, $to_name, $subject, $msg) {
 		} else {
 		    //echo "OK.\n";
 		}
-		$jsondata = json_encode($req);
 		socket_write($socket, $jsondata, strlen($jsondata));
 }
 ?>

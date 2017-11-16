@@ -114,7 +114,7 @@
                             <div class="form-group" >
                                 <label class="control-label col-sm-3" for="pwd">Number of VMs</label>
                                 <div class="col-sm-7" >
-                                    <input type="number" class="form-control" name="number_vm" id="number_vm" >
+                                    <input  type="number" class="form-control" name="number_vm" id="number_vm" min="1" max="7">
                                 </div>
                                 <div class="col-sm-2" id="res"></div>
                             </div>
@@ -128,27 +128,19 @@
                             <div class="form-group">
                                 <label class="control-label col-sm-3" for="pwd">vCPU:</label>
                                 <div class="col-sm-7">
-                                    <select class="form-control" name="cpu" id="cpu" onChange="">
-                                        <option value="1">1</option>
-                                    </select>
+                                    <input class="form-control" type="number" name="cpu" id="cpu" min="1" max="4" tooltip="1 to 4"\>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-sm-3" for="pwd">Storage:</label>
+                                <label class="control-label col-sm-3" for="pwd">Storage (GB):</label>
                                 <div class="col-sm-7">
-                                    <select class="form-control" name="storage" id="storage">
-                                        <option value="10">10GB</option>
-                                        <option value="15">15GB</option>
-                                    </select>
+                                    <input class="form-control" type="number" name="storage" id="storage" min="8" max="20"\>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-sm-3" for="pwd">RAM:</label>
+                                <label class="control-label col-sm-3" for="pwd">RAM (MB):</label>
                                 <div class="col-sm-7">
-                                    <select class="form-control" name="ram" id="ram">
-                                        <option value="256">256MB</option>
-                                        <option value="512">512MB</option>
-                                    </select>
+                                    <input class="form-control" type="number" name="ram" id="ram" min="256" max="2048">
                                 </div>
                             </div>
                             <div class="form-group">

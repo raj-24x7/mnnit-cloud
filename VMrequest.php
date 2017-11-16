@@ -136,28 +136,19 @@
                             <div class="form-group">
                                 <label class="control-label col-sm-3" for="pwd">vCPU:</label>
                                 <div class="col-sm-7">
-                                    <select class="form-control" name="cpu" id="cpu" onChange="">
-                                        <option value="1">1</option>
-                                    </select>
+                                    <input type="number" name="cpu" id="cpu" min="1" max="4" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-sm-3" for="pwd">Storage:</label>
+                                <label class="control-label col-sm-3" for="pwd">Storage(GB):</label>
                                 <div class="col-sm-7">
-                                    <select class="form-control" name="storage" id="storage">
-                                        <option value="10">10GB</option>
-                                        <option value="15">15GB</option>
-                                    </select>
+                                    <input type="number" name="storage" id="storage" min="8" max="20" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-sm-3" for="pwd">RAM:</label>
+                                <label class="control-label col-sm-3" for="pwd">RAM(MB):</label>
                                 <div class="col-sm-7">
-                                    <select class="form-control" name="ram" id="ram">
-                                        <option value="256">256MB</option>
-                                        <option value="512">512MB</option>
-                                        <option value="1024">1024MB</option>
-                                    </select>
+                                    <input type="number" name="ram" id="ram" min="256" max="2048" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group">

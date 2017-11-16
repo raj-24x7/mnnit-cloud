@@ -34,7 +34,7 @@
 
             notifyAllAdmins("SIGNUP", "new user Requests pending : ".$_POST['username']);
             logSignupRequest($_POST['username']);
-            header("location:index.php");
+            header("location:success.php?id=1401");
             die();
         }
     }

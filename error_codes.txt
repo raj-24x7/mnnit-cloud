@@ -27,7 +27,6 @@
 1502:Link Expired. Retry Forgot Password
 1503:Invalid Link
 1504:Passwords Do Not Match
-1505:Password Successfully Changed
 
 1601: Form Request Not Properly Made .
 

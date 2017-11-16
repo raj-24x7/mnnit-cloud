@@ -180,27 +180,19 @@
                             <div class="form-group">
                                 <label class="control-label col-sm-3" for="pwd">vCPU:</label>
                                 <div class="col-sm-7">
-                                    <input class="form-control" type="integer" name="cpu" id="cpu" />
+                                    <input class="form-control" type="number" name="cpu" id="cpu" value=<?php echo '"'.$cpu.'"';?>>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-sm-3" for="pwd">Storage:</label>
+                                <label class="control-label col-sm-3" for="pwd">Storage(GB):</label>
                                 <div class="col-sm-7">
-                                    <select class="form-control" name="storage" id="storage" value=<?php echo '"'.$storage.'"'; ?> >
-                                        <option value="10">10GB</option>
-                                        <option value="15">15GB</option>
-                                        <option value="50">50GB</option>
-                                    </select>
+                                    <input type="number" name="storage" id="storage" class="form-control" value=<?php echo '"'.$storage.'"'; ?>>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-sm-3" for="pwd">RAM:</label>
+                                <label class="control-label col-sm-3" for="pwd">RAM(MB):</label>
                                 <div class="col-sm-7">
-                                    <select class="form-control" name="ram" id="ram" value=<?php echo '"'.$ram.'"'; ?> >
-                                        <option value="256">256MB</option>
-                                        <option value="512">512MB</option>
-                                        <option value="1024">1024MB</option>
-                                    </select>
+                                    <input type="number" name="ram" id="ram" class="form-control" value=<?php echo '"'.$ram.'"'; ?>>
                                 </div>
                             </div>
                             <div class="form-group">

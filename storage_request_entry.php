@@ -35,7 +35,7 @@
 			header("location:error.php?error=1104");
 			die();
 		} else {
-			logHadoopRequest($_SESSION['username']);
+			logStorageRequest($_SESSION['username']);
 
             notifyAllAdmins("STORGAE", $_SESSION['username']." requested storage extension by".$new_demand);
 			header("location:pending_details.php");

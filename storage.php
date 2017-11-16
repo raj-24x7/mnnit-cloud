@@ -2,11 +2,11 @@
 
   session_start();
   ini_set("default_socket_timeout", 5);
-  require 'checksession.php';
-  require 'header.php';
-  require 'db_connect.php';
+  require_once('checksession.php');
+  require_once('header.php');
+  require_once('db_connect.php');
   require_once('logging.php');
-  require 'ssh.php';
+  require_once('ssh.php');
 
   $row = getUserStorage();
       
@@ -30,7 +30,8 @@
     <br>
 
     <?php {
-              if(!($used = getUsedSpace($_SESSION['username']))){ ?>
+              if(!($used = getUsedSpace($_SESSION['username']))){ 
+    ?>
               <div class="panel panel-red">
                 <h1 style="color: white;"> 
                 <center>
@@ -99,7 +100,7 @@ Default Password : <?php echo $row['login_password'];?>
       <?php } } ?>
 
 <br>
-    <h2>Extend Storage</h2><br>
+    <h2>Resize Storage</h2><br>
     <div class="col-sm-8 text-left">
                 <div class="panel">
                     <div class="panel-body">

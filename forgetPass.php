@@ -42,7 +42,8 @@
                             admin 
                 		";
                 		notifyByMail($row['email'], $row['username'], "Password Reset",$msg);
-
+                        header("location:success.php?id=1502");
+                        die();
                 		break;
                 	}
             }    

@@ -3,9 +3,10 @@
 
 	session_start();
   
-  require 'checksession.php';
+  require_once 'checksession.php';
 	require_once "header.php";
 	require_once 'xen.php';
+  require_once('ssh.php');
   require_once('logging.php');
 	//require_once 'navigation_bar.php';
 
@@ -36,7 +37,17 @@
        	$xen = makeXenconnection($row['hypervisor_name']);
        	$vm = $xen->getVMByNameLabel($_GET['VM_name']);
      		$vm->cleanShutdown();
-     		$vm->destroy();
+        $uuid = $vm->getUUID()->getValue();
+     		//$vm->destroy();
+        $connection = getHypervisorConnection($row['hypervisor_name']);
+        $command = "xe vm-uninstall uuid=".$uuid." force=true";
+        if(!($stream = ssh2_exec($connection, $command))){
+          header("location:error.php?error=1201");
+        }
+        stream_set_blocking($stream, true);
+        fclose($stream);
+
+
         $ip = $row['ip'];
 
      		$query=" delete from `VMdetails` where `VM_name`=:vm_name";
@@ -64,10 +75,6 @@
         if(!executeQuery($stmt,$param)){
           die("Cannot Delete Entry for VM");
         }
-
-       //	$metrics = $vm->getMetrics()->getValue(); 
-       	//$guestMetrics = $vm->getGuestMetrics()->getValue();
-
 
     }
 

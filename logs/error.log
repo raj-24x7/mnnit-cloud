@@ -11,3 +11,5 @@
 11/07/17 13:38:32 /var/www/html/project/create_vm.php:145 [ERROR] : VM request entry does not exists
 11/07/17 18:36:08 /var/www/html/project/VMcontrol.php:49 [ERROR] : Connection Error. Could not connect to Cloud.
 11/12/17 10:43:47 /var/www/html/project/index.php:40 [ERROR] : Wrong Credentials !
+11/15/17 09:20:55 /var/www/html/project/VMcontrol.php:49 [ERROR] : Connection Error. Could not connect to Cloud.
+11/15/17 09:41:47 /var/www/html/project/VMcontrol.php:49 [ERROR] : Connection Error. Could not connect to Cloud.

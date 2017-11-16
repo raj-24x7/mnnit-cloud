@@ -71,7 +71,7 @@
 			}
 			socket_write($socket, $jsondata, strlen($jsondata));
 			$out = socket_read($socket, 2048);
-			echo "Refresh: 0; url=http://172.31.76.68:".$out."/vnc_lite.html";
+			//echo "Refresh: 0; url=http://172.31.76.68:".$out."/vnc_lite.html";
 			if($opr == "get_console"){
 				header("Refresh: 0; url=http://172.31.76.68:".$out."/vnc_lite.html");
 			} else { 

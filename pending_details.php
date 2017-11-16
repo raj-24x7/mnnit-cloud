@@ -141,7 +141,9 @@
         							<td>'.$row['doe'].'</td>';
 
                     if($row['status']!='rejected'){
-                        if($_SESSION['privilege']=='A'){
+                        if($row['status']=='deactivated'){
+                          echo '<th>Deactivated</th>';
+                        }else if($_SESSION['privilege']=='A'){
                           echo '<th>'.'<a href="VM_approval.php?VM_name='.$row['VM_name'].'">approve/reject</a>'.'</th>';
                         } else {
                           echo '<th>Pending...</th>';
@@ -149,7 +151,6 @@
                     } else {
                       echo '<th>Rejected <a href="pending_details.php?VM_name='.$row['VM_name'].'"><span class="glyphicon glyphicon-remove"></span></a></th>';
                     }
-                    
                       echo '</tr>';         
     				}
     	    	?>
@@ -162,11 +163,11 @@
     if($_SESSION['privilege']=='A') {// A for admin
                     
                     $query = " 
-                        SELECT * FROM `hadoop` WHERE `status`='pending'"; 
+                        SELECT * FROM `hadoop` WHERE `status`='pending' OR `status`='rejected' OR `status`='deactivated'"; 
                     $param = array();
                 } else {
                     $query = " 
-                        SELECT * FROM `hadoop` WHERE `username`=:username AND `status`='pending'"; 
+                        SELECT * FROM `hadoop` WHERE `username`=:username AND (`status`='pending' OR `status`='rejected' OR `status`='deactivated')"; 
                     $param = array(":username"=>$_SESSION['username']);
                 }
 
@@ -184,7 +185,7 @@
                 <?php if($_SESSION['privilege']=='A'){
                   echo '<th>Username</th>';
                 }?>
-                <th>Number of Slaves</th>
+                <th>Number of VMs</th>
                 <th>No of vCPU</th>
                 <th>Storage(GB)</th>
                 <th>RAM(MB)</th>
@@ -206,7 +207,7 @@
                       }
                       echo 
                       ' 
-                      <td>'.$row['number_slave'].'</td>
+                      <td>'.(string)((int)($row['number_slave'])+1).'</td>
                       <td>'.$row['cpu'].'</td>
                       <td>'.$row['storage'].'</td>
                       <td>'.$row['ram'].'</td>

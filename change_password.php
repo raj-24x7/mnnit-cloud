@@ -28,7 +28,7 @@
 		$stmt = prepareQuery($db,$sql);
 		executeQuery($stmt,$param);
 		notifyUser($_SESSION['username'], "PASSWD", " Your Password Changed Successfully");
-		header("location:error.php?error=1505");
+		header("location:success.php?id=1501");
 		die();	
 	} else {
 		$l = logError("1002");

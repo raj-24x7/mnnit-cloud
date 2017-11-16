@@ -6,7 +6,7 @@ register_shutdown_function(function(){
 		echo 'There was a timeout unable to connect';
 	}
 });
-
+set_time_limit(5);
 @ini_set("default_socket_timeout", 5);
 include('db_connect.php');
 include('checksession.php');

@@ -154,25 +154,19 @@
                             <div class="form-group">
                                 <label class="control-label col-sm-3" for="pwd">vCPU:</label>
                                 <div class="col-sm-7">
-                                    <select class="form-control" name="cpu" id="cpu" value=<?php echo '"'.$cpu.'"'; ?> >
-                                        <option value="1">1</option>
-                                    </select>
+                                    <input class="form-control" type="number" name="cpu" id="cpu" min="1" max="4" value=<?php echo '"'.$cpu.'"'; ?> >
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-sm-3" for="pwd">Storage:</label>
+                                <label class="control-label col-sm-3" for="pwd">Storage(GB):</label>
                                 <div class="col-sm-7">
-                                    <select class="form-control" name="storage" id="storage" value=<?php echo '"'.$storage.'"'; ?> >
-                                        <option value="10">10GB</option>
-                                    </select>
+                                <input class="form-control" type="number" name="storage" id="storage" min="8" max="20" value=<?php echo '"'.$storage.'"'; ?> >
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-sm-3" for="pwd">RAM:</label>
+                                <label class="control-label col-sm-3" for="pwd">RAM(MB):</label>
                                 <div class="col-sm-7">
-                                    <select class="form-control" name="ram" id="ram" value=<?php echo '"'.$ram.'"'; ?> >
-                                        <option value="256">256MB</option>
-                                    </select>
+                                    <input class="form-control" type="number" name="ram" id="ram" min="256" max="2048" value=<?php echo '"'.$ram.'"'; ?> >
                                 </div>
                             </div>
                             <div class="form-group">

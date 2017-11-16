@@ -2,10 +2,7 @@
 	session_start();
 	require "checksession.php";
 	require "db_connect.php";
-	require "header.php";
   require_once('logging.php');
-
-
 
   		function test_input($data) {
  		 $data = trim($data);
@@ -38,21 +35,9 @@
                       die();
                 	}
 
-
+                  header("location:success.php?id=1402");
+                  die();
 					}
-
-
-
-
-
-
-
-  	  				
-
-
-
-
-  	  			
 
   	  			 $query = " SELECT * FROM `new_user` WHERE username=:username";
   	  			 $param = array(":username"=>$_SESSION['username']);
@@ -78,17 +63,9 @@
                		$department=$row['department'];
                		$contact=$row['contact'];
               		$programme=$row['programme'];
-
                 }
 
-
-
-
-
-
-
-
-
+  require "header.php";
 ?>
 
 <div class="row">
