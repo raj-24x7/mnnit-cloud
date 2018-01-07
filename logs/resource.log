@@ -30,3 +30,9 @@
 11/07/17 13:38:38 [VM] : testier vm request rejected by admin
 11/12/17 10:56:05 [VM] : firstVM vm request made by raj
 11/12/17 11:04:42 [VM] : firstVM vm request rejected by admin
+11/16/17 18:06:38 [STORAGE] : raj storage extension request made
+11/16/17 18:07:12 [STORAGE] : raj storage extension request approved by admin
+11/16/17 18:15:40 [STORAGE] : raj storage extension request approved by admin
+11/17/17 06:32:16 [STORAGE] : admin uploaded file cloud.sql
+11/17/17 11:14:50 [VM] : test vm request made by admin
+11/24/17 15:25:52 [VM] : temp vm request made by admin

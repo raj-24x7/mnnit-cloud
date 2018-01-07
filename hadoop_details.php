@@ -54,7 +54,7 @@
                 <?php if($_SESSION['privilege']=='A'){
                   echo '<th>Username</th>';
                 }?>
-                <th>No of Slaves</th>
+                <th>No of VMs</th>
                 <th>No Of vCPU(per VM)</th>
           			<th>Storage(GB per VM)</th>
           			<th>RAM(MB per VM)</th>
@@ -75,7 +75,7 @@
                       echo '<td>'.$row['username'].'</td>';
                   }
                   echo '
-                  <td>'.$row['number_slave'].'</td>'.'
+                  <td>'.(string)((int)($row['number_slave'])+1).'</td>'.'
     							<td>'.$row['cpu'].'</td>
     							<td>'.$row['storage'].'  GiB</td>
     							<td>'.$row['ram'].' MiB</td>
@@ -119,7 +119,6 @@
                                             }
                                           echo '
                                           
-                                          <td>'.$rownew['os'].'</td>
                                           <td>'.$rownew['cpu'].'</td>
                                           <td>'.$rownew['storage'].'  GiB</td>
                                           <td>'.$rownew['ram'].' MiB</td>

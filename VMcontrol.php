@@ -219,7 +219,7 @@
                     </div>
                 </div>
                 <a class="btn btn-info" href="console.php?VM_name=<?php echo $row['VM_name'];?>&operation=start">Console</a>
-                <a class="btn btn-danger" href="#" >Destroy Console</a>
+                <!--<a class="btn btn-danger" href="#" >Destroy Console</a>-->
             </div>
         </div>
     </div> 

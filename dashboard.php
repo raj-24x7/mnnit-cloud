@@ -89,7 +89,8 @@
                         <div class="col-sm-8">
                             <h4>
                                You can request a Storage Space on Remote Server. 
-                               <h2>Cooming Soon ...</h2>
+                               A user can have large storage requirements such that
+                               data is easily accessible, available and secure.
                             </h4>   
                         </div>
                     </div>

@@ -33,6 +33,7 @@ if(isset($_POST)){
 	} else {
 	    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
 	    	logFileUpload($_SESSION['username'],$_FILES["fileToUpload"]["name"]);
+	    	getUsedSpace($_SESSION['username']);
 	    	reownFile($_SESSION['username'], $_FILES["fileToUpload"]["name"]);
 	        echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
 	    } else {

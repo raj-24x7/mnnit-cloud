@@ -144,9 +144,9 @@ improved.</font></p>
                         to the resource pool when complete. The resources can be further utilised for
                         other works.</li>
                         <li style="color: black;"><b>Storage as a Service : </b>A user can have large storage requirements such that
-data is easily accessible, available and secure. User can also require shared
+data is easily accessible, available and secure. <!-- User can also require shared
 storage so that a group of users can access and modify data depending upon
-access privilege. We can allow users to decide a upper limit storage capacity
+access privilege. --> We can allow users to decide a upper limit storage capacity
 required and allocate the amount to them.</li>
                 </ul>    
             </p></font>
