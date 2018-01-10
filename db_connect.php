@@ -192,9 +192,9 @@
 
     function getVMHypervisor($vm_name){
         $db = getDBConnection();
-        $query = "  SELECT * FROM `VMdetails` WHERE `VM_name`=:vm_name";
+        $query = "  SELECT * FROM `VMdetails` WHERE `VM_name`=:VM_name";
         $param = array(
-            ":vm_name"=>$vm_name
+            ":VM_name"=>$vm_name
           );
         $stmt = prepareQuery($db, $query);
         executeQuery($stmt, $param);
@@ -220,6 +220,48 @@
         executeQuery($stmt, array(":username"=>$username));
         $row = $stmt->fetch();
         return $row['email'];
+    }
+
+    function getMiddleWareSocket(){
+        $db = getDBConnection();
+        $query = "SELECT * FROM middleware";
+        $stmt = prepareQuery($db, $query);
+        executeQuery($stmt, array());
+        while($row = $stmt->fetch()){
+            $ip = $row['ip'];
+            $port = (int)$row['port'];
+            $socket = getNetworkSocket($ip, $port);
+            $jsondata = json_encode(
+                array(
+                        "REQUEST_TYPE"=>'if_alive',
+                        "REQUEST_DATA"=>array(
+                                "USERNAME"=>"a",
+                                "PASSWORD"=>"a"
+                            )
+                    )
+            );
+            socket_write($socket, $jsondata, strlen($jsondata));
+            $out = socket_read($socket, 2048);
+            if($out === 'alive'){
+                #echo "ALIVE";
+                return $socket;
+            }
+        }
+        return false;
+    }
+
+    function getNetworkSocket($address, $service_port){
+        $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
+        if ($socket === false) {
+            echo "socket_create() failed: reason: " . socket_strerror(socket_last_error()) . "\n";
+        }
+
+        //echo "Attempting to connect to '$address' on port '$service_port'...";
+        $result = socket_connect($socket, $address, $service_port);
+        if ($result === false) {
+            echo "socket_connect() failed.\nReason: ($result) " . socket_strerror(socket_last_error($socket)) . "\n";
+        }
+        return $socket;
     }
 
 ?>

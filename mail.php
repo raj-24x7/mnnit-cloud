@@ -46,6 +46,8 @@ function notifyByMail($to, $to_name, $subject, $msg) {
 
 notifyByMail("241096raj@gmail.com","Raj kumar","hello","hi how are you ?");
 */
+require_once('db_connect.php');
+
 function notifyByMail($to, $to_name, $subject, $msg) {
 	$req = array(
 			"REQUEST_TYPE"=>"mail",
@@ -62,23 +64,7 @@ function notifyByMail($to, $to_name, $subject, $msg) {
 }
 
 function requestServer($jsondata){
-		/* Create a TCP/IP socket. */
-		$socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
-		if ($socket === false) {
-		    echo "socket_create() failed: reason: " . socket_strerror(socket_last_error()) . "\n";
-		} else {
-		    //echo "OK.\n";
-		}
-
-		$address = "127.0.0.1";
-		$service_port = 1234;
-		//echo "Attempting to connect to '$address' on port '$service_port'...";
-		$result = socket_connect($socket, $address, $service_port);
-		if ($result === false) {
-		    echo "socket_connect() failed.\nReason: ($result) " . socket_strerror(socket_last_error($socket)) . "\n";
-		} else {
-		    //echo "OK.\n";
-		}
-		socket_write($socket, $jsondata, strlen($jsondata));
+		
+		socket_write(getMiddleWareSocket(), $jsondata, strlen($jsondata));
 }
 ?>
