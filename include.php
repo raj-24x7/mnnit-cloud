@@ -3,6 +3,7 @@
 	<script src="js/bootstrap-datepicker.js"></script>
 	<!-- Include Modernizr in the head, before any other Javascript -->
 	<script src="includes/modernizr-2.6.2.min.js"></script>
+	<script type="text/javascript" src="js/console.js" ></script>
 	<script>
 		$('#calendar').datepicker({
 		});

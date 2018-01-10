@@ -77,6 +77,17 @@
 
 
 <script type="text/javascript">
+  window.onload = function(){
+    var powerState = document.getElementById("powerState");    
+    if(powerState.innerHTML == 'Halted'){
+        document.getElementById("start-button").disabled = false;
+        document.getElementById("shutdown-button").disabled = true;
+    }
+    if(powerState.innerHTML == 'Running'){
+        document.getElementById("start-button").disabled = true;
+        document.getElementById("shutdown-button").disabled = false;
+    }
+  }
 	function runAction(action){
 		//alert("Action "+action.value);
 		if(window.XMLHttpRequest){
@@ -88,10 +99,20 @@
        	xmlHttp.onreadystatechange = function() {
        		//alert(xmlHttp);
         	if(xmlHttp.readyState==4 && xmlHttp.status==200){
-          		if(xmlHttp.response=='Wrong Action'){
-          			alert(""+xmlHttp.response);
+              var reply = JSON.parse(xmlHttp.response)
+          		if(reply.status == 'failiure'){
+          			alert(reply.message);
           		} else {
-          	  		document.getElementById('powerState').innerHTML = xmlHttp.response;
+          	  		document.getElementById('powerState').innerHTML = reply.power_state;
+                  if(reply.power_state == 'Running'){
+                      document.getElementById("start-button").disabled = true;
+                      document.getElementById("shutdown-button").disabled = false;
+                  }
+
+                  if(reply.power_state == 'Halted'){
+                      document.getElementById("start-button").disabled = false;
+                      document.getElementById("shutdown-button").disabled = true;
+                  }
           		}
           	}
           	if(xmlHttp.readyState==1){
@@ -136,7 +157,7 @@
                     <!-- PANEL -->
                     <div class="panel panel-info">
                         <div id="VM_name" class="panel-heading"  >
-                            <h4>Virtual Machine : <?php echo $row['VM_name']; ?></h4>
+                            <h4>Virtual Machine : <a id="VMname"><?php echo $row['VM_name']; ?></a></h4>
                         </div>
                         <div class="table-responsive ">
                             <table class="table table-striped">
@@ -205,25 +226,24 @@
                                    </table>
                                    <div class="panel panel-body">
                                     <center>
-                                    	<button class="btn btn-success" value="start" onclick="runAction(this);">Start</button>
-                                    	<button class="btn btn-primary" value="cleanReboot" onclick="runAction(this);">Reboot</button>
-                                    	<button class="btn btn-warning" value="cleanShutdown" onclick="runAction(this);">Shutdown</button>
+                                    	<button class="btn btn-success" value="start" id="start-button" onclick="runAction(this);">Start</button>
+                                    	<button class="btn btn-primary" value="cleanReboot" id="reboot-button" onclick="runAction(this);">Reboot</button>
+                                    	<button class="btn btn-warning" value="cleanShutdown" id="shutdown-button" onclick="runAction(this);">Shutdown</button>
                                     	<?php
                                     		if($_SESSION['privilege']=='A'){
-                                    			echo '<button class="btn btn-danger" value="destroy" onclick="destroyVM();">Destroy</button>';
+                                    			echo '<button class="btn btn-danger" value="destroy" id="destroy-button" onclick="destroyVM();">Destroy</button>';
                                     		}
                                     	?>
                                       </center>
                                     </div>
-
                     </div>
                 </div>
-                <a class="btn btn-info" href="console.php?VM_name=<?php echo $row['VM_name'];?>&operation=start">Console</a>
-                <!--<a class="btn btn-danger" href="#" >Destroy Console</a>-->
+                <a class="btn btn-info" id="start-console" >Console</a>
+                <a class="btn btn-danger" id="delete-console" >Destroy Console</a>
+            </div><br><br>
+            <div id="console-frame" >
             </div>
         </div>
     </div> 
     <div class="col-sm-1"></div>
 </div>
-<!--
-"console.php?VM_name=<?php echo $row['VM_name'];?>&operation=delete"-->

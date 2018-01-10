@@ -23,3 +23,6 @@
 11/26/17 14:37:50 /var/www/html/project/index.php:40 [ERROR] : Wrong Credentials !
 11/26/17 18:56:13 /var/www/html/project/index.php:40 [ERROR] : Wrong Credentials !
 01/07/18 15:28:26 /var/www/html/project/index.php:40 [ERROR] : Wrong Credentials !
+01/08/18 14:39:07 /var/www/html/project/VMcontrol.php:49 [ERROR] : Connection Error. Could not connect to Cloud.
+01/08/18 15:13:41 /var/www/html/project/VMcontrol.php:49 [ERROR] : Connection Error. Could not connect to Cloud.
+01/09/18 22:02:11 /var/www/html/project/VMcontrol.php:49 [ERROR] : Connection Error. Could not connect to Cloud.

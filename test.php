@@ -5,6 +5,10 @@ session_start();
  * the page only for testing purposes
  * please do not modify
  */
+
+
+	include_once "db_connect.php";
+	echo getMiddleWareSocket();
 /*$date = new DateTime();
 echo $date->format("Y-m-d H:i:s");*/
 

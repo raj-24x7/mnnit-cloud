@@ -4,7 +4,7 @@
 	require 'db_connect.php';
 	require 'xen.php';
 
-
+	$reply = '';
 	if(isset($_POST['VM_name']) && !empty($_POST['VM_name'])){
 		$query = "  SELECT 
 					* 
@@ -39,15 +39,25 @@
 				die();
 			}
 		} catch(Exception $e){
-
+			$reply = array(
+				"status"=>"failure",
+				"message"=>'Unable to connect to cloud Servers
+				');
 		}
-		echo $vm->getPowerState()->getValue();
+		$metrics = $vm->getMetrics()->getValue();
+		$reply = array(
+			"status"=>"success",
+			"power_status"=> $vm->getPowerState()->getValue(),
+			"RAM"=>$metrics['memory_actual']
+			);
 	} else {
-		echo '<script>
-			alert("false Callback");
-		</script>';
+		$reply = array(
+			"status"=>"failiure",
+			"message"=>'false Callback'
+			);
 	}
 		
 
+	echo json_encode($reply);
 
 ?>
