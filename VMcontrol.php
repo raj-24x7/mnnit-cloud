@@ -14,6 +14,7 @@
     							WHERE `username`= :username 
     								and 
     							`VM_name`=:vm_name
+                   and `status`!='deactive'
     						";
                 $param = array(
             ":vm_name"=>$_GET['VM_name'],
@@ -25,6 +26,8 @@
                   FROM `VMdetails`
                   WHERE 
                   `VM_name`=:vm_name
+                  and
+                  `status`!='deactive'
                 ";
                     $param = array(
             ":vm_name"=>$_GET['VM_name'],
@@ -39,7 +42,13 @@
             header("location:error.php?error=1103");
             die();
         }
-        $row = $stmt->fetch();
+        $row = $stmt->fetch(); 
+        if(empty($row)){
+              $l = logError("1103");
+            $l[0]->log($l[1]);
+            header("location:error.php?error=1109");
+            die();
+        }
      //   echo $row['hypervisor_name'].'hello';
         $os = $row['os'];
        	try {

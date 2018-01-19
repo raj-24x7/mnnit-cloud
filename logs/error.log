@@ -26,3 +26,8 @@
 01/08/18 14:39:07 /var/www/html/project/VMcontrol.php:49 [ERROR] : Connection Error. Could not connect to Cloud.
 01/08/18 15:13:41 /var/www/html/project/VMcontrol.php:49 [ERROR] : Connection Error. Could not connect to Cloud.
 01/09/18 22:02:11 /var/www/html/project/VMcontrol.php:49 [ERROR] : Connection Error. Could not connect to Cloud.
+01/18/18 15:47:22 /var/www/html/project/VMcontrol.php:52 [ERROR] : Connection Error. Could not connect to Cloud.
+01/18/18 15:47:27 /var/www/html/project/VMcontrol.php:52 [ERROR] : Connection Error. Could not connect to Cloud.
+01/18/18 15:48:39 /var/www/html/project/VMcontrol.php:57 [ERROR] : Connection Error. Could not connect to Cloud.
+01/18/18 15:50:03 /var/www/html/project/VMcontrol.php:48 [ERROR] : VM does not exists
+01/18/18 20:24:30 /var/www/html/project/VMcontrol.php:48 [ERROR] : VM does not exists

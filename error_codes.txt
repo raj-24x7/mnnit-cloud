@@ -12,6 +12,7 @@
 1106:Cannot Reject Request. Database Error.
 1107:IP table cannot be updated. Mannually update IP to allocated.
 1108:Cannot Delete user. User might have an existing entry in database.
+1109:VM has expired.
 
 1201:Connection Error. Could not connect to Cloud.
 1202:VM does not exists on cloud.
