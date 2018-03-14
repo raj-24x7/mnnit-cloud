@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:3306
--- Generation Time: Nov 16, 2017 at 05:54 PM
--- Server version: 5.7.20-0ubuntu0.16.04.1
--- PHP Version: 7.0.22-0ubuntu0.16.04.1
+-- Generation Time: Mar 14, 2018 at 11:26 AM
+-- Server version: 5.7.21-0ubuntu0.16.04.1
+-- PHP Version: 7.0.25-0ubuntu0.16.04.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -23,19 +23,6 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cluster`
---
-
-CREATE TABLE `cluster` (
-  `hadoop_name` varchar(25) NOT NULL DEFAULT '',
-  `VM_name` varchar(25) NOT NULL DEFAULT '',
-  `ip` varchar(17) NOT NULL,
-  `role` varchar(10) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `forgot_password`
 --
 
@@ -44,17 +31,6 @@ CREATE TABLE `forgot_password` (
   `token` varchar(32) NOT NULL,
   `timestamp` int(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Storing user forgot password details';
-
---
--- Dumping data for table `forgot_password`
---
-
-INSERT INTO `forgot_password` (`username`, `token`, `timestamp`) VALUES
-('pankaj', 'fe35a5ed9d869ecc7ae49cdccde70bd2', 1509517534),
-('pankaj', 'be63cf59b7940ad66d7b17cd8f3dca49', 1509764762),
-('pankaj', '2e49ab10b0dc4bb14bb3fda548ae8fbf', 1509775284),
-('rishabh', '4e07840bbc70749c4591695042e87ae7', 1510500870),
-('rishabh', '3ad5eb02b188c5a1593d1f5f6c4ccd08', 1510500878);
 
 -- --------------------------------------------------------
 
@@ -73,14 +49,6 @@ CREATE TABLE `hadoop` (
   `status` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `hadoop`
---
-
-INSERT INTO `hadoop` (`username`, `hadoop_name`, `number_slave`, `cpu`, `ram`, `storage`, `doe`, `status`) VALUES
-('admin', 'test', 3, 1, '512', '8', '2017-11-27', 'pending'),
-('admin', 'trying', 2, 2, '256', '8', '2017-11-20', 'created');
-
 -- --------------------------------------------------------
 
 --
@@ -93,13 +61,6 @@ CREATE TABLE `hypervisor` (
   `userid` varchar(15) DEFAULT NULL,
   `password` varchar(15) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `hypervisor`
---
-
-INSERT INTO `hypervisor` (`name`, `ip`, `userid`, `password`) VALUES
-('xenserver-trial', '172.31.131.229', 'root', 'root@123');
 
 -- --------------------------------------------------------
 
@@ -117,10 +78,10 @@ CREATE TABLE `ip_pool` (
 --
 
 INSERT INTO `ip_pool` (`ip`, `status`) VALUES
-('172.31.131.224', 'allocated'),
-('172.31.131.225', ''),
-('172.31.131.226', ''),
-('172.31.131.227', ' ');
+('172.31.131.224', ' '),
+('172.31.131.225', 'allocated'),
+('172.31.131.226', 'allocated'),
+('172.31.131.227', 'allocated');
 
 -- --------------------------------------------------------
 
@@ -132,20 +93,6 @@ CREATE TABLE `name_description` (
   `name` varchar(15) NOT NULL,
   `description` varchar(500) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `name_description`
---
-
-INSERT INTO `name_description` (`name`, `description`) VALUES
-('hello', 'virt'),
-('qwerty', 'testrun'),
-('test', 'newRecord'),
-('sharma', 'testing please'),
-('newTrial', 'xoner'),
-('aks-vmbox', 'linux vm-box'),
-('test', 'hello world'),
-('test1', 'testing');
 
 -- --------------------------------------------------------
 
@@ -174,7 +121,10 @@ INSERT INTO `new_user` (`username`, `password`, `name`, `email`, `department`, `
 ('admin', NULL, 'Administrator', 'cloud.mnnit@gmail.com', 'CSED', NULL, '9559386262', 'BTec'),
 ('user', 'ee11cbb19052e40b07aac0ca060c23ee', 'user', 'gpankaj61@gmail.com', 'CSED', 'a', '', 'BTec'),
 ('raj', '03c017f682085142f3b60f56673e22dc', 'Raj Kumar', 'rajkumar_241096@yahoo.in', 'CSED', 'a', '9559386262', 'Btech'),
-('rishabh', 'ff2f24f8b6d253bb5a8bc55728ca7372', 'RISHABH AGARWAL', 'sahilcool2605@gmail.com', 'CSED', 'a', '9648162058', 'Btech');
+('rishabh', 'ff2f24f8b6d253bb5a8bc55728ca7372', 'RISHABH AGARWAL', 'sahilcool2605@gmail.com', 'CSED', 'a', '9648162058', 'Btech'),
+('PemaRam', 'f4a818b2eab35375c96a7930f3a5001b', 'PemaRam', 'seervipema@gmail.com', 'CSED', 'a', '9565380292', 'Btech'),
+('20144112', 'b5c6fc41320314e4a7b80f7575c1c663', 'manas bvss', 'manassarma1937@gmail.com', 'CSED', 'a', '8106747795', 'Btech'),
+('20148097', 'e787d391a93e25a8c50fe04074548270', 'Saqib Javed', 'saqibjavedq09@gmail.com', 'CSED', 'a', '09648160992', 'Btech');
 
 -- --------------------------------------------------------
 
@@ -191,47 +141,6 @@ CREATE TABLE `notification` (
   `status` varchar(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `notification`
---
-
-INSERT INTO `notification` (`id`, `username`, `type`, `message`, `timestamp`, `status`) VALUES
-(2, 'pankaj', 'xcuse', '', '', 'r'),
-(4, 'aksingh', 'INFO', 'Testing admin generic notification !!!', '2017-11-06 17:44:03', 'o'),
-(5, 'aksingh', 'INFO', 'testing twice !!', '2017-11-06 17:45:14', 'o'),
-(6, 'aksingh', 'INFO', 'hello !', '2017-11-07 07:40:07', 'o'),
-(7, 'aksingh', 'INFO', 'purpose testing', '2017-11-07 07:40:58', 'o'),
-(8, 'admin', 'VM', 'aksingh requested Virtual Machine testier', '2017-11-07 13:30:07', 'o'),
-(9, 'aksingh', 'VM', 'Your Request for Virtual Machine \'testier\' has been Rejected', '2017-11-07 13:35:45', 'o'),
-(10, 'aksingh', 'VM', 'Your Request for Virtual Machine \'testier\' has been Rejected', '2017-11-07 13:36:45', 'o'),
-(11, 'aksingh', 'VM', 'Your Request for Virtual Machine \'testier\' has been Rejected', '2017-11-07 13:37:16', 'o'),
-(12, 'aksingh', 'VM', 'Your Request for Virtual Machine \'testier\' has been Rejected', '2017-11-07 13:38:15', 'o'),
-(13, 'aksingh', 'VM', 'Your Request for Virtual Machine \'testier\' has been Rejected', '2017-11-07 13:38:38', 'o'),
-(14, 'user', 'INFO', 'Tesing user notification by mail and general', '2017-11-07 13:58:18', 'o'),
-(15, 'admin', 'SIGNUP', 'new user Requests pending : raj', '2017-11-12 10:43:32', 'o'),
-(16, 'admin', 'VM', 'raj requested Virtual Machine firstVM', '2017-11-12 10:56:05', 'o'),
-(17, 'raj', 'VM', 'Your Request for Virtual Machine \'firstVM\' has been Rejected', '2017-11-12 11:04:42', 'n'),
-(18, 'raj', 'INFO', 'hello dear !', '2017-11-12 11:05:40', 'n'),
-(19, 'raj', 'INFO', 'Hi raj !!', '2017-11-12 12:56:11', 'n'),
-(20, 'raj', 'INFO', 'localhost', '2017-11-12 13:01:53', 'n'),
-(21, 'pankaj', 'INFO', 'Hello Pankaj ! Kya chal raha hai ? The message is sent from MNNIT Private Cloud website', '2017-11-12 13:03:48', 'n'),
-(22, 'admin', 'SIGNUP', 'new user Requests pending : rishabh', '2017-11-12 21:04:02', 'o'),
-(23, 'admin', 'HADOOP', 'admin requested hadoop cluster rishabh', '2017-11-12 21:36:00', 'o'),
-(24, 'raj', 'INFO', 'hi!', '2017-11-13 09:12:39', 'n'),
-(25, 'admin', 'HADOOP', 'admin requested hadoop cluster tryingL', '2017-11-13 11:23:49', 'o'),
-(26, 'admin', 'HADOOP', 'Your Request for hadoop cluster \'rishabh\' has been Rejected', '2017-11-13 11:36:12', 'o'),
-(27, 'admin', 'HADOOP', 'Your Request for hadoop cluster \'tryingL\' has been Rejected', '2017-11-13 11:36:19', 'o'),
-(28, 'admin', 'HADOOP', 'admin requested hadoop cluster tryingL', '2017-11-13 12:02:26', 'o'),
-(29, 'admin', 'HADOOP', 'Your Request for hadoop cluster \'tryingL\' has been Rejected', '2017-11-13 12:04:22', 'o'),
-(30, 'aksingh', 'VM', 'Your Request for Virtual Machine \'aks-vmbox\' has been Rejected', '2017-11-13 12:05:50', 'n'),
-(31, 'admin', 'HADOOP', 'admin requested hadoop cluster just', '2017-11-13 12:18:30', 'o'),
-(32, 'admin', 'HADOOP', 'admin requested hadoop cluster test', '2017-11-13 12:27:16', 'o'),
-(33, 'admin', 'HADOOP', 'Your Request for hadoop cluster \'just\' has been Rejected', '2017-11-13 12:27:23', 'o'),
-(34, 'admin', 'VM', 'admin requested Virtual Machine test1', '2017-11-13 13:41:08', 'o'),
-(35, 'raj', 'INFO', 'hello !', '2017-11-14 07:16:31', 'n'),
-(36, 'admin', 'STORGAE', 'admin requested storage extension by131072', '2017-11-14 18:42:41', 'o'),
-(37, 'raj', 'INFO', 'hi Raj !!\r\n', '2017-11-15 09:48:55', 'n');
-
 -- --------------------------------------------------------
 
 --
@@ -245,13 +154,6 @@ CREATE TABLE `storage_request` (
   `description` varchar(500) DEFAULT NULL,
   `status` varchar(15) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `storage_request`
---
-
-INSERT INTO `storage_request` (`username`, `alloted_space`, `new_demand`, `description`, `status`) VALUES
-('admin', 307200, 131072, '', 'pending');
 
 -- --------------------------------------------------------
 
@@ -268,13 +170,6 @@ CREATE TABLE `storage_servers` (
   `used_space` int(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `storage_servers`
---
-
-INSERT INTO `storage_servers` (`server_name`, `ip`, `login_name`, `login_password`, `total_space`, `used_space`) VALUES
-('storage-server-1', '172.31.131.228', 'root', 'user@mnnit', 52428800, 830464);
-
 -- --------------------------------------------------------
 
 --
@@ -284,14 +179,6 @@ INSERT INTO `storage_servers` (`server_name`, `ip`, `login_name`, `login_passwor
 CREATE TABLE `template` (
   `name` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `template`
---
-
-INSERT INTO `template` (`name`) VALUES
-('centos7'),
-('masterTemp');
 
 -- --------------------------------------------------------
 
@@ -310,9 +197,12 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`username`, `password`, `privilege`) VALUES
+('20144112', 'b5c6fc41320314e4a7b80f7575c1c663', 'U'),
+('20148097', 'e787d391a93e25a8c50fe04074548270', 'U'),
 ('admin', '21232f297a57a5a743894a0e4a801fc3', 'A'),
 ('aksingh', '59bd9181903968548e1c61193f367431', 'U'),
 ('pankaj', '95deb5011a8fe1ccf6552bb5bcda2ff0', 'U'),
+('PemaRam', 'f4a818b2eab35375c96a7930f3a5001b', 'U'),
 ('raj', '03c017f682085142f3b60f56673e22dc', 'U'),
 ('rishabh', 'ff2f24f8b6d253bb5a8bc55728ca7372', 'U'),
 ('user', 'ee11cbb19052e40b07aac0ca060c23ee', 'U');
@@ -331,15 +221,6 @@ CREATE TABLE `user_storage` (
   `login_password` varchar(25) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `user_storage`
---
-
-INSERT INTO `user_storage` (`username`, `storage_server`, `alloted_space`, `used_space`, `login_password`) VALUES
-('admin', 'storage-server-1', 307200, 14244, 'I0r7bcih'),
-('pankaj', 'storage-server-1', 11264, 20, 'vpUVGcqm'),
-('aksingh', 'storage-server-1', 512000, 7204, 'X23f9dwE');
-
 -- --------------------------------------------------------
 
 --
@@ -356,17 +237,9 @@ CREATE TABLE `VMdetails` (
   `ram` varchar(10) DEFAULT NULL,
   `storage` varchar(10) DEFAULT NULL,
   `doe` date DEFAULT NULL,
-  `iscluster` varchar(10) DEFAULT NULL
+  `iscluster` varchar(10) DEFAULT NULL,
+  `status` varchar(15) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `VMdetails`
---
-
-INSERT INTO `VMdetails` (`username`, `ip`, `hypervisor_name`, `VM_name`, `os`, `cpu`, `ram`, `storage`, `doe`, `iscluster`) VALUES
-('admin', '172.31.131.224', 'xenserver-trial', 'newTrial', 'masterTemp', 1, '256', '10', '2017-11-27', NULL),
-('admin', '172.31.131.226', 'xenserver-trial', 'tryingMaster', 'masterTemp', 1, '256', '10', '2017-11-27', 'trying'),
-('admin', '172.31.131.227', 'xenserver-trial', 'tryingSlave1', 'masterTemp', 1, '256', '10', '2017-11-27', 'trying');
 
 -- --------------------------------------------------------
 
@@ -386,22 +259,8 @@ CREATE TABLE `VMrequest` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `VMrequest`
---
-
-INSERT INTO `VMrequest` (`username`, `VM_name`, `os`, `cpu`, `ram`, `storage`, `doe`, `status`) VALUES
-('aksingh', 'aks-vmbox', 'masterTemp', 1, '256', '10', '2017-11-07', 'rejected'),
-('admin', 'test1', 'centos7', 1, '256', '8', '2017-11-15', NULL);
-
---
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `cluster`
---
-ALTER TABLE `cluster`
-  ADD PRIMARY KEY (`hadoop_name`,`VM_name`);
 
 --
 -- Indexes for table `hadoop`
@@ -471,16 +330,10 @@ ALTER TABLE `VMrequest`
 -- AUTO_INCREMENT for table `notification`
 --
 ALTER TABLE `notification`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `cluster`
---
-ALTER TABLE `cluster`
-  ADD CONSTRAINT `cluster_ibfk_1` FOREIGN KEY (`hadoop_name`) REFERENCES `hadoop` (`hadoop_name`);
 
 --
 -- Constraints for table `VMdetails`

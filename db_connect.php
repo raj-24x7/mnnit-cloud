@@ -4,11 +4,11 @@
   require_once('notification.php');
   require_once('mail.php');
     function getDBConnection(){
-
-        $username = "cloud-user"; 
-        $password = "mnnitcloud"; 
-        $host = "172.31.76.68";  // 172.31.76.68 
-        $dbname = "cloud"; 
+        $conn_data = parse_ini_file("cloud.ini", true);
+        $username = $conn_data["database-connection-settings"]["username"]; 
+        $password = $conn_data["database-connection-settings"]["password"]; 
+        $host = $conn_data["database-connection-settings"]["host"];
+        $dbname = $conn_data["database-connection-settings"]["db-name"]; 
  
         $options = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
         try 
@@ -223,29 +223,25 @@
     }
 
     function getMiddleWareSocket(){
-        $db = getDBConnection();
-        $query = "SELECT * FROM middleware";
-        $stmt = prepareQuery($db, $query);
-        executeQuery($stmt, array());
-        while($row = $stmt->fetch()){
-            $ip = $row['ip'];
-            $port = (int)$row['port'];
-            $socket = getNetworkSocket($ip, $port);
-            $jsondata = json_encode(
-                array(
-                        "REQUEST_TYPE"=>'if_alive',
-                        "REQUEST_DATA"=>array(
-                                "USERNAME"=>"a",
-                                "PASSWORD"=>"a"
-                            )
-                    )
-            );
-            socket_write($socket, $jsondata, strlen($jsondata));
-            $out = socket_read($socket, 2048);
-            if($out === 'alive'){
-                #echo "ALIVE";
-                return $socket;
-            }
+        $conn_data = parse_ini_file("cloud.ini", true);
+
+        $ip = $conn_data["middleware-connection-settings"]["host"];
+        $port = (int)$conn_data["middleware-connection-settings"]["port"];
+        $socket = getNetworkSocket($ip, $port);
+        $jsondata = json_encode(
+            array(
+                    "REQUEST_TYPE"=>'if_alive',
+                    "REQUEST_DATA"=>array(
+                            "USERNAME"=>"a",
+                            "PASSWORD"=>"a"
+                        )
+                )
+        );
+        socket_write($socket, $jsondata, strlen($jsondata));
+        $out = socket_read($socket, 2048);
+        if($out === 'alive'){
+            #echo "ALIVE";
+            return $socket;
         }
         return false;
     }

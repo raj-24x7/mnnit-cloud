@@ -7,8 +7,11 @@ session_start();
  */
 
 
-	include_once "db_connect.php";
-	echo getMiddleWareSocket();
+	// Checking config parser
+	//print_r(parse_ini_file("cloud.ini",true));
+	echo $_SERVER['SERVER_ADDR'];
+	//include_once "db_connect.php";
+	//echo getMiddleWareSocket();
 /*$date = new DateTime();
 echo $date->format("Y-m-d H:i:s");*/
 

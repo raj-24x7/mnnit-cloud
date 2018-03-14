@@ -5,9 +5,10 @@ require_once 'db_connect.php';
   require_once('logging.php');
 
 function getLocalServerShell(){
-	$ip = $_SERVER['SERVER_ADDR'];
-	$username = "raj";
-	$password = "iptables";
+	$conn_data  =  parse_ini_file("cloud.ini", true);
+	$ip = $conn_data["system-login-details"]["host"];
+	$username = $conn_data["system-login-details"]["username"];
+	$password = $conn_data["system-login-details"]["password"];
 	$connection = null;
 	if(!($connection = ssh2_connect($ip, 22))){
 		return false;
@@ -26,7 +27,7 @@ function mountUserFiles($username){
 
 		// For mounting using sshfs
 		$connection = getLocalServerShell();
-		$command = "bash /var/www/html/project/mount.bash ".$row['ip']." ".$username." ".$row['login_password']." 2>&1";
+		$command = "bash /var/www/html/mnnit-cloud/mount.bash ".$row['ip']." ".$username." ".$row['login_password']." 2>&1";
 		$stream = ssh2_exec($connection, $command);
 		stream_set_blocking($stream, true);
 		$recv_data = stream_get_contents($stream);
