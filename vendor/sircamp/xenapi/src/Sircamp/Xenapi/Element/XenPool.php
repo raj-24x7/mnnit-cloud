@@ -152,23 +152,24 @@ class XenPool extends XenElement {
      *
      * @param 
      *
-     * @return mixed
+     * @return XenStorageRepository
      */
     public function getDefaultSR(){
         
-        return $this->getXenconnection()->pool__get_default_SR($this->getPoolId());      
+        $SR = $this->getXenconnection()->pool__get_default_SR($this->getPoolId())->getValue();      
+        return new XenStorageRepository($this->getXenconnection(), 'default', $SR);
     }
 
     /**
      * Get the pool’s log file.
      *
-     * @param 
+     * @param XenStorageRepository object
      *
      * @return mixed
      */
-    public function setDefaultSR(){
+    public function setDefaultSR($SR){
         
-        return $this->getXenconnection()->pool__set_default_SR($this->getPoolId());      
+        return $this->getXenconnection()->pool__set_default_SR($this->getPoolId(), $SR->getSrId());      
     }
 
    /**
