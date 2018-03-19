@@ -82,9 +82,9 @@ class XenVirtualDiskImage extends XenElement {
      *
      * @return XenStorageRepository
      */
-    piblic function getSR(){
+    public function getSR(){
     	$SR = $this->getXenconnection()->VDI__get_SR($this->getVdiId())->getValue();
-    	return new XenStrorageRepository($this->getXenconnection(), '', $SR);
+    	return new XenStorageRepository($this->getXenconnection(), '', $SR);
     }
 
 	/**

@@ -14,7 +14,7 @@
     ?>
 <script type="text/javascript">
     window.onload = function (){
-      document.getElementById("xen_host_view").className = "active";
+      document.getElementById("xen_SR_view").className = "active";
 
       var prevClass = document.getElementById("details-collapse").className;
       document.getElementById("details-collapse").className = prevClass+" in";
@@ -31,6 +31,7 @@
     
     $stmt = prepareQuery($db,$query);
     executeQuery($stmt,$param);
+
     ?> 
 <div class="row">
     <div class="col-sm-3">
@@ -44,17 +45,17 @@
     while($row = $stmt->fetch()){ 
         try{
         $xen=makeXenconnection($row['name']);
-        $hosts = $xen->getAllHosts();
-        foreach($hosts as $host){
-    ?>
+        $SRs = $xen->getAllStorageRepository();
+        foreach($SRs as $SR){
+
+?>
                 <div class="panel">
-                        <div class="panel panel-heading">
+                        <div class="panel-heading">
                             <div class="col-sm-1"><?php echo $c."."; $c = $c + 1;?></div>
-                            <div class="col-sm-5"><?php echo $host->getNameLabel()->getValue(); ?></div>
-                            <div class="col-sm-5"><?php echo $host->getAddress()->getValue();?></div>
-                            <a class="glyphicon glyphicon-chevron-down" data-toggle="collapse" href="#<?php echo $host->getUUID()->getValue(); ?>"></a>
+                            <div class="col-sm-5"><?php echo $SR->getNAmeLabel()->getValue();?></div>
+                            <a class="glyphicon glyphicon-chevron-down" data-toggle="collapse" href="#<?php echo $SR->getUUID()->getValue();?>"></a>
                         </div>
-                        <div id="<?php echo $host->getUUID()->getValue();?>" class="panel-collapse collapse">
+                        <div id="<?php echo $SR->getUUID()->getValue();?>" class="panel-collapse collapse">
                             <div class="panel-body">
                                 <table class="table">
                                     <tbody>
@@ -63,35 +64,45 @@
                                                 <strong>UUID : </strong>
                                             </td>
                                             <td>
-                                            <?php echo $host->getUUID()->getValue();?>
+                                            <?php echo $SR->getUUID()->getValue();?>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <strong>Free Memory : </strong>
-                                            </td>
-                                            <td>
-                                            <?php echo $host->computeFreeMemory()->getValue()/(1024*1024*1024).' GiB';?>
-                                            </td>
-                                        </tr>    
-                                        <tr>
-                                            <td>
-                                                <strong>CPU Model: </strong>
+                                                <strong> Type: </strong>
                                             </td>
                                             <td>
                                             <?php
-                                            $a = $host->getCPUInfo()->getValue(); 
-                                            echo $a['modelname'];?>
+                                            $a = $SR->getType()->getValue(); 
+                                            echo $a;?>
+                                            </td>
+                                        </tr> 
+                                        <tr>
+                                            <td>
+                                                <strong>Physical Size : </strong>
+                                            </td>
+                                            <td>
+                                            <?php echo getMemoryString($SR->getPhysicalSize()->getValue()/(1024));?>
                                             </td>
                                         </tr>    
                                         <tr>
+                                        <tr>
                                             <td>
-                                                <strong>Total number of CPU  : </strong>
+                                                <strong>Physical Utilisation : </strong>
                                             </td>
                                             <td>
-                                            <?php echo $a['cpu_count'];?>
+                                            <?php echo getMemoryString($SR->getPhysicalUtilisation()->getValue()/(1024));?>
                                             </td>
-                                        </tr>        
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <strong>Virtual Allocation : </strong>
+                                            </td>
+                                            <td>
+                                            <?php echo getMemoryString($SR->getVirtualAllocation()->getValue()/(1024));?>
+                                            </td>
+                                        </tr>    
+                                                   
                                     </tbody>
                                 </table>
                             </div>
@@ -99,9 +110,9 @@
                 </div>
                 
           
-            <?php
+            <?php 
                     }
-             }catch(Exception $e){
+            }catch(Exception $e){
                          echo '
                     <div class="panel panel-red">
                         <div class="panel-heading">

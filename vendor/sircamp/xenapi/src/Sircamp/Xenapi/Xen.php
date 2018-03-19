@@ -114,7 +114,7 @@ class Xen {
      */
 
 	public function getAllHosts(){
-		$response = new XenResponse($this->xenconnection->host__get_all_records());
+		$response = new XenResponse($this->xenconnection->host__get_all());
         $host_array = $response->getValue();
         $hosts = array();	
         foreach ($host_array as $key => $value) {
@@ -160,7 +160,7 @@ class Xen {
         $VDIs = array();	
         foreach ($VDI_array as $key => $value) {
 			
-			$VDI = new XenVirtualDiskImage($this->xenconnection, $key, $value);
+			$VDI = new XenVirtualDiskImage($this->xenconnection, $value);
 			$VDIs = array_merge($VDIs, array($VDI));     	
         }
         return $VDIs;

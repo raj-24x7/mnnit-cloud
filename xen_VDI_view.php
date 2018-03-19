@@ -14,7 +14,7 @@
     ?>
 <script type="text/javascript">
     window.onload = function (){
-      document.getElementById("xen_host_view").className = "active";
+      document.getElementById("xen_VDI_view").className = "active";
 
       var prevClass = document.getElementById("details-collapse").className;
       document.getElementById("details-collapse").className = prevClass+" in";
@@ -44,17 +44,18 @@
     while($row = $stmt->fetch()){ 
         try{
         $xen=makeXenconnection($row['name']);
-        $hosts = $xen->getAllHosts();
-        foreach($hosts as $host){
+        $VDIs = $xen->getAllVDIs();
+        foreach($VDIs as $vdi){
+
     ?>
                 <div class="panel">
-                        <div class="panel panel-heading">
+                        <div class="panel-heading">
                             <div class="col-sm-1"><?php echo $c."."; $c = $c + 1;?></div>
-                            <div class="col-sm-5"><?php echo $host->getNameLabel()->getValue(); ?></div>
-                            <div class="col-sm-5"><?php echo $host->getAddress()->getValue();?></div>
-                            <a class="glyphicon glyphicon-chevron-down" data-toggle="collapse" href="#<?php echo $host->getUUID()->getValue(); ?>"></a>
+                            <div class="col-sm-5"><?php echo $vdi->getNameLabel()->getValue();?></div>
+                            
+                            <a class="glyphicon glyphicon-chevron-down" data-toggle="collapse" href="#<?php echo $vdi->getUUID()->getValue();?>"></a>
                         </div>
-                        <div id="<?php echo $host->getUUID()->getValue();?>" class="panel-collapse collapse">
+                        <div id="<?php echo $vdi->getUUID()->getValue();?>" class="panel-collapse collapse">
                             <div class="panel-body">
                                 <table class="table">
                                     <tbody>
@@ -63,33 +64,42 @@
                                                 <strong>UUID : </strong>
                                             </td>
                                             <td>
-                                            <?php echo $host->getUUID()->getValue();?>
+                                            <?php echo $vdi->getUUID()->getValue();?>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <strong>Free Memory : </strong>
+                                                <strong>Virtual Size : </strong>
                                             </td>
                                             <td>
-                                            <?php echo $host->computeFreeMemory()->getValue()/(1024*1024*1024).' GiB';?>
+                                            <?php echo getMemoryString($vdi->getVirtualSize()->getValue()/(1024));?>
                                             </td>
                                         </tr>    
                                         <tr>
                                             <td>
-                                                <strong>CPU Model: </strong>
+                                                <strong>Physical Utilisation : </strong>
+                                            </td>
+                                            <td>
+                                            <?php echo getMemoryString($vdi->getPhysicalUtilisation()->getValue()/(1024));?>
+                                            </td>
+                                        </tr>    
+                                        <tr>
+                                            <td>
+                                                <strong> SR: </strong>
                                             </td>
                                             <td>
                                             <?php
-                                            $a = $host->getCPUInfo()->getValue(); 
-                                            echo $a['modelname'];?>
+                                            $a = $vdi->getSR();
+                                            echo '<a href="xen_SR_view.php#'.$a->getUUID()->getValue().'">'.$a->getNameLabel()->getValue().'</a>'; 
+                                            ?>
                                             </td>
-                                        </tr>    
+                                        </tr>   
                                         <tr>
                                             <td>
-                                                <strong>Total number of CPU  : </strong>
+                                                <strong>Type  : </strong>
                                             </td>
                                             <td>
-                                            <?php echo $a['cpu_count'];?>
+                                            <?php echo $vdi->getType()->getValue();?>
                                             </td>
                                         </tr>        
                                     </tbody>
@@ -99,9 +109,9 @@
                 </div>
                 
           
-            <?php
+            <?php 
                     }
-             }catch(Exception $e){
+                }catch(Exception $e){
                          echo '
                     <div class="panel panel-red">
                         <div class="panel-heading">

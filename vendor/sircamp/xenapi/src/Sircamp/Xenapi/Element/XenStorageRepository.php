@@ -227,6 +227,18 @@ class XenStorageRepository extends XenElement {
 		return $this->getXenconnection()->SR__get_physical_utilisation($this->getSrId());
 	}
 
+
+	/**
+	 *
+	 *
+	 * @param
+	 * 
+	 * @return
+	 */
+	public function getType(){
+		return $this->getXenconnection()->SR__get_type($this->getSrId());
+	}
+
 }
 ?>
 	

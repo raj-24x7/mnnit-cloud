@@ -2,7 +2,6 @@
 
 <?php
   session_start();
-  //set_time_limit(5);
     require_once 'db_connect.php';
     require_once 'checksession.php';
     require_once 'xen.php';
@@ -14,7 +13,7 @@
     ?>
 <script type="text/javascript">
     window.onload = function (){
-      document.getElementById("xen_host_view").className = "active";
+      document.getElementById("xen_pool_view").className = "active";
 
       var prevClass = document.getElementById("details-collapse").className;
       document.getElementById("details-collapse").className = prevClass+" in";
@@ -44,17 +43,16 @@
     while($row = $stmt->fetch()){ 
         try{
         $xen=makeXenconnection($row['name']);
-        $hosts = $xen->getAllHosts();
-        foreach($hosts as $host){
-    ?>
+        $pools = $xen->getAllPools();
+        foreach($pools as $pool){
+?>
                 <div class="panel">
-                        <div class="panel panel-heading">
+                        <div class="panel-heading">
                             <div class="col-sm-1"><?php echo $c."."; $c = $c + 1;?></div>
-                            <div class="col-sm-5"><?php echo $host->getNameLabel()->getValue(); ?></div>
-                            <div class="col-sm-5"><?php echo $host->getAddress()->getValue();?></div>
-                            <a class="glyphicon glyphicon-chevron-down" data-toggle="collapse" href="#<?php echo $host->getUUID()->getValue(); ?>"></a>
+                            <div class="col-sm-5"><?php echo $pool->getNameLabel()->getValue();?></div>
+                            <a class="glyphicon glyphicon-chevron-down" data-toggle="collapse" href="#<?php echo $pool->getUUID()->getValue();?>"></a>
                         </div>
-                        <div id="<?php echo $host->getUUID()->getValue();?>" class="panel-collapse collapse">
+                        <div id="<?php echo $pool->getUUID()->getValue();?>" class="panel-collapse collapse">
                             <div class="panel-body">
                                 <table class="table">
                                     <tbody>
@@ -63,33 +61,45 @@
                                                 <strong>UUID : </strong>
                                             </td>
                                             <td>
-                                            <?php echo $host->getUUID()->getValue();?>
+                                            <?php echo $pool->getUUID()->getValue();?>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <strong>Free Memory : </strong>
+                                                <strong>Description : </strong>
                                             </td>
                                             <td>
-                                            <?php echo $host->computeFreeMemory()->getValue()/(1024*1024*1024).' GiB';?>
+                                            <?php echo $pool->getNameDescription()->getValue();?>
                                             </td>
                                         </tr>    
                                         <tr>
                                             <td>
-                                                <strong>CPU Model: </strong>
+                                                <strong>Master host: </strong>
                                             </td>
                                             <td>
                                             <?php
-                                            $a = $host->getCPUInfo()->getValue(); 
-                                            echo $a['modelname'];?>
+                                            $a = $pool->getMaster();
+                                            echo '<a href="xen_host_view.php#'.$a->getUUID()->getValue().'">'.$a->getNameLabel()->getValue().'</a>'; 
+                                            ?>
+                                            </td>
+                                        </tr> 
+                                        <tr>
+                                            <td>
+                                                <strong>Default SR: </strong>
+                                            </td>
+                                            <td>
+                                            <?php
+                                            $a = $pool->getDefaultSR();
+                                            echo '<a href="xen_SR_view.php#'.$a->getUUID()->getValue().'">'.$a->getNameLabel()->getValue().'</a>'; 
+                                            ?>
                                             </td>
                                         </tr>    
                                         <tr>
                                             <td>
-                                                <strong>Total number of CPU  : </strong>
+                                                <strong>HA Enabled  : </strong>
                                             </td>
                                             <td>
-                                            <?php echo $a['cpu_count'];?>
+                                            <?php echo $pool->getHAEnabled()->getValue();?>
                                             </td>
                                         </tr>        
                                     </tbody>
@@ -99,9 +109,9 @@
                 </div>
                 
           
-            <?php
+            <?php 
                     }
-             }catch(Exception $e){
+                }catch(Exception $e){
                          echo '
                     <div class="panel panel-red">
                         <div class="panel-heading">
