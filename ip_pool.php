@@ -6,18 +6,53 @@
 	require_once "header.php";
   require_once('logging.php');
 	$db = getDBConnection();
-	if(isset($_POST['ip'])){
+	if(isset($_POST['fromip1'])){
 		
 			$query="INSERT INTO ip_pool ( ip,status ) Values ( :ip,'')";
 			$stmt=PrepareQuery($db,$query);
-			$param=array(':ip'=>$_POST['ip']);
-			if(!(ExecuteQuery($stmt,$param))){
-				$l = logError("1105");
-            	$l[0]->log($l[1]);
-				header("location:error.php?error=1105");
-				die();
-			}
+			$ip1 = (int)$_POST['fromip1'];
+			$ip2 = (int)$_POST['fromip2'];
+			$ip3 = (int)$_POST['fromip3'];
+			$ip4 = (int)$_POST['fromip4'];
 
+
+			$tip1 = (int)$_POST['toip1'];
+			$tip2 = (int)$_POST['toip2'];
+			$tip3 = (int)$_POST['toip3'];
+			$tip4 = (int)$_POST['toip4'];
+			while(	($ip1!==$tip1) || 
+					($ip2!==$tip2) || 
+					($ip3!==$tip3) ||
+					($ip4!==$tip4)
+			){
+				$param=array(':ip'=>$ip1.".".$ip2.".".$ip3.".".$ip4);
+				if(!(ExecuteQuery($stmt,$param))){
+					$l = logError("1105");
+	            	$l[0]->log($l[1]);
+					header("location:error.php?error=1105");
+					die();
+				}
+				if($ip4==255){
+					$ip4=0;
+					if($ip3==255){
+						$ip3=0;
+						if($ip2==255){
+							$ip2=0;
+							if($ip1==255){
+								break;
+							}else{
+								$ip1 = $ip1+1;
+							}
+						}else{
+							$ip2 = $ip2+1;
+						}
+					}else{
+						$ip3 = $ip3+1;
+					}
+				}else{
+					$ip4 = $ip4+1;
+				}
+			}
 	}
 	$query1="SELECT p.ip,p.status,v.VM_name,v.username FROM ip_pool p, VMdetails v WHERE p.ip = v.ip";
 	$stmt=$db->prepare($query1);
@@ -66,12 +101,39 @@
 				<div class="panel-body">
 					<form name="ip_pool" class="form-horizontal" method="POST" action="#" onsubmit="return checkip();">
 						<div class="form-group">
-							<label class="control-label  col-sm-3">IP:  </label>
-							<div class="col-sm-5">
-								<input type="text" class="form-control" id="ip" name="ip" >
+							<label class="control-label  col-sm-3">IP From (Inclusive):  </label>
+							<div class="col-sm-2">
+								<input type="number" min="0" max="255" style=""  class="form-control input-sm" id="fromip1" name="fromip1" >
+							</div>
+
+							<div class="col-sm-2">
+								<input type="number" min="0" max="255" class="form-control" id="fromip2" name="fromip2" >
+							</div>
+
+							<div class="col-sm-2">
+								<input type="number" min="0" max="255" class="form-control" id="fromip3" name="fromip3" >
+							</div>
+							<div class="col-sm-2">
+								<input type="number" min="0" max="255" class="form-control" id="fromip4" name="fromip4" >
 							</div>
 						</div>
+						<div class="form-group">
+							<label class="control-label  col-sm-3">IP To (Exclusive):  </label>
+							<div class="col-sm-2">
+								<input type="number" min="0" max="255" style=""  class="form-control input-sm" id="toip1" name="toip1" >
+							</div>
 
+							<div class="col-sm-2">
+								<input type="number" min="0" max="255" class="form-control" id="toip2" name="toip2" >
+							</div>
+
+							<div class="col-sm-2">
+								<input type="number" min="0" max="255" class="form-control" id="toip3" name="toip3" >
+							</div>
+							<div class="col-sm-2">
+								<input type="number" min="0" max="255" class="form-control" id="toip4" name="toip4" >
+							</div>
+						</div>	
 						
 						<div class="form-group">
 							<center><input type="submit" name="submit" class="btn btn-info" value="Submit" ></center>
