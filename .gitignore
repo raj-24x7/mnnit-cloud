@@ -1,5 +1,6 @@
 files
 logs
-logs/
 logs/login.log
+logs/resource.log
+logs/error.log
 test.php
