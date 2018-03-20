@@ -3,7 +3,7 @@
 use Respect\Validation\Validator as Validator;
 use GuzzleHttp\Client as Client;
 use Sircamp\Xenapi\Connection\XenResponse as  XenResponse;
- 
+
 class XenVirtualMachine extends XenElement {
 
 	private $name;
@@ -279,10 +279,16 @@ class XenVirtualMachine extends XenElement {
 	 *
 	 * @param
 	 *
-	 * @return mixed
+	 * @return array of XenConsole Elements
 	 */
+
 	function getConsoles(){
-		return $this->getXenconnection()->VM__get_consoles($this->getVmId());
+		$consoles = $this->getXenconnection()->VM__get_consoles($this->getVmId())->getValue();
+		$con = array();
+		foreach($consoles as $console){
+			$con = array_merge($con, array(new XenConsole($this->getXenconnection(), $console)));
+		}
+		return $con;
 	}
 
 	/**

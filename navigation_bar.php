@@ -43,13 +43,19 @@
 		<?php
 			if($_SESSION['privilege']=='A'){
 		?>
-		<li id ="xen_host_view"><a href="xen_host_view.php" onclick="abortAll();"><svg class="glyph stroked clipboard with paper"><use xlink:href="#stroked-clipboard-with-paper"/></svg>Host Details (dom0)</a></li>
-
 		
+		<li id="Server Details"><a href="#details-collapse" data-toggle="collapse"><svg class="glyph stroked gear"><use xlink:href="#stroked-gear"/></svg>&nbsp;&nbsp;Server Details&nbsp;&nbsp;<svg id="arrow" class="glyph stroked chevron down"><use xlink:href="#stroked-chevron-down"/></svg></a>
+			<ul class=" nav menu collapse" id="details-collapse">	
+				<li id ="xen_pool_view"><a href="xen_pool_view.php" onclick="abortAll();">&nbsp;&nbsp;&nbsp;&nbsp;<svg class="glyph stroked clipboard with paper"><use xlink:href="#stroked-clipboard-with-paper"/></svg>Pool Details</a></li>
 
+				<li id ="xen_host_view"><a href="xen_host_view.php" onclick="abortAll();">&nbsp;&nbsp;&nbsp;&nbsp;<svg class="glyph stroked clipboard with paper"><use xlink:href="#stroked-clipboard-with-paper"/></svg>Host Details</a></li>
+
+				<li id ="xen_SR_view"><a href="xen_SR_view.php" onclick="abortAll();">&nbsp;&nbsp;&nbsp;&nbsp;<svg class="glyph stroked clipboard with paper"><use xlink:href="#stroked-clipboard-with-paper"/></svg>SR Details</a></li>
+
+				<li id ="xen_VDI_view"><a href="xen_VDI_view.php" onclick="abortAll();">&nbsp;&nbsp;&nbsp;&nbsp;<svg class="glyph stroked clipboard with paper"><use xlink:href="#stroked-clipboard-with-paper"/></svg>VDI  Details</a></li>
+
+			</ul>
 		</li>
-
-			
 
 		<li id="management"><a href="#manage-collapse" data-toggle="collapse"><svg class="glyph stroked gear"><use xlink:href="#stroked-gear"/></svg>&nbsp;&nbsp;Management&nbsp;&nbsp;<svg id="arrow" class="glyph stroked chevron down"><use xlink:href="#stroked-chevron-down"/></svg></a>
 			<ul class=" nav menu collapse" id="manage-collapse">

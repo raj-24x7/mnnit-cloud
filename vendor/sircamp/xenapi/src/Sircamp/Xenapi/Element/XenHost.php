@@ -454,7 +454,7 @@ class XenHost extends XenElement {
 	 *
 	 * @param 
 	 *
-	 * @return XenResponse $response
+	 * @return Array of XenVirtualMachine
 	 */
 	public function getResidentVMs(){
 		$response = $this->getXenconnection()->host__get_resident_VMs($this->getHostId());
@@ -467,7 +467,7 @@ class XenHost extends XenElement {
 			}
 			$response->_setValue($VMs);
 		}
-		return $response;
+		return $VMs;
 	}
 
 	/**
